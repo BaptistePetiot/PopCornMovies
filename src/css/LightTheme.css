@@ -88,3 +88,8 @@
     -fx-text-fill: black;
     -fx-border-style: solid;
 }
+
+.buttonMovie{
+    -fx-background-color: white;
+    -fx-cursor: hand;
+}

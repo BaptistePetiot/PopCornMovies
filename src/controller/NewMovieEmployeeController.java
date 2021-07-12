@@ -6,7 +6,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import model.Me;
 import model.SceneManager;
 
@@ -14,34 +13,10 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MoviesEmployeeController implements Initializable {
+public class NewMovieEmployeeController implements Initializable {
 
-    @FXML GridPane gridMovies;
     @FXML ImageView picture;
     @FXML Label firstNameAndLastName;
-
-    public void minusMovie(ActionEvent actionEvent) {
-        System.out.println("minus");
-        System.out.println(gridMovies.getChildren());
-    }
-
-    public void goToMovie(ActionEvent actionEvent) {
-        System.out.println("MOVIE EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-movie.fxml", 1400,800);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void plusMovie(ActionEvent actionEvent) {
-        System.out.println("PLUS MOVIE");
-        try{
-            SceneManager.loadScene("../view/employee-new-movie.fxml", 1400,800);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
 
     public void goToOverview(ActionEvent actionEvent) {
         System.out.println("OVERVIEW EMPLOYEE");
@@ -115,9 +90,7 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void exit(ActionEvent actionEvent) {
-        System.exit(0);
-    }
+    public void exit(ActionEvent actionEvent) { System.exit(0);}
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -129,8 +102,8 @@ public class MoviesEmployeeController implements Initializable {
         }else{
             System.out.println("image does not exist");
             picture.setImage(new Image(new File("@../imgs/circle.png").toURI().toString()));
-            //picture.setImage(new Image(new File("circle.png").toURI().toString()));
         }
+
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
     }
 }
