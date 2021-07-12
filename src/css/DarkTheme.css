@@ -1,0 +1,21 @@
+.anchorPane{
+    -fx-background-color: #1D3557;
+}
+
+.menu{
+    -fx-background-color:  #A8DADC;
+}
+
+.tab{
+    -fx-background-color:  #A8DADC;
+}
+
+.buttonExit{
+    -fx-text-fill: white;
+}
+
+.buttonExit{
+    -fx-text-fill: white;
+    -fx-background-color: #1D3557;
+    -fx-cursor: hand;
+}

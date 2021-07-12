@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #20120F;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ControllerLogin">
+   <children>
+      <AnchorPane layoutX="361.0" layoutY="29.0" prefHeight="343.0" prefWidth="284.0" style="-fx-background-color: #9C2B27;">
+         <children>
+            <TextField fx:id="emailLogin" layoutX="39.0" layoutY="147.0" prefHeight="25.0" prefWidth="212.0" promptText="Please enter your email address" style="-fx-background-color: #20120F; -fx-text-fill: #ffffff" />
+            <PasswordField fx:id="passwordLogin" onKeyPressed="#handleEnterLogin" layoutX="39.0" layoutY="205.0" prefHeight="25.0" prefWidth="212.0" promptText="Please enter your password" style="-fx-background-color: #20120F; -fx-text-fill: #ffffff" />
+            <Button fx:id="buttonLogin" onAction="#login" layoutX="39.0" layoutY="260.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="212.0" style="-fx-background-color: #E45652; -fx-cursor: hand;" text="Log In" textFill="WHITE" />
+            <Label alignment="CENTER" layoutX="103.0" layoutY="14.0" prefHeight="36.0" prefWidth="83.0" text="Log in" textFill="WHITE">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Button fx:id="buttonSignup" onAction="#goToSignup" layoutX="55.0" layoutY="304.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="180.0" style="-fx-background-color: #9C2B27; -fx-cursor: hand;" text="No account yet? Sign up here!" textFill="WHITE" underline="true" />
+            <Label layoutX="123.0" layoutY="122.0" prefHeight="25.0" prefWidth="43.0" text="Email" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="108.0" layoutY="180.0" prefHeight="25.0" prefWidth="74.0" text="Password" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Button fx:id="buttonMember" onAction="#goToMember" layoutX="72.0" layoutY="82.0" mnemonicParsing="false" style="-fx-background-color: #9C2B27; -fx-border-color: #ffffff; -fx-cursor: hand;" text="Member" textFill="WHITE" />
+            <Button fx:id="buttonGuest" onAction="#goToGuest" layoutX="156.0" layoutY="82.0" mnemonicParsing="false" style="-fx-background-color: #9C2B27; -fx-cursor: hand;" text="Guest" textFill="WHITE" />
+         </children>
+      </AnchorPane>
+      <ImageView fitHeight="328.0" fitWidth="284.0" layoutX="41.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../imgs/logo.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="buttonExit" onAction="#exit" layoutX="654.0" mnemonicParsing="false" style="-fx-background-color: #20120F; -fx-cursor: hand;" text="X" textFill="WHITE">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

@@ -1,0 +1,90 @@
+.anchorPane, .rightArea, .pane{
+    -fx-background-color: #ffffff;
+}
+
+.menu{
+    -fx-background-color:  #EBE8F9;
+}
+
+.tab{
+    -fx-background-color:  #EBE8F9;
+
+}
+
+.tab:hover{
+    -fx-background-color:  #9C9AA6;
+}
+
+.tab:pressed{
+    -fx-background-color:  #e3deff;
+
+}
+
+.selected{
+    -fx-background-color:  #c4bce8;
+}
+
+.titlesPanel{
+    -fx-background-color:  #F3F3F3;
+}
+
+.totalTickets{
+    -fx-text-fill: #2A73FF;
+    -fx-font-weight: bold;
+}
+
+.thisYear{
+    -fx-text-fill: #26BFBC;
+    -fx-font-weight: bold;
+}
+
+.thisMonth{
+    -fx-text-fill: #8A42A6;
+    -fx-font-weight: bold;
+}
+
+.buttonExit, .buttonBack{
+    -fx-text-fill: black;
+    -fx-background-color: white;
+    -fx-cursor: hand;
+}
+
+.scrollablePurchasesVBox{
+    -fx-background-color: white;
+}
+
+.discountAlert{
+    -fx-background-color: #f55a42;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+.buttonBuy, .buttonAddPicture, .buttonDeleteAccount, .buttonMinus, .buttonPlus{
+    -fx-text-fill: black;
+    -fx-border-style: solid;
+    -fx-border-radius: 45;
+    -fx-background-color: white;
+    -fx-cursor: hand;
+}
+
+.buttonAddPicture{
+    -fx-background-radius: 45;
+    -fx-background-color: #A8DADC;
+}
+
+.buttonBuy, buttonAddMovie{
+    -fx-background-radius: 45;
+    -fx-background-color: #26BFBC;
+}
+
+.buttonDeleteAccount{
+    -fx-background-radius: 45;
+    -fx-background-color: #E63946;
+}
+
+.buttonImage{
+    -fx-background-color: white;
+    -fx-cursor: hand;
+    -fx-text-fill: black;
+    -fx-border-style: solid;
+}
