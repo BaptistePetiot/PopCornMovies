@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AccountCustomerController">
+<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AccountCustomerController">
    <children>
       <Button layoutX="1351.0" layoutY="1.0" mnemonicParsing="false" onAction="#exit" styleClass="buttonExit" text="X">
          <font>
@@ -38,27 +38,27 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <RadioButton layoutX="652.0" layoutY="320.0" mnemonicParsing="false" selected="true" text="Regular">
+      <RadioButton fx:id="regular" layoutX="652.0" layoutY="320.0" mnemonicParsing="false" selected="true" text="Regular">
          <font>
             <Font size="25.0" />
          </font>
       </RadioButton>
-      <RadioButton layoutX="652.0" layoutY="487.0" mnemonicParsing="false" text="Senior">
+      <RadioButton fx:id="senior" layoutX="652.0" layoutY="487.0" mnemonicParsing="false" text="Senior">
          <font>
             <Font size="25.0" />
          </font>
       </RadioButton>
-      <RadioButton layoutX="652.0" layoutY="400.0" mnemonicParsing="false" text="Child">
+      <RadioButton fx:id="child" layoutX="652.0" layoutY="400.0" mnemonicParsing="false" text="Child">
          <font>
             <Font size="25.0" />
          </font>
       </RadioButton>
-      <RadioButton layoutX="969.0" layoutY="400.0" mnemonicParsing="false" text="Dark">
+      <RadioButton fx:id="dark" layoutX="969.0" layoutY="400.0" mnemonicParsing="false" text="Dark">
          <font>
             <Font size="25.0" />
          </font>
       </RadioButton>
-      <RadioButton layoutX="967.0" layoutY="320.0" mnemonicParsing="false" selected="true" text="Light">
+      <RadioButton fx:id="light" layoutX="967.0" layoutY="320.0" mnemonicParsing="false" selected="true" text="Light">
          <font>
             <Font size="25.0" />
          </font>

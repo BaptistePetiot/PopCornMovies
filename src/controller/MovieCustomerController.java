@@ -6,9 +6,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import main.PopCornMovie;
 import model.Me;
+import model.Movie;
 import model.SceneManager;
 
 import javax.imageio.ImageIO;
@@ -18,10 +20,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MovieCustomerController implements Initializable {
-    @FXML
-    ImageView picture;
-    @FXML
-    Label firstNameAndLastName;
+    @FXML ImageView picture;
+    @FXML Label firstNameAndLastName, labelTitle, labelGenre, labelDirector, labelCast, labelPlot;
+    //@FXML Text textPlot;
 
     @FXML
     protected void addPicture(){
@@ -95,6 +96,15 @@ public class MovieCustomerController implements Initializable {
         }
     }
 
+    public void goToPayment(ActionEvent actionEvent) {
+        System.out.println("PAYMENT CUSTOMER");
+        try{
+            SceneManager.loadScene("../view/customer-payment.fxml", 1100,800);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
     @FXML
     private void exit(){
         System.exit(0);
@@ -113,5 +123,22 @@ public class MovieCustomerController implements Initializable {
         }
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
+
+        // change fields according to specific movie
+        Movie m = Me.getLookingAtMovie();
+        labelTitle.setText(m.getTitle());
+        labelGenre.setText(m.getGenre());
+        labelDirector.setText(m.getDirector());
+        labelCast.setText(m.getCast());
+        /*String[] sentences = m.getPlot().split(".");
+        StringBuilder plot = new StringBuilder();
+        for(String s : sentences){
+            plot.append(s).append("\n");
+        }
+        labelPlot.setText(plot.toString());
+        System.out.println(plot.toString());*/
+        labelPlot.setText(m.getPlot());
     }
+
+
 }

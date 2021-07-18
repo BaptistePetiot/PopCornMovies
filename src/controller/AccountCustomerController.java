@@ -1,17 +1,24 @@
 package controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import main.PopCornMovie;
 import model.Me;
 import model.SceneManager;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
@@ -21,6 +28,9 @@ public class AccountCustomerController implements Initializable {
 
     @FXML ImageView picture;
     @FXML Label firstNameAndLastName;
+    @FXML RadioButton regular, child, senior, light, dark;
+    @FXML Pane pane;
+    ToggleGroup categoryGroup, themeGroup;
 
     @FXML
     protected void addPicture(){
@@ -108,9 +118,64 @@ public class AccountCustomerController implements Initializable {
             picture.setImage(image);
         }else{
             System.out.println("image does not exist");
-            picture.setImage(new Image(new File("@../imgs/circle.png").toURI().toString()));
+            picture.setImage(new Image(new File("imgs/circle.png").toURI().toString()));
         }
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
+
+        categoryGroup = new ToggleGroup();
+        regular.setToggleGroup(categoryGroup);
+        senior.setToggleGroup(categoryGroup);
+        child.setToggleGroup(categoryGroup);
+
+        categoryGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+                RadioButton btn = (RadioButton) categoryGroup.getSelectedToggle();
+                System.out.println(btn.getText());
+                switch (btn.getText()){
+                    case("Regular"):
+                        Me.setCategory(0);
+                        break;
+
+                    case("Senior"):
+                        Me.setCategory(1);
+                        break;
+
+                    case("Child"):
+                        Me.setCategory(2);
+                        break;
+                }
+            }
+        });
+
+        themeGroup = new ToggleGroup();
+        light.setToggleGroup(themeGroup);
+        dark.setToggleGroup(themeGroup);
+
+        themeGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+            @Override
+            public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
+                RadioButton btn = (RadioButton) themeGroup.getSelectedToggle();
+                System.out.println(btn.getText());
+                switch (btn.getText()){
+                    case("Light"):
+                        //Me.setTheme(0);
+
+                        // CHANGE THEME CHOICE IN DB
+                        pane.getStylesheets().remove("css/DarkTheme.css");
+                        pane.getStylesheets().add("css/LightTheme.css");
+                        break;
+
+                    case("Dark"):
+                        //.setTheme(1);
+                        pane.getStylesheets().remove("css/LightTheme.css");
+                        pane.getStylesheets().add("css/DarkTheme.css");
+                        break;
+
+                }
+            }
+        });
+
     }
 }

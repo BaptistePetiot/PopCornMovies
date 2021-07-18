@@ -18,4 +18,32 @@ public class Movie {
         this.plot = plot;
         this.imageURL = imageURL;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public String getDirector() {
+        return director;
+    }
+
+    public String getCast() {
+        return cast;
+    }
+
+    public String getPlot() {
+        return plot;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
 }

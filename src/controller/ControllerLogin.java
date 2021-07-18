@@ -111,6 +111,13 @@ public class ControllerLogin{
                     Me.setLastName(customerLastName);
                     nbrRows++;
                 }
+                // remember preferred theme
+                rs = stmt.executeQuery("SELECT * FROM Theme WHERE IdLogins = " + customerId + ";");
+                int themeNbr = 0;
+                while(rs.next()){
+                    themeNbr = rs.getInt("themeNbr");
+                }
+
                 if(nbrRows == 0){
                     rs = stmt.executeQuery("SELECT * FROM Employees WHERE IdLogins = (SELECT `Id` FROM logins WHERE Email = '" + email + "'AND Password = '" + clearPassword + "');");
                     int employeeId = 0;
@@ -125,14 +132,20 @@ public class ControllerLogin{
                         nbrRows++;
                     }
                     isCustomer = false;
+                    
+                    // remember preferred theme
+                    rs = stmt.executeQuery("SELECT * FROM Theme WHERE IdLogins = " + employeeId + ";");
+                    while(rs.next()){
+                        themeNbr = rs.getInt("themeNbr");
+                    }
                 }
+                
+                Me.setTheme(themeNbr);
 
                 if(isCustomer){
-                    //super.goToCustomerApp();
                     goToCustomerApp();
 
                 }else{
-                    //super.goToEmployeeApp();
                     goToEmployeeApp();
                 }
             }
@@ -205,11 +218,19 @@ public class ControllerLogin{
                     sqlINSERTStatement = "INSERT INTO `Employees` (`IdLogins`, `LastName`, `Firstname`, `DateOfCreation`) VALUES (" + maxId+1 + ", '"  + lastName.getText() + "', '" + firstName.getText() + "', '" + date + "');";
                     stmt.executeUpdate(sqlINSERTStatement);
 
+                    // inserting row in theme table
+                    sqlINSERTStatement = "INSERT INTO `Theme` (`IdLogins`, `themeNbr`) VALUES (" + maxId+1 + ", '0');";
+                    stmt.executeUpdate(sqlINSERTStatement);
+
                     // updating the array lists
                     Cinema.refresh();
                 }else{
                     // inserting row in customer table
                     sqlINSERTStatement = "INSERT INTO `Customers` (`IdLogins`, `LastName`, `Firstname`, `DateOfCreation`) VALUES (" + maxId+1 + ", '"  + lastName.getText() + "', '" + firstName.getText() + "', '" + date + "');";
+                    stmt.executeUpdate(sqlINSERTStatement);
+
+                    // inserting row in theme table
+                    sqlINSERTStatement = "INSERT INTO `Theme` (`IdLogins`, `themeNbr`) VALUES (" + maxId+1 + ", '0');";
                     stmt.executeUpdate(sqlINSERTStatement);
 
                     // updating the array lists
