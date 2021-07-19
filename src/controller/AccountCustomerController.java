@@ -5,10 +5,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -101,13 +98,38 @@ public class AccountCustomerController implements Initializable {
         }
     }
 
-    public void signout(ActionEvent actionEvent) {
+    public void signout() {
         System.out.println("SIGN OUT");
         try{
             SceneManager.loadScene("../view/login.fxml", 700,400);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
+    }
+
+    public void delete(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete your account ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            // connect to DB
+            Connection connection = null;
+            try {
+                // create a connection to the database
+                connection = DriverManager.getConnection(url, user, password);
+
+                // statement
+                Statement stmt = connection.createStatement();
+
+                // delete account in logins but nowhere else therefore account is deleted but history is kept for the company
+                stmt.executeUpdate("DELETE FROM logins WHERE Id = " + Me.getId());
+                signout();
+
+            }catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+
     }
 
     @FXML
@@ -185,7 +207,6 @@ public class AccountCustomerController implements Initializable {
 
                     // statement
                     Statement stmt = connection.createStatement();
-                    ResultSet rs;
 
                     switch (btn.getText()) {
                         case ("Light"):
@@ -193,7 +214,6 @@ public class AccountCustomerController implements Initializable {
                             stmt.executeUpdate("UPDATE theme SET themeNbr=0  WHERE IdLogins = " + Me.getId());
                             // update theme choice in Me for current connection
                             Me.setTheme(0);
-
 
                             pane.getStylesheets().remove("css/DarkTheme.css");
                             pane.getStylesheets().add("css/LightTheme.css");
@@ -218,4 +238,6 @@ public class AccountCustomerController implements Initializable {
         });
 
     }
+
+
 }
