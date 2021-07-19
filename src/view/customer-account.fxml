@@ -38,17 +38,17 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <RadioButton fx:id="regular" layoutX="652.0" layoutY="320.0" mnemonicParsing="false" selected="true" text="Regular">
+      <RadioButton fx:id="regular" layoutX="652.0" layoutY="320.0" mnemonicParsing="false" text="Regular">
          <font>
             <Font size="25.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="senior" layoutX="652.0" layoutY="487.0" mnemonicParsing="false" text="Senior">
+      <RadioButton fx:id="child" layoutX="652.0" layoutY="487.0" mnemonicParsing="false" text="Child">
          <font>
             <Font size="25.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="child" layoutX="652.0" layoutY="400.0" mnemonicParsing="false" text="Child">
+      <RadioButton fx:id="senior" layoutX="652.0" layoutY="400.0" mnemonicParsing="false" text="Senior">
          <font>
             <Font size="25.0" />
          </font>
@@ -58,7 +58,7 @@
             <Font size="25.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="light" layoutX="967.0" layoutY="320.0" mnemonicParsing="false" selected="true" text="Light">
+      <RadioButton fx:id="light" layoutX="967.0" layoutY="320.0" mnemonicParsing="false" text="Light">
          <font>
             <Font size="25.0" />
          </font>
@@ -68,7 +68,7 @@
             <Font size="25.0" />
          </font>
       </Button>
-      <Button onAction="#delete" layoutX="748.0" layoutY="717.0" mnemonicParsing="false" styleClass="buttonDeleteAccount" text="Delete account">
+      <Button layoutX="748.0" layoutY="717.0" mnemonicParsing="false" onAction="#delete" styleClass="buttonDeleteAccount" text="Delete account">
          <font>
             <Font size="25.0" />
          </font>
@@ -110,7 +110,7 @@
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="overview_logo">
                      <image>
-                        <Image url="@../imgs/icons8_Home_32px.png" />
+                        <Image url="@../imgs/icons8-home-50.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -167,7 +167,7 @@
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="account_logo">
                      <image>
-                        <Image url="@../imgs/icons8_Person_32px.png" />
+                        <Image url="@../imgs/icons8-account-64.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -187,7 +187,7 @@
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="signout_logo">
                      <image>
-                        <Image url="@../imgs/icons8_Sign_Out_32px.png" />
+                        <Image url="@../imgs/icons8-sign-out-50.png" />
                      </image>
                   </ImageView>
                </graphic>

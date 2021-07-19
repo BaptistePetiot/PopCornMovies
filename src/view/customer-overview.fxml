@@ -59,7 +59,7 @@
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="overview_logo">
                      <image>
-                        <Image url="@../imgs/icons8_Home_32px.png" />
+                        <Image url="@../imgs/icons8-home-50.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -117,7 +117,7 @@
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="account_logo">
                      <image>
-                        <Image url="@../imgs/icons8_Person_32px.png" />
+                        <Image url="@../imgs/icons8-account-64.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -136,7 +136,7 @@
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="signout_logo">
                      <image>
-                        <Image url="@../imgs/icons8_Sign_Out_32px.png" />
+                        <Image url="@../imgs/icons8-sign-out-50.png" />
                      </image>
                   </ImageView>
                </graphic>

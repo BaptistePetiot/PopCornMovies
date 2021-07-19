@@ -112,10 +112,17 @@ public class ControllerLogin{
                     nbrRows++;
                 }
                 // remember preferred theme
-                rs = stmt.executeQuery("SELECT * FROM Theme WHERE IdLogins = " + customerId + ";");
+                rs = stmt.executeQuery("SELECT themeNbr FROM Theme WHERE IdLogins = " + customerId + ";");
                 int themeNbr = 0;
                 while(rs.next()){
                     themeNbr = rs.getInt("themeNbr");
+                }
+
+                // remember category
+                rs = stmt.executeQuery("SELECT categoryNbr FROM Category WHERE IdLogins = " + customerId + ";");
+                int categoryNbr = 0;
+                while(rs.next()){
+                    categoryNbr = rs.getInt("categoryNbr");
                 }
 
                 if(nbrRows == 0){
@@ -134,13 +141,20 @@ public class ControllerLogin{
                     isCustomer = false;
                     
                     // remember preferred theme
-                    rs = stmt.executeQuery("SELECT * FROM Theme WHERE IdLogins = " + employeeId + ";");
+                    rs = stmt.executeQuery("SELECT themeNbr FROM Theme WHERE IdLogins = " + employeeId + ";");
                     while(rs.next()){
                         themeNbr = rs.getInt("themeNbr");
+                    }
+
+                    // remember category
+                    rs = stmt.executeQuery("SELECT categoryNbr FROM Category WHERE IdLogins = " + employeeId + ";");
+                    while(rs.next()){
+                        categoryNbr = rs.getInt("categoryNbr");
                     }
                 }
                 
                 Me.setTheme(themeNbr);
+                Me.setCategory(categoryNbr);
 
                 if(isCustomer){
                     goToCustomerApp();
@@ -222,6 +236,10 @@ public class ControllerLogin{
                     sqlINSERTStatement = "INSERT INTO `Theme` (`IdLogins`, `themeNbr`) VALUES (" + maxId+1 + ", '0');";
                     stmt.executeUpdate(sqlINSERTStatement);
 
+                    // inserting row in category table
+                    sqlINSERTStatement = "INSERT INTO `Category` (`IdLogins`, `categoryNbr`) VALUES (" + maxId+1 + ", '0');";
+                    stmt.executeUpdate(sqlINSERTStatement);
+
                     // updating the array lists
                     Cinema.refresh();
                 }else{
@@ -233,14 +251,19 @@ public class ControllerLogin{
                     sqlINSERTStatement = "INSERT INTO `Theme` (`IdLogins`, `themeNbr`) VALUES (" + maxId+1 + ", '0');";
                     stmt.executeUpdate(sqlINSERTStatement);
 
+                    // inserting row in category table
+                    sqlINSERTStatement = "INSERT INTO `Category` (`IdLogins`, `categoryNbr`) VALUES (" + maxId+1 + ", '0');";
+                    stmt.executeUpdate(sqlINSERTStatement);
+
                     // updating the array lists
                     Cinema.refresh();
                 }
 
                 System.out.println("Correctly registered");
+                goBackToMember();
             }
 
-        } catch(SQLException e) {
+        } catch(SQLException | IOException e) {
             System.out.println(e.getMessage());
             // add popup
         } finally {

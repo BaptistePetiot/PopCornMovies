@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import main.PopCornMovie;
+import model.Cinema;
 import model.Me;
 import model.Movie;
 import model.SceneManager;
@@ -22,7 +23,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MovieCustomerController implements Initializable {
-    @FXML ImageView picture;
+    @FXML ImageView picture, ivMovie;
     @FXML Label firstNameAndLastName, labelTitle, labelGenre, labelDirector, labelCast, labelPlot;
     @FXML Pane pane;
     //@FXML Text textPlot;
@@ -151,6 +152,8 @@ public class MovieCustomerController implements Initializable {
         labelPlot.setText(plot.toString());
         System.out.println(plot.toString());*/
         labelPlot.setText(m.getPlot());
+
+        ivMovie.setImage(new Image(m.getImageURL()));
     }
 
 

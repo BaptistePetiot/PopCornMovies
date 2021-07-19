@@ -108,7 +108,7 @@ public class AccountCustomerController implements Initializable {
     }
 
     public void delete(ActionEvent actionEvent) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete your account ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete your account ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
@@ -143,9 +143,22 @@ public class AccountCustomerController implements Initializable {
         if(Me.getTheme() == 0){
             pane.getStylesheets().remove("css/DarkTheme.css");
             pane.getStylesheets().add("css/LightTheme.css");
+
+            light.setSelected(true);
         }else if(Me.getTheme() == 1){
             pane.getStylesheets().remove("css/LightTheme.css");
             pane.getStylesheets().add("css/DarkTheme.css");
+
+            dark.setSelected(true);
+        }
+
+        // category
+        if(Me.getCategory() == 0){
+            regular.setSelected(true);
+        }else if(Me.getCategory() == 1){
+            senior.setSelected(true);
+        }else if(Me.getCategory() == 2){
+            child.setSelected(true);
         }
 
         // picture
@@ -172,18 +185,41 @@ public class AccountCustomerController implements Initializable {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
                 RadioButton btn = (RadioButton) categoryGroup.getSelectedToggle();
                 System.out.println(btn.getText());
-                switch (btn.getText()){
-                    case("Regular"):
-                        Me.setCategory(0);
-                        break;
 
-                    case("Senior"):
-                        Me.setCategory(1);
-                        break;
+                // connect to DB
+                Connection connection = null;
+                try {
+                    // create a connection to the database
+                    connection = DriverManager.getConnection(url, user, password);
 
-                    case("Child"):
-                        Me.setCategory(2);
-                        break;
+                    // statement
+                    Statement stmt = connection.createStatement();
+
+                    switch (btn.getText()) {
+                        case ("Regular"):
+                            // update theme choice in DB for next connection
+                            stmt.executeUpdate("UPDATE category SET categoryNbr=0  WHERE IdLogins = " + Me.getId());
+                            // update theme choice in Me for current connection
+                            Me.setCategory(0);
+                            break;
+
+                        case ("Senior"):
+                            // update theme choice in DB for next connection
+                            stmt.executeUpdate("UPDATE category SET categoryNbr=1  WHERE IdLogins = " + Me.getId());
+                            // update theme choice in Me for current connection
+                            Me.setCategory(1);
+                            break;
+
+                        case ("Child"):
+                            // update theme choice in DB for next connection
+                            stmt.executeUpdate("UPDATE category SET categoryNbr=2  WHERE IdLogins = " + Me.getId());
+                            // update theme choice in Me for current connection
+                            Me.setCategory(2);
+                            break;
+                    }
+
+                }catch (SQLException e){
+                    System.out.println(e.getMessage());
                 }
             }
         });
@@ -221,7 +257,7 @@ public class AccountCustomerController implements Initializable {
 
                         case ("Dark"):
                             // update theme choice in DB for next connection
-                            stmt.executeUpdate("UPDATE theme SET themeNbr=0  WHERE IdLogins = " + Me.getId());
+                            stmt.executeUpdate("UPDATE theme SET themeNbr=1  WHERE IdLogins = " + Me.getId());
                             // update theme choice in Me for current connection
                             Me.setTheme(1);
 

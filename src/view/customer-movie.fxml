@@ -19,7 +19,7 @@
             <Font size="25.0" />
          </font>
       </Button>
-      <Button layoutX="295.0" layoutY="4.0" mnemonicParsing="false" onAction="#goToMovies" styleClass="buttonBack" text="&lt; back" style="-fx-cursor: hand;">
+      <Button layoutX="295.0" layoutY="4.0" mnemonicParsing="false" onAction="#goToMovies" style="-fx-cursor: hand;" styleClass="buttonBack" text="&lt; back">
          <font>
             <Font size="15.0" />
          </font>
@@ -95,7 +95,7 @@
          </font>
       </Label>
       <TextField layoutX="824.0" layoutY="613.0" prefHeight="25.0" prefWidth="49.0" styleClass="tfNbrTickets" />
-      <Button onAction="#goToPayment" layoutX="795.0" layoutY="726.0" mnemonicParsing="false" prefHeight="66.0" prefWidth="108.0" styleClass="buttonBuy" text="Buy">
+      <Button layoutX="795.0" layoutY="726.0" mnemonicParsing="false" onAction="#goToPayment" prefHeight="66.0" prefWidth="108.0" styleClass="buttonBuy" text="Buy">
          <font>
             <Font size="32.0" />
          </font>
@@ -147,7 +147,7 @@
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="overview_logo">
                      <image>
-                        <Image url="@../imgs/icons8_Home_32px.png" />
+                        <Image url="@../imgs/icons8-home-50.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -205,7 +205,7 @@
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="account_logo">
                      <image>
-                        <Image url="@../imgs/icons8_Person_32px.png" />
+                        <Image url="@../imgs/icons8-account-64.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -224,7 +224,7 @@
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="signout_logo">
                      <image>
-                        <Image url="@../imgs/icons8_Sign_Out_32px.png" />
+                        <Image url="@../imgs/icons8-sign-out-50.png" />
                      </image>
                   </ImageView>
                </graphic>
