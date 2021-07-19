@@ -22,6 +22,7 @@ import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class AccountCustomerController implements Initializable {
@@ -30,7 +31,12 @@ public class AccountCustomerController implements Initializable {
     @FXML Label firstNameAndLastName;
     @FXML RadioButton regular, child, senior, light, dark;
     @FXML Pane pane;
-    ToggleGroup categoryGroup, themeGroup;
+    @FXML ToggleGroup categoryGroup, themeGroup;
+
+    // credentials
+    private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
+    private final String user      = "root";
+    private final String password  = "";
 
     @FXML
     protected void addPicture(){
@@ -111,6 +117,16 @@ public class AccountCustomerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // theme
+        if(Me.getTheme() == 0){
+            pane.getStylesheets().remove("css/DarkTheme.css");
+            pane.getStylesheets().add("css/LightTheme.css");
+        }else if(Me.getTheme() == 1){
+            pane.getStylesheets().remove("css/LightTheme.css");
+            pane.getStylesheets().add("css/DarkTheme.css");
+        }
+
+        // picture
         File file = new File("picture" + Me.getId() + ".png");
         if(file.exists()){
             System.out.println("image exists");
@@ -123,6 +139,7 @@ public class AccountCustomerController implements Initializable {
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
 
+        // category change
         categoryGroup = new ToggleGroup();
         regular.setToggleGroup(categoryGroup);
         senior.setToggleGroup(categoryGroup);
@@ -149,6 +166,7 @@ public class AccountCustomerController implements Initializable {
             }
         });
 
+        // theme change
         themeGroup = new ToggleGroup();
         light.setToggleGroup(themeGroup);
         dark.setToggleGroup(themeGroup);
@@ -158,21 +176,43 @@ public class AccountCustomerController implements Initializable {
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
                 RadioButton btn = (RadioButton) themeGroup.getSelectedToggle();
                 System.out.println(btn.getText());
-                switch (btn.getText()){
-                    case("Light"):
-                        //Me.setTheme(0);
 
-                        // CHANGE THEME CHOICE IN DB
-                        pane.getStylesheets().remove("css/DarkTheme.css");
-                        pane.getStylesheets().add("css/LightTheme.css");
-                        break;
+                // connect to DB
+                Connection connection = null;
+                try {
+                    // create a connection to the database
+                    connection = DriverManager.getConnection(url, user, password);
 
-                    case("Dark"):
-                        //.setTheme(1);
-                        pane.getStylesheets().remove("css/LightTheme.css");
-                        pane.getStylesheets().add("css/DarkTheme.css");
-                        break;
+                    // statement
+                    Statement stmt = connection.createStatement();
+                    ResultSet rs;
 
+                    switch (btn.getText()) {
+                        case ("Light"):
+                            // update theme choice in DB for next connection
+                            stmt.executeUpdate("UPDATE theme SET themeNbr=0  WHERE IdLogins = " + Me.getId());
+                            // update theme choice in Me for current connection
+                            Me.setTheme(0);
+
+
+                            pane.getStylesheets().remove("css/DarkTheme.css");
+                            pane.getStylesheets().add("css/LightTheme.css");
+                            break;
+
+                        case ("Dark"):
+                            // update theme choice in DB for next connection
+                            stmt.executeUpdate("UPDATE theme SET themeNbr=0  WHERE IdLogins = " + Me.getId());
+                            // update theme choice in Me for current connection
+                            Me.setTheme(1);
+
+                            pane.getStylesheets().remove("css/LightTheme.css");
+                            pane.getStylesheets().add("css/DarkTheme.css");
+                            break;
+
+                    }
+
+                }catch (SQLException e){
+                    System.out.println(e.getMessage());
                 }
             }
         });

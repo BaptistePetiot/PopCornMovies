@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import main.PopCornMovie;
@@ -14,6 +15,7 @@ import model.Movie;
 import model.SceneManager;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
@@ -22,6 +24,7 @@ import java.util.ResourceBundle;
 public class MovieCustomerController implements Initializable {
     @FXML ImageView picture;
     @FXML Label firstNameAndLastName, labelTitle, labelGenre, labelDirector, labelCast, labelPlot;
+    @FXML Pane pane;
     //@FXML Text textPlot;
 
     @FXML
@@ -112,6 +115,16 @@ public class MovieCustomerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // theme
+        if(Me.getTheme() == 0){
+            pane.getStylesheets().remove("css/DarkTheme.css");
+            pane.getStylesheets().add("css/LightTheme.css");
+        }else if(Me.getTheme() == 1){
+            pane.getStylesheets().remove("css/LightTheme.css");
+            pane.getStylesheets().add("css/DarkTheme.css");
+        }
+
+        // picture
         File file = new File("picture" + Me.getId() + ".png");
         if(file.exists()){
             System.out.println("image exists");

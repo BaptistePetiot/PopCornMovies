@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="800.0" prefWidth="1400.0" styleClass="pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MovieCustomerController">
+<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MovieCustomerController">
    <children>
       <Button layoutX="1351.0" layoutY="4.0" mnemonicParsing="false" onAction="#exit" styleClass="buttonExit" text="X">
          <font>

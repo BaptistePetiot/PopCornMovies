@@ -18,6 +18,7 @@ public class PaymentCustomerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         pane.getChildren().clear();
         indicator = new FillProgressIndicator();
         indicator.makeIndeterminate();

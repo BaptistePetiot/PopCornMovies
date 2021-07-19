@@ -15,7 +15,7 @@ public class Me {
     public static Movie getLookingAtMovie() { return lookingAtMovie; }
     public static void setLookingAtMovie(Movie lookingAtMovie) { Me.lookingAtMovie = lookingAtMovie; }
     public static int getCategory() { return category; }
-    public static void setCategory(int category) { category = category; }
+    public static void setCategory(int category) { Me.category = category; }
     public static int getTheme() { return theme; }
-    public static void setTheme(int theme) { theme = theme; }
+    public static void setTheme(int theme) { Me.theme = theme; }
 }

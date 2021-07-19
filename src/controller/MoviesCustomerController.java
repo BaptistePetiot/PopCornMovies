@@ -9,6 +9,7 @@ import javafx.scene.control.SplitMenuButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Pair;
 import model.Cinema;
 import model.Me;
@@ -27,6 +28,7 @@ public class MoviesCustomerController implements Initializable {
     @FXML Label firstNameAndLastName;
     @FXML SplitMenuButton splitMenu;
     @FXML GridPane gridPane;
+    @FXML Pane pane;
 
     private int c, r;
     private HashMap<Pair<Integer,Integer>, Movie> allMoviesCoords, actionMoviesCoords, adventureMoviesCoords, fantasyMoviesCoords, documentaryMoviesCoords, scifiMoviesCoords, horrorMoviesCoords, animationMoviesCoords, thrillerMoviesCoords, comedyMoviesCoords, dramaMoviesCoords;
@@ -83,6 +85,15 @@ public class MoviesCustomerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // theme
+        if(Me.getTheme() == 0){
+            pane.getStylesheets().remove("css/DarkTheme.css");
+            pane.getStylesheets().add("css/LightTheme.css");
+        }else if(Me.getTheme() == 1){
+            pane.getStylesheets().remove("css/LightTheme.css");
+            pane.getStylesheets().add("css/DarkTheme.css");
+        }
+
         //ids = new ArrayList<>();
         allMoviesCoords = new HashMap<>();
         actionMoviesCoords = new HashMap<>();
@@ -96,6 +107,7 @@ public class MoviesCustomerController implements Initializable {
         comedyMoviesCoords = new HashMap<>();
         dramaMoviesCoords = new HashMap<>();
 
+        // picture
         File file = new File("picture" + Me.getId() + ".png");
         if(file.exists()){
             System.out.println("image exists");
