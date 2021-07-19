@@ -88,13 +88,13 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <TextField layoutX="824.0" layoutY="653.0" prefHeight="25.0" prefWidth="49.0" styleClass="tfNbrStudentDiscounts" />
+      <TextField fx:id="tfNbrTickets" layoutX="824.0" layoutY="613.0" prefHeight="25.0" prefWidth="49.0" styleClass="tfNbrTickets" />
       <Label layoutX="474.0" layoutY="647.0" text="Number of student discounts :">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <TextField layoutX="824.0" layoutY="613.0" prefHeight="25.0" prefWidth="49.0" styleClass="tfNbrTickets" />
+      <TextField onKeyPressed="#displayPrice" fx:id="tfNbrStudentDiscounts" layoutX="824.0" layoutY="653.0" prefHeight="25.0" prefWidth="49.0" styleClass="tfNbrStudentDiscounts" />
       <Button layoutX="795.0" layoutY="726.0" mnemonicParsing="false" onAction="#goToPayment" prefHeight="66.0" prefWidth="108.0" styleClass="buttonBuy" text="Buy">
          <font>
             <Font size="32.0" />
@@ -120,7 +120,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="824.0" layoutY="687.0" styleClass="labelTotalPrice" text="\$15">
+      <Label fx:id="price" layoutX="824.0" layoutY="687.0" styleClass="labelTotalPrice" >
          <font>
             <Font size="25.0" />
          </font>
