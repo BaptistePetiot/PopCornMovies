@@ -142,7 +142,7 @@ public class MovieCustomerController implements Initializable {
             Statement stmt = connection.createStatement();
             ResultSet rs;
 
-            // retrieve highest nbr
+            // retrieve highest id
             rs = stmt.executeQuery("SELECT MAX(Id) FROM `purchases`");
             int maxId = 0;
             while(rs.next()){
