@@ -33,7 +33,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="117.0" prefWidth="163.0">
                <children>
-                  <Label fx:id="totalTickets" alignment="CENTER" prefHeight="45.0" prefWidth="166.0" styleClass="totalTickets" >
+                  <Label fx:id="totalTickets" alignment="CENTER" prefHeight="45.0" prefWidth="166.0" styleClass="totalTickets">
                      <font>
                         <Font size="60.0" />
                      </font>
@@ -50,7 +50,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="117.0" prefWidth="163.0">
                <children>
-                  <Label fx:id="thisYear" alignment="CENTER" prefHeight="45.0" prefWidth="166.0" styleClass="thisYear" >
+                  <Label fx:id="thisYear" alignment="CENTER" prefHeight="45.0" prefWidth="166.0" styleClass="thisYear">
                      <font>
                         <Font size="60.0" />
                      </font>
@@ -67,7 +67,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="117.0" prefWidth="163.0">
                <children>
-                  <Label fx:id="thisMonth" alignment="CENTER" prefHeight="45.0" prefWidth="166.0" styleClass="thisMonth" >
+                  <Label fx:id="thisMonth" alignment="CENTER" prefHeight="45.0" prefWidth="166.0" styleClass="thisMonth">
                      <font>
                         <Font size="60.0" />
                      </font>
@@ -84,14 +84,14 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="338.0" layoutY="213.0" prefHeight="53.0" prefWidth="1023.0" styleClass="titlesPanel">
+      <HBox alignment="CENTER_RIGHT" layoutX="338.0" layoutY="213.0" prefHeight="53.0" prefWidth="1023.0" styleClass="titlesPanel">
          <children>
             <Label prefHeight="36.0" prefWidth="51.0" text="Title">
                <font>
                   <Font size="25.0" />
                </font>
                <HBox.margin>
-                  <Insets left="175.0" />
+                  <Insets right="240.0" />
                </HBox.margin>
             </Label>
             <Label prefHeight="36.0" prefWidth="67.0" text="Genre">
@@ -99,7 +99,7 @@
                   <Font size="25.0" />
                </font>
                <HBox.margin>
-                  <Insets left="275.0" />
+                  <Insets right="60.0" />
                </HBox.margin>
             </Label>
             <Label prefHeight="36.0" prefWidth="91.0" text="Director">
@@ -107,7 +107,7 @@
                   <Font size="25.0" />
                </font>
                <HBox.margin>
-                  <Insets left="65.0" />
+                  <Insets right="60.0" />
                </HBox.margin>
             </Label>
             <Label prefWidth="54.0" text="Price">
@@ -115,7 +115,7 @@
                   <Font size="25.0" />
                </font>
                <HBox.margin>
-                  <Insets left="60.0" />
+                  <Insets right="60.0" />
                </HBox.margin>
             </Label>
             <Label prefHeight="36.0" prefWidth="54.0" text="Date">
@@ -123,14 +123,14 @@
                   <Font size="25.0" />
                </font>
                <HBox.margin>
-                  <Insets left="70.0" />
+                  <Insets right="65.0" />
                </HBox.margin>
             </Label>
          </children>
       </HBox>
       <ScrollPane hbarPolicy="NEVER" layoutX="338.0" layoutY="285.0" prefHeight="501.0" prefWidth="1023.0" style="-fx-background-insets: 0;" vbarPolicy="ALWAYS">
          <content>
-            <VBox fx:id="pnItems" prefHeight="499.0" prefWidth="1101.0" styleClass="scrollablePurchasesVBox" />
+            <VBox fx:id="pnItems" prefHeight="499.0" prefWidth="1006.0" styleClass="scrollablePurchasesVBox" />
          </content>
       </ScrollPane>
       <Button layoutX="1351.0" mnemonicParsing="false" onAction="#exit" styleClass="buttonExit" text="X">

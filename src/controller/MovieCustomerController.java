@@ -120,13 +120,17 @@ public class MovieCustomerController implements Initializable {
     }
 
     public void goToPayment(ActionEvent actionEvent) {
-        registerPurchase();
+        if(tfNbrStudentDiscounts.getText() == null || tfNbrStudentDiscounts.getText().trim().isEmpty() || tfNbrTickets.getText() == null || tfNbrTickets.getText().trim().isEmpty()){
+            System.out.println("Some field is empty!");
+        }else{
+            registerPurchase();
 
-        System.out.println("PAYMENT CUSTOMER");
-        try{
-            SceneManager.loadScene("../view/customer-payment.fxml", 1100,800);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
+            System.out.println("PAYMENT CUSTOMER");
+            try{
+                SceneManager.loadScene("../view/customer-payment.fxml", 1100,800);
+            }catch(Exception e){
+                System.out.println(e.getMessage());
+            }
         }
     }
 

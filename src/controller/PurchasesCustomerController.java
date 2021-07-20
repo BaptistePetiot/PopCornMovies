@@ -4,12 +4,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import main.PopCornMovie;
 import model.Me;
@@ -192,25 +196,45 @@ public class PurchasesCustomerController implements Initializable {
                 String title = rs.getString("Title");
                 int price = rs.getInt("Price");
 
-                /*Pane p = new Pane();
-                p.getChildren().add(new Label());
-                pnItems.getChildren().add();*/
-
-                try {
-                    /*Node[] nodes = new Node[10];
-                    for (int i = 0; i < nodes.length; i++) {
-                        pnItems.getChildren().removeAll();
-                        nodes[i] = (Node) FXMLLoader.load(getClass().getResource("view/item.fxml"));
-                        pnItems.getChildren().add(nodes[i]);
-                    }*/
-
-                    Node node = (Node) FXMLLoader.load(getClass().getResource("view/item.fxml"));
-                    pnItems.getChildren().add(node);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
+                // avoid title string overflow
+                if(title.toCharArray().length > 35){
+                    StringBuilder sb = new StringBuilder();
+                    for(int i = 0; i < title.toCharArray().length; i++){
+                        if(i < 32){
+                            sb.append(title.toCharArray()[i]);
+                        }else if(i == 32){
+                            sb.append("...");
+                        }
+                    }
+                    title = sb.toString();
                 }
+                // compute title right padding
+                int rightPadding = (int) Math.round(2500.0/title.toCharArray().length);
+                //int rightPadding = (int) (350.0 - title.toCharArray().length)/3;
+                System.out.println(rightPadding);
 
+                HBox hbox = new HBox();
+                //HBox.setMargin(hbox, new Insets(0, 0, 0, 75.0));
+                hbox.setAlignment(Pos.CENTER_RIGHT);
+
+                Label purchaseTitle = new Label(title);
+                purchaseTitle.setFont(new Font(25));
+                purchaseTitle.setPadding(new Insets(0, rightPadding, 0, 0));
+                Label purchaseGenre = new Label("genre");
+                purchaseGenre.setFont(new Font(25));
+                purchaseGenre.setPadding(new Insets(0, 75, 0, 0));
+                Label purchaseDirector = new Label("director");
+                purchaseDirector.setFont(new Font(25));
+                purchaseDirector.setPadding(new Insets(0, 80, 0, 0));
+                Label purchasePrice = new Label(Integer.toString(price));
+                purchasePrice.setFont(new Font(25));
+                purchasePrice.setPadding(new Insets(0, 50, 0, 0));
+                Label purchaseDate = new Label(cinemaDate);
+                purchaseDate.setFont(new Font(25));
+                purchaseDate.setPadding(new Insets(0, 5, 0, 0));
+
+                hbox.getChildren().addAll(purchaseTitle, purchaseGenre, purchaseDirector, purchasePrice, purchaseDate);
+                pnItems.getChildren().add(hbox);
 
             }
         } catch (SQLException e) {
