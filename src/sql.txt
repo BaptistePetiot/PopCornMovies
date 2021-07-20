@@ -8,3 +8,4 @@ CREATE TABLE `Purchases` (Id integer(11), IdLogins integer(11), Title varchar(10
 CREATE TABLE `Viewings` (IdMovies integer(11), nbrViewings varchar(5), FOREIGN KEY(IdMovies) REFERENCES Movies(Id));
 CREATE TABLE `Theme` (IdLogins integer(11), themeNbr varchar(5), FOREIGN KEY(IdLogins) REFERENCES Logins(Id));
 CREATE TABLE `Category` (IdLogins integer(11), categoryNbr varchar(5), FOREIGN KEY(IdLogins) REFERENCES Logins(Id));
+CREATE TABLE `Pictures` (IdLogins integer(11), picture longblob not null, FOREIGN KEY(IdLogins) REFERENCES Logins(Id));

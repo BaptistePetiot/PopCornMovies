@@ -18,6 +18,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -41,24 +44,82 @@ public class AccountCustomerController implements Initializable {
         // DIALOG TO CHOOSE PICTURE
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PNG", "*.png"));
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JPG", "*.jpg"));
         File file = fileChooser.showOpenDialog(PopCornMovie.getStage());
 
         // SAVE PICTURE
         try{
             BufferedImage bImage = ImageIO.read(file);
-            ImageIO.write(bImage, "png", new File("picture_" + Me.getId() + ".png"));
+            File img = new File("picture.jpg");
+            ImageIO.write(bImage, "jpg", img);
+
+            InputStream is = new FileInputStream(img);
+
+            // create a connection to the database
+            Connection connection = DriverManager.getConnection(url, user, password);
+
+            // prepared statement
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO `Pictures` (`IdLogins`, `picture`) VALUES (?,?);");
+            ps.setInt(1, Me.getId());
+            ps.setBlob(2, is);
+            ps.executeUpdate();
+
+            //stmt.executeUpdate("INSERT INTO `Pictures` (`IdLogins`, `picture`) VALUES (" + Me.getId() + ", load_file('" + img.getAbsolutePath().replace("\\", "/") + "'));");
+
+            img.delete();
+
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
 
-        // RETRIEVE PICTURE AND SET IT IN ACCOUNT ImageView
         try{
-            file = new File("picture" + Me.getId() + ".png");
-            Image image = new Image(file.toURI().toString());
-            picture.setImage(image);                            //TODO : make it work!
+            loadPicture();
         }catch(Exception e){
             System.out.println(e.getMessage());
+        }
+
+    }
+
+    private void loadPicture() throws Exception{
+        File img = new File("picture.jpg");
+        FileOutputStream ostreamImage = new FileOutputStream(img);
+
+        try{
+            // create a connection to the database
+            Connection connection = DriverManager.getConnection(url, user, password);
+            // prepared statement
+            PreparedStatement ps = connection.prepareStatement("SELECT picture FROM pictures WHERE IdLogins=?");
+
+            try{
+                ps.setInt(1,Me.getId());
+                ResultSet rs = ps.executeQuery();
+
+                try{
+                    if(rs.next()){
+                        InputStream istreamImage = rs.getBinaryStream("picture");
+
+                        byte[] buffer = new byte[1024];
+                        int length = 0;
+
+                        while((length = istreamImage.read(buffer)) != -1){
+                            ostreamImage.write(buffer, 0, length);  // save image locally
+                        }
+
+                        // set image
+                        Image image = new Image(img.toURI().toString());
+                        picture.setImage(image);
+                    }
+                }
+                finally{
+                    rs.close();
+                }
+            }
+            finally{
+                ps.close();
+            }
+        }
+        finally{
+            ostreamImage.close();
         }
     }
 
@@ -139,6 +200,14 @@ public class AccountCustomerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // load picture
+        try {
+            loadPicture();
+            System.out.println("image displayed");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // theme
         if(Me.getTheme() == 0){
             pane.getStylesheets().remove("css/DarkTheme.css");
@@ -159,17 +228,6 @@ public class AccountCustomerController implements Initializable {
             senior.setSelected(true);
         }else if(Me.getCategory() == 2){
             child.setSelected(true);
-        }
-
-        // picture
-        File file = new File("picture" + Me.getId() + ".png");
-        if(file.exists()){
-            System.out.println("image exists");
-            Image image = new Image(file.toURI().toString());
-            picture.setImage(image);
-        }else{
-            System.out.println("image does not exist");
-            picture.setImage(new Image(new File("imgs/circle.png").toURI().toString()));
         }
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());

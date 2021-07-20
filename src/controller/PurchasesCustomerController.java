@@ -22,7 +22,9 @@ import model.SceneManager;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -53,30 +55,46 @@ public class PurchasesCustomerController implements Initializable {
         this.date = formatter.format(now);
     }
 
-    @FXML
-    protected void addPicture() {
-        System.out.println("ADD PICTURE");
-        // DIALOG TO CHOOSE PICTURE
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Save");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PNG", "*.png"));
-        File file = fileChooser.showOpenDialog(PopCornMovie.getStage());
+    private void loadPicture() throws Exception{
+        File img = new File("picture.jpg");
+        FileOutputStream ostreamImage = new FileOutputStream(img);
 
-        // SAVE PICTURE
-        try {
-            BufferedImage bImage = ImageIO.read(file);
-            ImageIO.write(bImage, "png", new File("picture_" + Me.getId() + ".png"));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        try{
+            // create a connection to the database
+            Connection connection = DriverManager.getConnection(url, user, password);
+            // prepared statement
+            PreparedStatement ps = connection.prepareStatement("SELECT picture FROM pictures WHERE IdLogins=?");
+
+            try{
+                ps.setInt(1,Me.getId());
+                ResultSet rs = ps.executeQuery();
+
+                try{
+                    if(rs.next()){
+                        InputStream istreamImage = rs.getBinaryStream("picture");
+
+                        byte[] buffer = new byte[1024];
+                        int length = 0;
+
+                        while((length = istreamImage.read(buffer)) != -1){
+                            ostreamImage.write(buffer, 0, length);  // save image locally
+                        }
+
+                        // set image
+                        Image image = new Image(img.toURI().toString());
+                        picture.setImage(image);
+                    }
+                }
+                finally{
+                    rs.close();
+                }
+            }
+            finally{
+                ps.close();
+            }
         }
-
-        // RETRIEVE PICTURE AND SET IT IN ACCOUNT ImageView
-        try {
-            file = new File("picture" + Me.getId() + ".png");
-            Image image = new Image(file.toURI().toString());
-            picture.setImage(image);                            //TODO : make it work!
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        finally{
+            ostreamImage.close();
         }
     }
 
@@ -132,6 +150,13 @@ public class PurchasesCustomerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // load picture
+        try {
+            loadPicture();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         // theme
         if (Me.getTheme() == 0) {
             pane.getStylesheets().remove("css/DarkTheme.css");
@@ -139,17 +164,6 @@ public class PurchasesCustomerController implements Initializable {
         } else if (Me.getTheme() == 1) {
             pane.getStylesheets().remove("css/LightTheme.css");
             pane.getStylesheets().add("css/DarkTheme.css");
-        }
-
-        //picture
-        File file = new File("picture" + Me.getId() + ".png");
-        if (file.exists()) {
-            System.out.println("image exists");
-            Image image = new Image(file.toURI().toString());
-            picture.setImage(image);
-        } else {
-            System.out.println("image does not exist");
-            picture.setImage(new Image(new File("@../imgs/circle.png").toURI().toString()));
         }
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
@@ -190,11 +204,16 @@ public class PurchasesCustomerController implements Initializable {
 
             // retrieve purchases
             pnItems.getChildren().clear();
-            rs = stmt.executeQuery("SELECT * FROM `purchases` WHERE Idlogins = " + Me.getId());
+            // TODO!!!
+            rs = stmt.executeQuery("SELECT p.Date, p.Title, p.Price, m.Genre, m.Director FROM `Purchases` AS p, `Movies` AS m WHERE p.Title=m.Title;");
+            //rs = stmt.executeQuery("SELECT Purchases.Date, Purchases.Title, Purchases.Price FROM Purchases WHERE Idlogins = " + Me.getId());
+            //rs = stmt.executeQuery("SELECT Purchases.Date, Purchases.Title, Purchases.Price, Movies.Genre, Movies.Director FROM `Purchases` INNER JOIN `Movies` ON Movies.Title = Purchases.Title WHERE Idlogins = " + Me.getId());
             while (rs.next()) {
                 String cinemaDate = rs.getString("Date");
                 String title = rs.getString("Title");
                 int price = rs.getInt("Price");
+                String genre = rs.getString("Genre");
+                String director = rs.getString("Director");
 
                 // avoid title string overflow
                 if(title.toCharArray().length > 35){
