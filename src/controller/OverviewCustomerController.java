@@ -143,5 +143,8 @@ public class OverviewCustomerController implements Initializable {
         }
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
+
+        // 2 MOST SEEN MOVIES
+
     }
 }

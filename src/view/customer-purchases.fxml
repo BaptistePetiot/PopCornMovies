@@ -99,7 +99,7 @@
                   <Font size="25.0" />
                </font>
                <HBox.margin>
-                  <Insets right="60.0" />
+                  <Insets right="100.0" />
                </HBox.margin>
             </Label>
             <Label prefHeight="36.0" prefWidth="91.0" text="Director">

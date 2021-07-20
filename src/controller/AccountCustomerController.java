@@ -58,15 +58,26 @@ public class AccountCustomerController implements Initializable {
             // create a connection to the database
             Connection connection = DriverManager.getConnection(url, user, password);
 
-            // prepared statement
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO `Pictures` (`IdLogins`, `picture`) VALUES (?,?);");
-            ps.setInt(1, Me.getId());
-            ps.setBlob(2, is);
-            ps.executeUpdate();
+            // CHECK IF THE USER ALREADY HAS A PROFILE IMAGE
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT picture FROM Pictures WHERE IdLogins = " + Me.getId());
+            if(rs.next()){
+                System.out.println("already has an image");
+                // change image
+                PreparedStatement ps = connection.prepareStatement("UPDATE `Pictures` SET picture=? WHERE IdLogins=?;");
+                ps.setBlob(1, is);
+                ps.setInt(2, Me.getId());
+                ps.executeUpdate();
+            }else{
+                System.out.println("no image yet");
+                // add new image
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO `Pictures` (`IdLogins`, `picture`) VALUES (?,?);");
+                ps.setInt(1, Me.getId());
+                ps.setBlob(2, is);
+                ps.executeUpdate();
+            }
 
-            //stmt.executeUpdate("INSERT INTO `Pictures` (`IdLogins`, `picture`) VALUES (" + Me.getId() + ", load_file('" + img.getAbsolutePath().replace("\\", "/") + "'));");
-
-            img.delete();
+            img.delete();   // TODO: does not seem to work
 
         }catch (Exception e){
             System.out.println(e.getMessage());
@@ -108,6 +119,7 @@ public class AccountCustomerController implements Initializable {
                         // set image
                         Image image = new Image(img.toURI().toString());
                         picture.setImage(image);
+                        img.delete();   // TODO: does not seem to work
                     }
                 }
                 finally{
@@ -203,7 +215,6 @@ public class AccountCustomerController implements Initializable {
         // load picture
         try {
             loadPicture();
-            System.out.println("image displayed");
         } catch (Exception e) {
             e.printStackTrace();
         }

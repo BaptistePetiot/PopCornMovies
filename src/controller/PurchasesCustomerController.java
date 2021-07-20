@@ -10,9 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import main.PopCornMovie;
@@ -204,10 +202,8 @@ public class PurchasesCustomerController implements Initializable {
 
             // retrieve purchases
             pnItems.getChildren().clear();
-            // TODO!!!
-            rs = stmt.executeQuery("SELECT p.Date, p.Title, p.Price, m.Genre, m.Director FROM `Purchases` AS p, `Movies` AS m WHERE p.Title=m.Title;");
-            //rs = stmt.executeQuery("SELECT Purchases.Date, Purchases.Title, Purchases.Price FROM Purchases WHERE Idlogins = " + Me.getId());
-            //rs = stmt.executeQuery("SELECT Purchases.Date, Purchases.Title, Purchases.Price, Movies.Genre, Movies.Director FROM `Purchases` INNER JOIN `Movies` ON Movies.Title = Purchases.Title WHERE Idlogins = " + Me.getId());
+
+            rs = stmt.executeQuery("SELECT p.Date, p.Title, p.Price, m.Genre, m.Director, m.Title FROM `Purchases` as p,`Movies` as m WHERE p.IdMovies = m.Id AND IdLogins = " + Me.getId());
             while (rs.next()) {
                 String cinemaDate = rs.getString("Date");
                 String title = rs.getString("Title");
@@ -215,45 +211,35 @@ public class PurchasesCustomerController implements Initializable {
                 String genre = rs.getString("Genre");
                 String director = rs.getString("Director");
 
-                // avoid title string overflow
-                if(title.toCharArray().length > 35){
-                    StringBuilder sb = new StringBuilder();
-                    for(int i = 0; i < title.toCharArray().length; i++){
-                        if(i < 32){
-                            sb.append(title.toCharArray()[i]);
-                        }else if(i == 32){
-                            sb.append("...");
-                        }
-                    }
-                    title = sb.toString();
-                }
-                // compute title right padding
-                int rightPadding = (int) Math.round(2500.0/title.toCharArray().length);
-                //int rightPadding = (int) (350.0 - title.toCharArray().length)/3;
-                System.out.println(rightPadding);
-
-                HBox hbox = new HBox();
-                //HBox.setMargin(hbox, new Insets(0, 0, 0, 75.0));
-                hbox.setAlignment(Pos.CENTER_RIGHT);
+                GridPane gp = new GridPane();
+                ColumnConstraints cc1 = new ColumnConstraints(420);
+                ColumnConstraints cc2 = new ColumnConstraints(180);
+                ColumnConstraints cc3 = new ColumnConstraints(210);
+                ColumnConstraints cc4 = new ColumnConstraints(53);
+                ColumnConstraints cc5 = new ColumnConstraints(223);
+                gp.getColumnConstraints().addAll(cc1, cc2, cc3, cc4, cc5);
 
                 Label purchaseTitle = new Label(title);
                 purchaseTitle.setFont(new Font(25));
-                purchaseTitle.setPadding(new Insets(0, rightPadding, 0, 0));
-                Label purchaseGenre = new Label("genre");
+                gp.add(purchaseTitle,0,0);
+
+                Label purchaseGenre = new Label(genre);
                 purchaseGenre.setFont(new Font(25));
-                purchaseGenre.setPadding(new Insets(0, 75, 0, 0));
-                Label purchaseDirector = new Label("director");
+                gp.add(purchaseGenre,1,0);
+
+                Label purchaseDirector = new Label(director);
                 purchaseDirector.setFont(new Font(25));
-                purchaseDirector.setPadding(new Insets(0, 80, 0, 0));
+                gp.add(purchaseDirector,2,0);
+
                 Label purchasePrice = new Label(Integer.toString(price));
                 purchasePrice.setFont(new Font(25));
-                purchasePrice.setPadding(new Insets(0, 50, 0, 0));
+                gp.add(purchasePrice,3,0);
+
                 Label purchaseDate = new Label(cinemaDate);
                 purchaseDate.setFont(new Font(25));
-                purchaseDate.setPadding(new Insets(0, 5, 0, 0));
+                gp.add(purchaseDate,4,0);
 
-                hbox.getChildren().addAll(purchaseTitle, purchaseGenre, purchaseDirector, purchasePrice, purchaseDate);
-                pnItems.getChildren().add(hbox);
+                pnItems.getChildren().add(gp);
 
             }
         } catch (SQLException e) {

@@ -141,11 +141,12 @@ public class MovieCustomerController implements Initializable {
         if(tfNbrStudentDiscounts.getText() == null || tfNbrStudentDiscounts.getText().trim().isEmpty() || tfNbrTickets.getText() == null || tfNbrTickets.getText().trim().isEmpty()){
             System.out.println("Some field is empty!");
         }else{
+            computePrice();
             registerPurchase();
 
             System.out.println("PAYMENT CUSTOMER");
             try{
-                SceneManager.loadScene("../view/customer-payment.fxml", 1100,800);
+                SceneManager.loadScene("../view/customer-payment.fxml", 1100,800);  //TODO : MAKE IT WORK!!!!!
             }catch(Exception e){
                 System.out.println(e.getMessage());
             }
@@ -173,24 +174,27 @@ public class MovieCustomerController implements Initializable {
             int purchaseId = maxId + 1;
 
             // add purchase to DB
-            stmt.executeUpdate("INSERT INTO `purchases` (`Id`, `IdLogins`, `Title`, `NbrTickets`, `Date`, `Price`) VALUES ('  " + purchaseId + "', ' " + Me.getId() + "', ' "+ Me.getLookingAtMovie().getTitle() + "', '" + nbrTickets + "', '" + date + "', '" + cost + "');");
+            stmt.executeUpdate("INSERT INTO `purchases` (`Id`, `IdLogins`, `IdMovies`, `Title`, `NbrTickets`, `Date`, `Price`) VALUES ('  " + purchaseId + "', ' " + Me.getId() + "', ' "+ Me.getLookingAtMovie().getId() +  "', ' "+ Me.getLookingAtMovie().getTitle() + "', '" + nbrTickets + "', '" + date + "', '" + cost + "');");
 
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
     }
 
+    private void computePrice(){
+        nbrTickets = Integer.parseInt(tfNbrTickets.getText());
+        int nbrStudentTickets = Integer.parseInt(tfNbrStudentDiscounts.getText());
+        int nbrNormalTickets = nbrTickets - nbrStudentTickets;
+
+        int studentPrice = 7;
+        int normalPrice = 10;
+
+        cost = nbrStudentTickets * studentPrice + nbrNormalTickets * normalPrice;
+    }
+
     public void displayPrice(KeyEvent keyEvent) {
         if( keyEvent.getCode() == KeyCode.ENTER ) {
-            nbrTickets = Integer.parseInt(tfNbrTickets.getText());
-            int nbrStudentTickets = Integer.parseInt(tfNbrStudentDiscounts.getText());
-            int nbrNormalTickets = nbrTickets - nbrStudentTickets;
-
-            int studentPrice = 7;
-            int normalPrice = 10;
-
-            cost = nbrStudentTickets * studentPrice + nbrNormalTickets * normalPrice;
-
+            computePrice();
             price.setText(String.valueOf(cost));
         }
     }
