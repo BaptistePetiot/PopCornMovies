@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OverviewCustomerController">
+<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.OverviewGuestController">
    <children>
       <Label layoutX="568.0" layoutY="719.0" text="Currently most popular">
          <font>
@@ -29,7 +29,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <ImageView fx:id="movie2" fitHeight="689.0" fitWidth="468.0" layoutX="850.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="movie2" fitHeight="689.0" fitWidth="465.0" layoutX="850.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
       <VBox alignment="TOP_CENTER" layoutX="1.0" prefHeight="800.0" prefWidth="297.0" styleClass="menu">
          <children>
@@ -37,8 +37,11 @@
                <VBox.margin>
                   <Insets bottom="20.0" top="50.0" />
                </VBox.margin>
+               <image>
+                  <Image url="@../imgs/circle.png" />
+               </image>
             </ImageView>
-            <Label fx:id="firstNameAndLastName" text="FirstName&amp;LastName">
+            <Label fx:id="firstNameAndLastName" text="Guest">
                <VBox.margin>
                   <Insets bottom="40.0" />
                </VBox.margin>
@@ -85,26 +88,7 @@
                   <String fx:value="movies" />
                </styleClass>
             </Button>
-            <Button fx:id="buttonPurchases" alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#goToPurchases" prefHeight="73.0" prefWidth="315.0" style="-fx-cursor: hand;" text="Purchases">
-               <graphic>
-                  <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="purchases_logo">
-                     <image>
-                        <Image url="@../imgs/billet.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-               <font>
-                  <Font size="30.0" />
-               </font>
-               <padding>
-                  <Insets left="45.0" />
-               </padding>
-               <styleClass>
-                  <String fx:value="tab" />
-                  <String fx:value="purchases" />
-               </styleClass>
-            </Button>
-            <Button fx:id="buttonAccount" alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#goToAccount" prefHeight="73.0" prefWidth="313.0" style="-fx-cursor: hand;" text="Account">
+            <Button fx:id="buttonAccount" alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#goToSettings" prefHeight="73.0" prefWidth="313.0" style="-fx-cursor: hand;" text="Settings">
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="account_logo">
                      <image>
@@ -123,7 +107,7 @@
                   <String fx:value="account" />
                </styleClass>
             </Button>
-            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#signout" prefHeight="73.0" prefWidth="309.0" style="-fx-cursor: hand;" text="Sign Out">
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#signout" prefHeight="73.0" prefWidth="309.0" style="-fx-cursor: hand;" text="Exit">
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="signout_logo">
                      <image>

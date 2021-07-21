@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MovieGuestController">
+   <children>
+      <Button layoutX="1351.0" layoutY="4.0" mnemonicParsing="false" onAction="#exit" styleClass="buttonExit" text="X">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+      <Button layoutX="295.0" layoutY="4.0" mnemonicParsing="false" onAction="#goToMovies" style="-fx-cursor: hand;" styleClass="buttonBack" text="&lt; back">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Label layoutX="602.0" layoutY="80.0" text="Title : ">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="602.0" layoutY="149.0" text="Genre : ">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="604.0" layoutY="227.0" text="Director : ">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="607.0" layoutY="305.0" text="Cast : ">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="606.0" layoutY="382.0" text="Plot : ">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelTitle" layoutX="749.0" layoutY="80.0" styleClass="labelTitle">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelGenre" layoutX="748.0" layoutY="149.0" styleClass="labelGenre">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelDirector" layoutX="753.0" layoutY="227.0" styleClass="labelDirector">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelCast" layoutX="750.0" layoutY="305.0" prefHeight="36.0" prefWidth="472.0" styleClass="labelCast">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <ScrollPane layoutX="684.0" layoutY="363.0" prefHeight="242.0" prefWidth="699.0">
+         <content>
+            <Label fx:id="labelPlot" prefHeight="302.0" prefWidth="1039.0" styleClass="labelPlot">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </content>
+      </ScrollPane>
+      <!--<Text fx:id="textPlot" layoutX="691.0" layoutY="401.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textPlot" wrappingWidth="687.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>-->
+      <Label layoutX="592.0" layoutY="633.0" text="Number of tickets : ">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tfNbrTickets" onKeyPressed="#displayPrice" layoutX="825.0" layoutY="641.0" prefHeight="25.0" prefWidth="49.0" styleClass="tfNbrTickets" />
+      <Button layoutX="795.0" layoutY="726.0" mnemonicParsing="false" onAction="#goToPayment" prefHeight="66.0" prefWidth="108.0" styleClass="buttonBuy" text="Buy">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="54.0" fitWidth="58.0" layoutX="737.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" styleClass="picture">
+         <image>
+            <Image url="@../imgs/film-strip.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="811.0" layoutY="19.0" text="Movies">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="54.0" fitWidth="58.0" layoutX="921.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" styleClass="picture">
+         <image>
+            <Image url="@../imgs/film-strip.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="674.0" layoutY="678.0" text="Total price :">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="price" layoutX="824.0" layoutY="687.0" styleClass="labelTotalPrice">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="297.0" styleClass="menu">
+         <children>
+            <ImageView fx:id="picture" fitHeight="164.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true" styleClass="picture">
+               <VBox.margin>
+                  <Insets bottom="20.0" top="50.0" />
+               </VBox.margin>
+               <image>
+                  <Image url="@../imgs/circle.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="firstNameAndLastName" text="Guest">
+               <VBox.margin>
+                  <Insets bottom="40.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="buttonOverview" alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#goToOverview" prefHeight="73.0" prefWidth="320.0" style="-fx-cursor: hand;" text="Overview">
+               <graphic>
+                  <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="overview_logo">
+                     <image>
+                        <Image url="@../imgs/icons8-home-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <padding>
+                  <Insets left="45.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="tab" />
+                  <String fx:value="overview" />
+               </styleClass>
+            </Button>
+            <Button fx:id="buttonMovies" alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#goToMovies" prefHeight="73.0" prefWidth="311.0" style="-fx-cursor: hand;" text="Movies">
+               <graphic>
+                  <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="movies_logo">
+                     <image>
+                        <Image url="@../imgs/film-strip.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <padding>
+                  <Insets left="45.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="tab" />
+                  <String fx:value="selected" />
+                  <String fx:value="movies" />
+               </styleClass>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#goToSettings" prefHeight="73.0" prefWidth="313.0" style="-fx-cursor: hand;" text="Settings">
+               <graphic>
+                  <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="account_logo">
+                     <image>
+                        <Image url="@../imgs/icons8-account-64.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <padding>
+                  <Insets left="45.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="tab" />
+                  <String fx:value="account" />
+               </styleClass>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#signout" prefHeight="73.0" prefWidth="309.0" style="-fx-cursor: hand;" text="Exit">
+               <graphic>
+                  <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="signout_logo">
+                     <image>
+                        <Image url="@../imgs/icons8-sign-out-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <padding>
+                  <Insets left="45.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="tab" />
+                  <String fx:value="signout" />
+               </styleClass>
+            </Button>
+         </children>
+      </VBox>
+      <ImageView fx:id="ivMovie" fitHeight="292.0" fitWidth="239.0" layoutX="328.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</Pane>

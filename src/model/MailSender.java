@@ -45,6 +45,55 @@ public class MailSender {
             }
 
             return message;
+
+        }catch(AddressException e){
+            System.out.println(e.getMessage());
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static void sendTickets(String userEmail, String firstName, String title, int nbrTickets) throws Exception{
+        Properties properties = new Properties();
+
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+
+        String myEmail = "popcornmovies.cinema@gmail.com";
+        String myPassword = "p0pc0rnm0v13s";
+
+        Session session = Session.getInstance(properties, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(myEmail, myPassword);
+            }
+        });
+
+        Message message = prepareTickets(session, myEmail, userEmail, firstName,title, nbrTickets);
+
+        Transport.send(message);
+        System.out.println("tickets sent successfully to " + userEmail);
+    }
+
+    private static Message prepareTickets(Session session, String myEmail, String userEmail, String firstName, String title, int nbrTickets){
+        try{
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(myEmail));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
+            message.setSubject("Your tickets");
+
+            if(firstName != null){
+                message.setText("Dear " + firstName + ",\n Please find attached your " + nbrTickets + " tickets to see : " + title + "\n See you soon, \n The PopCorn Movies team");
+            }else{
+                message.setText("Dear Guest,\n Please find attached your " + nbrTickets + " tickets to see : " + title + "\n See you soon, \n The PopCorn Movies team");
+            }
+
+            return message;
+
         }catch(AddressException e){
             System.out.println(e.getMessage());
         } catch (MessagingException e) {

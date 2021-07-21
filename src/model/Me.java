@@ -2,7 +2,7 @@ package model;
 
 public class Me {
     private static int id;
-    private static String firstName, lastName;
+    private static String firstName, lastName, email;
     private static Movie lookingAtMovie;
     private static int category = 0, theme = 0;
 
@@ -18,4 +18,6 @@ public class Me {
     public static void setCategory(int category) { Me.category = category; }
     public static int getTheme() { return theme; }
     public static void setTheme(int theme) { Me.theme = theme; }
+    public static String getEmail() { return email; }
+    public static void setEmail(String email) { Me.email = email; }
 }

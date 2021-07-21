@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -28,7 +29,7 @@ public class ControllerLogin{
     private boolean isEmployee;
     private String date;
 
-    @FXML Button buttonMember, buttonGuest, buttonSignup, buttonExit, buttonCustomer, buttonEmployee, buttonBack, buttonLogin;
+    @FXML Button buttonMember, buttonGuest, buttonSignup, buttonExit, buttonCustomer, buttonEmployee, buttonBack, buttonLogin, buttonContinueAsGuest;
     @FXML AnchorPane anchorPane;
     @FXML TextField emailLogin, emailSignup, lastName, firstName;
     @FXML PasswordField passwordLogin, passwordSignup;
@@ -110,6 +111,7 @@ public class ControllerLogin{
                     Me.setId(customerId);
                     Me.setFirstName(customerFirstName);
                     Me.setLastName(customerLastName);
+                    Me.setEmail(email);
                     nbrRows++;
                 }
                 // remember preferred theme
@@ -137,6 +139,7 @@ public class ControllerLogin{
                         Me.setId(employeeId);
                         Me.setFirstName(employeeFirstName);
                         Me.setLastName(employeeLastName);
+                        Me.setEmail(email);
                         nbrRows++;
                     }
                     isCustomer = false;
@@ -356,6 +359,7 @@ public class ControllerLogin{
         }
     }
 
+    @FXML
     protected void goToEmployeeApp() {
         System.out.println("GO TO EMPLOYEE APP");
         System.out.println(Me.getId() + " / " + Me.getLastName() + " / " + Me.getFirstName());
@@ -366,4 +370,16 @@ public class ControllerLogin{
             System.out.println(e.getMessage());
         }
     }
+
+    @FXML
+    public void continueAsGuest() {
+        System.out.println("GO TO GUEST APP");
+        try{
+            SceneManager.loadScene("../view/guest-overview.fxml", 1400, 800);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 }

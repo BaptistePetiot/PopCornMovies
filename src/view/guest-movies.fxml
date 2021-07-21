@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MoviesCustomerController">
+<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MoviesGuestController">
    <children>
       <Button layoutX="1351.0" mnemonicParsing="false" onAction="#exit" styleClass="buttonExit" text="X">
          <font>
@@ -144,6 +144,44 @@
                   <String fx:value="tab" />
                   <String fx:value="selected" />
                   <String fx:value="movies" />
+               </styleClass>
+            </Button>
+            <Button fx:id="buttonAccount" alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#goToSettings" prefHeight="73.0" prefWidth="313.0" style="-fx-cursor: hand;" text="Settings">
+               <graphic>
+                  <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="account_logo">
+                     <image>
+                        <Image url="@../imgs/icons8-account-64.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <padding>
+                  <Insets left="45.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="tab" />
+                  <String fx:value="account" />
+               </styleClass>
+            </Button>
+            <Button alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#signout" prefHeight="73.0" prefWidth="309.0" style="-fx-cursor: hand;" text="Exit">
+               <graphic>
+                  <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="signout_logo">
+                     <image>
+                        <Image url="@../imgs/icons8-sign-out-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <padding>
+                  <Insets left="45.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="tab" />
+                  <String fx:value="signout" />
                </styleClass>
             </Button>
          </children>

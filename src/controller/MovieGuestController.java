@@ -5,31 +5,28 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
-import main.PopCornMovie;
 import model.*;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class MovieCustomerController implements Initializable, Consts {
-    @FXML ImageView picture, ivMovie;
-    @FXML Label firstNameAndLastName, labelTitle, labelGenre, labelDirector, labelCast, labelPlot, price;
+public class MovieGuestController implements Initializable, Consts {
+    @FXML ImageView ivMovie;
+    @FXML Label labelTitle, labelGenre, labelDirector, labelCast, labelPlot, price;
     @FXML Pane pane;
-    @FXML TextField tfNbrStudentDiscounts, tfNbrTickets;
+    @FXML TextField tfNbrTickets;
 
     private int cost = 0;
     private String date;
@@ -40,93 +37,41 @@ public class MovieCustomerController implements Initializable, Consts {
     private final String user      = "root";
     private final String password  = "";
 
-    public MovieCustomerController(){
+    public MovieGuestController(){
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
         Date now = new Date(System.currentTimeMillis());
         this.date = formatter.format(now);
     }
 
-    private void loadPicture() throws Exception{
-        File img = new File("picture.jpg");
-        FileOutputStream ostreamImage = new FileOutputStream(img);
-
-        try{
-            // create a connection to the database
-            Connection connection = DriverManager.getConnection(url, user, password);
-            // prepared statement
-            PreparedStatement ps = connection.prepareStatement("SELECT picture FROM pictures WHERE IdLogins=?");
-
-            try{
-                ps.setInt(1,Me.getId());
-                ResultSet rs = ps.executeQuery();
-
-                try{
-                    if(rs.next()){
-                        InputStream istreamImage = rs.getBinaryStream("picture");
-
-                        byte[] buffer = new byte[1024];
-                        int length = 0;
-
-                        while((length = istreamImage.read(buffer)) != -1){
-                            ostreamImage.write(buffer, 0, length);  // save image locally
-                        }
-
-                        // set image
-                        Image image = new Image(img.toURI().toString());
-                        picture.setImage(image);
-                    }
-                }
-                finally{
-                    rs.close();
-                }
-            }
-            finally{
-                ps.close();
-            }
-        }
-        finally{
-            ostreamImage.close();
-        }
-    }
-
     public void goToOverview(ActionEvent actionEvent) {
-        System.out.println("OVERVIEW CUSTOMER");
+        System.out.println("OVERVIEW GUEST");
         try{
-            SceneManager.loadScene("../view/customer-overview.fxml", 1400,800);
+            SceneManager.loadScene("../view/guest-overview.fxml", 1400,800);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
     }
 
     public void goToMovies(ActionEvent actionEvent) {
-        System.out.println("MOVIES CUSTOMER");
+        System.out.println("MOVIES GUEST");
         try{
-            SceneManager.loadScene("../view/customer-movies.fxml", 1400,800);
+            SceneManager.loadScene("../view/guest-movies.fxml", 1400,800);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
     }
 
-    public void goToPurchases(ActionEvent actionEvent) {
-        System.out.println("PURCHASES CUSTOMER");
+    public void goToSettings(ActionEvent actionEvent) {
+        System.out.println("SETTINGS GUEST");
         try{
-            SceneManager.loadScene("../view/customer-purchases.fxml", 1400,800);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void goToAccount(ActionEvent actionEvent) {
-        System.out.println("ACCOUNT CUSTOMER");
-        try{
-            SceneManager.loadScene("../view/customer-account.fxml", 1400,800);
+            SceneManager.loadScene("../view/guest-settings.fxml", 1400,800);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
     }
 
     public void signout(ActionEvent actionEvent) {
-        System.out.println("SIGN OUT");
+        System.out.println("EXIT");
         try{
             SceneManager.loadScene("../view/login.fxml", 700,400);
         }catch(Exception e){
@@ -135,15 +80,26 @@ public class MovieCustomerController implements Initializable, Consts {
     }
 
     public void goToPayment(ActionEvent actionEvent) throws Exception {
-        if(tfNbrStudentDiscounts.getText() == null || tfNbrStudentDiscounts.getText().trim().isEmpty() || tfNbrTickets.getText() == null || tfNbrTickets.getText().trim().isEmpty()){
-            System.out.println("Some field is empty!");
+        if(tfNbrTickets.getText() == null || tfNbrTickets.getText().trim().isEmpty()){
+            System.out.println("The field is empty!");
         }else{
             computePrice();
             registerPurchase();
+
             // send tickets by email
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Email");
+            dialog.setHeaderText("Enter your email to receive your tickets, don't worry it won't be stored in the database.");
+            dialog.setContentText("Email:");
+            Optional<String> result = dialog.showAndWait();
+
+            result.ifPresent(email -> {
+                Me.setEmail(email);
+            });
+
             MailSender.sendTickets(Me.getEmail(), Me.getFirstName(), Me.getLookingAtMovie().getTitle(), nbrTickets);
 
-            System.out.println("PAYMENT CUSTOMER");
+            System.out.println("PAYMENT GUEST");
             try{
                 SceneManager.loadScene("../view/customer-payment.fxml", 1100,800);  //TODO : MAKE IT WORK!!!!!
             }catch(Exception e){
@@ -180,12 +136,11 @@ public class MovieCustomerController implements Initializable, Consts {
         }
     }
 
+    // NO DISCOUNTS AS GUEST
     private void computePrice(){
         nbrTickets = Integer.parseInt(tfNbrTickets.getText());
-        int nbrStudentTickets = Integer.parseInt(tfNbrStudentDiscounts.getText());
-        int nbrNormalTickets = nbrTickets - nbrStudentTickets;
 
-        cost = nbrStudentTickets * Consts.STUDENT_PRICE + nbrNormalTickets * Consts.NORMAL_PRICE;
+        cost = nbrTickets * Consts.NORMAL_PRICE;
     }
 
     public void displayPrice(KeyEvent keyEvent) {
@@ -202,12 +157,7 @@ public class MovieCustomerController implements Initializable, Consts {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // load picture
-        try {
-            loadPicture();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        price.setText("Press enter to see the computer price");
 
         // theme
         if(Me.getTheme() == 0){
@@ -217,8 +167,6 @@ public class MovieCustomerController implements Initializable, Consts {
             pane.getStylesheets().remove("css/LightTheme.css");
             pane.getStylesheets().add("css/DarkTheme.css");
         }
-
-        firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
 
         // change fields according to specific movie
         Movie m = Me.getLookingAtMovie();
@@ -240,7 +188,4 @@ public class MovieCustomerController implements Initializable, Consts {
         // initialize price label to indicate that the user has to press enter to see the calculated price
         price.setText("Press enter to see the calculated price");
     }
-
-
-
 }
