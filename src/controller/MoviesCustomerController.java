@@ -33,7 +33,7 @@ public class MoviesCustomerController implements Initializable {
     @FXML ImageView picture;
     @FXML Label firstNameAndLastName;
     @FXML SplitMenuButton splitMenu;
-    @FXML GridPane gridPane;
+    @FXML GridPane gridMovies;
     @FXML Pane pane;
 
     private int c, r;
@@ -199,7 +199,7 @@ public class MoviesCustomerController implements Initializable {
         ArrayList<Movie> allMovies = Cinema.getMovies();
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        gridMovies.getChildren().clear();
 
         for(Movie m : allMovies){
             System.out.println(m.getTitle());
@@ -228,7 +228,7 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             allMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -246,7 +246,7 @@ public class MoviesCustomerController implements Initializable {
         actionMovies.removeIf(m -> !m.getGenre().equals("Action"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        gridMovies.getChildren().clear();
 
         for(Movie m : actionMovies){
             System.out.println(m.getTitle());
@@ -275,7 +275,7 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             actionMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -293,7 +293,7 @@ public class MoviesCustomerController implements Initializable {
         adventureyMovies.removeIf(m -> !m.getGenre().equals("Adventure"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        gridMovies.getChildren().clear();
 
         for(Movie m : adventureyMovies){
             System.out.println(m.getTitle());
@@ -322,7 +322,7 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             adventureMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -342,7 +342,7 @@ public class MoviesCustomerController implements Initializable {
         fantasyMovies.removeIf(m -> !m.getGenre().equals("Fantasy"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        gridMovies.getChildren().clear();
         for(Movie m : fantasyMovies){
             System.out.println(m.getTitle());
         }
@@ -370,7 +370,7 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             fantasyMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -390,7 +390,7 @@ public class MoviesCustomerController implements Initializable {
         documentaryMovies.removeIf(m -> !m.getGenre().equals("Documentary"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        gridMovies.getChildren().clear();
 
         for(Movie m : documentaryMovies){
             System.out.println(m.getTitle());
@@ -419,7 +419,7 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             documentaryMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -437,7 +437,7 @@ public class MoviesCustomerController implements Initializable {
         scifiMovies.removeIf(m -> !m.getGenre().equals("Science Fiction"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        gridMovies.getChildren().clear();
 
             for(Movie m : scifiMovies){
             System.out.println(m.getTitle());
@@ -466,7 +466,7 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             scifiMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -484,7 +484,7 @@ public class MoviesCustomerController implements Initializable {
         horrorMovies.removeIf(m -> !m.getGenre().equals("Horror"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        gridMovies.getChildren().clear();
 
         for(Movie m : horrorMovies){
             System.out.println(m.getTitle());
@@ -513,7 +513,7 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             horrorMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -532,7 +532,7 @@ public class MoviesCustomerController implements Initializable {
         animationMovies.removeIf(m -> !m.getGenre().equals("Animation"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        gridMovies.getChildren().clear();
 
         for(Movie m : animationMovies){
             System.out.println(m.getTitle());
@@ -561,7 +561,7 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             animationMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -578,7 +578,7 @@ public class MoviesCustomerController implements Initializable {
         thrillerMovies.removeIf(m -> !m.getGenre().equals("Thriller"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        gridMovies.getChildren().clear();
 
         for(Movie m : thrillerMovies){
             System.out.println(m.getTitle());
@@ -607,7 +607,7 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             thrillerMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -625,7 +625,7 @@ public class MoviesCustomerController implements Initializable {
         comedyMovies.removeIf(m -> !m.getGenre().equals("Comedy"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        gridMovies.getChildren().clear();
 
         for(Movie m : comedyMovies){
             System.out.println(m.getTitle());
@@ -654,7 +654,7 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             comedyMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -671,7 +671,7 @@ public class MoviesCustomerController implements Initializable {
         dramaMovies.removeIf(m -> !m.getGenre().equals("Drama"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        gridMovies.getChildren().clear();
 
         for(Movie m : dramaMovies){
             System.out.println(m.getTitle());
@@ -700,7 +700,7 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             dramaMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);

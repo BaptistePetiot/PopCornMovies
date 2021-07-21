@@ -16,13 +16,10 @@ import java.util.ResourceBundle;
 
 public class PaymentCustomerController implements Initializable {
 
-    @FXML
-    ProgressBar pb;
-    @FXML
-    Label label, thx;
+    @FXML ProgressBar pb;
+    @FXML Label label, thx;
     @FXML Pane pane;
-    @FXML
-    Button btn;
+    @FXML Button btn;
 
     @FXML
     private void goBackToMovies(){

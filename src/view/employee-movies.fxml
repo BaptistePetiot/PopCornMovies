@@ -38,19 +38,19 @@
             <Image url="@../imgs/film-strip.png" />
          </image>
       </ImageView>
-      <SplitMenuButton layoutX="311.0" layoutY="15.0" mnemonicParsing="false" styleClass="genreMenu" text="Genre">
+      <SplitMenuButton fx:id="splitMenu" layoutX="311.0" layoutY="15.0" mnemonicParsing="false" styleClass="genreMenu" text="Genre">
         <items>
-          <MenuItem mnemonicParsing="false" styleClass="genreMenuItem" text="All" />
-            <MenuItem mnemonicParsing="false" styleClass="genreMenuItem" text="Action" />
-          <MenuItem mnemonicParsing="false" styleClass="genreMenuItem" text="Aventure" />
-            <MenuItem mnemonicParsing="false" styleClass="genreMenuItem" text="Fantasy" />
-            <MenuItem mnemonicParsing="false" styleClass="genreMenuItem" text="Documentary" />
-            <MenuItem mnemonicParsing="false" styleClass="genreMenuItem" text="Science Fiction" />
-            <MenuItem mnemonicParsing="false" styleClass="genreMenuItem" text="Horror" />
-            <MenuItem mnemonicParsing="false" styleClass="genreMenuItem" text="Animation" />
-            <MenuItem mnemonicParsing="false" styleClass="genreMenuItem" text="Thriller" />
-            <MenuItem mnemonicParsing="false" styleClass="genreMenuItem" text="Comedy" />
-            <MenuItem mnemonicParsing="false" styleClass="genreMenuItem" text="Drama" />
+          <MenuItem onAction="#all" mnemonicParsing="false" styleClass="genreMenuItem" text="All" />
+            <MenuItem onAction="#action" mnemonicParsing="false" styleClass="genreMenuItem" text="Action" />
+          <MenuItem onAction="#adventure" mnemonicParsing="false" styleClass="genreMenuItem" text="Adventure" />
+            <MenuItem onAction="#fantasy" mnemonicParsing="false" styleClass="genreMenuItem" text="Fantasy" />
+            <MenuItem onAction="#documentary" mnemonicParsing="false" styleClass="genreMenuItem" text="Documentary" />
+            <MenuItem onAction="#scifi" mnemonicParsing="false" styleClass="genreMenuItem" text="Science Fiction" />
+            <MenuItem onAction="#horror" mnemonicParsing="false" styleClass="genreMenuItem" text="Horror" />
+            <MenuItem onAction="#animation" mnemonicParsing="false" styleClass="genreMenuItem" text="Animation" />
+            <MenuItem onAction="#thriller" mnemonicParsing="false" styleClass="genreMenuItem" text="Thriller" />
+            <MenuItem onAction="#comedy" mnemonicParsing="false" styleClass="genreMenuItem" text="Comedy" />
+            <MenuItem onAction="#drama" mnemonicParsing="false" styleClass="genreMenuItem" text="Drama" />
         </items>
       </SplitMenuButton>
       <ScrollPane hbarPolicy="NEVER" layoutX="310.0" layoutY="55.0" prefHeight="731.0" prefWidth="1077.0" vbarPolicy="ALWAYS">
@@ -67,116 +67,68 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
-               <children>
+               <!--<children>
                   <Button onAction="#goToMovie" mnemonicParsing="false" prefHeight="374.0" prefWidth="267.0" styleClass="buttonMovie">
                      <graphic>
-                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/avatar.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true"/>
                      </graphic>
                   </Button>
                   <Button onAction="#goToMovie" mnemonicParsing="false" prefHeight="374.0" prefWidth="267.0" styleClass="buttonMovie" GridPane.columnIndex="1">
                      <graphic>
-                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/back_to_the_future.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true"/>
                      </graphic>
                   </Button>
                   <Button onAction="#goToMovie" mnemonicParsing="false" prefHeight="374.0" prefWidth="267.0" styleClass="buttonMovie" GridPane.columnIndex="2">
                      <graphic>
-                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/casino_royale.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true"/>
                      </graphic>
                   </Button>
                   <Button onAction="#goToMovie" mnemonicParsing="false" prefHeight="374.0" prefWidth="267.0" styleClass="buttonMovie" GridPane.columnIndex="3">
                      <graphic>
-                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/gran_torino.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true"/>
                      </graphic>
                   </Button>
                   <Button onAction="#goToMovie" mnemonicParsing="false" prefHeight="374.0" prefWidth="267.0" styleClass="buttonMovie" GridPane.rowIndex="1">
                      <graphic>
-                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/inception.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true"/>
                      </graphic>
                   </Button>
                   <Button onAction="#goToMovie" mnemonicParsing="false" prefHeight="374.0" prefWidth="267.0" styleClass="buttonMovie" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <graphic>
-                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/jurassic_world.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true"/>
                      </graphic>
                   </Button>
                   <Button onAction="#goToMovie" mnemonicParsing="false" prefHeight="374.0" prefWidth="267.0" styleClass="buttonMovie" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <graphic>
-                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/lion_king.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true"/>
                      </graphic>
                   </Button>
                   <Button onAction="#goToMovie" mnemonicParsing="false" prefHeight="374.0" prefWidth="267.0" styleClass="buttonMovie" GridPane.columnIndex="3" GridPane.rowIndex="1">
                      <graphic>
-                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/the_lords_of_the_rings_the_fellowship_of_the_ring.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true"/>
                      </graphic>
                   </Button>
                   <Button onAction="#goToMovie" mnemonicParsing="false" prefHeight="374.0" prefWidth="267.0" styleClass="buttonMovie" GridPane.rowIndex="2">
                      <graphic>
-                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/matrix.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true"/>
                      </graphic>
                   </Button>
                   <Button onAction="#goToMovie" mnemonicParsing="false" prefHeight="374.0" prefWidth="267.0" styleClass="buttonMovie" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <graphic>
-                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/oss117.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true"/>
                      </graphic>
                   </Button>
                   <Button onAction="#goToMovie" mnemonicParsing="false" prefHeight="374.0" prefWidth="267.0" styleClass="buttonMovie" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <graphic>
-                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/satrwars.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true"/>
                      </graphic>
                   </Button>
                   <Button onAction="#goToMovie" mnemonicParsing="false" prefHeight="374.0" prefWidth="267.0" styleClass="buttonMovie" GridPane.columnIndex="3" GridPane.rowIndex="2">
                      <graphic>
-                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../imgs/topgun2.jpg" />
-                           </image>
-                        </ImageView>
+                        <ImageView fitHeight="357.0" fitWidth="252.0" pickOnBounds="true" preserveRatio="true"/>
                      </graphic>
                   </Button>
-               </children>
+               </children>-->
             </GridPane>
          </content>
       </ScrollPane>

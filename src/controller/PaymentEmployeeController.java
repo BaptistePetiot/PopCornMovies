@@ -1,9 +1,12 @@
 package controller;
 
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -16,20 +19,15 @@ import java.util.ResourceBundle;
 
 public class PaymentEmployeeController implements Initializable {
 
-    @FXML ImageView picture;
-    @FXML Label firstNameAndLastName;
+    @FXML
+    ProgressBar pb;
+    @FXML Label label, thx;
     @FXML Pane pane;
+    @FXML
+    Button btn;
 
-    public void goToOverview(ActionEvent actionEvent) {
-        System.out.println("OVERVIEW EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-overview.fxml", 1400,800);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void goToMovies(ActionEvent actionEvent) {
+    @FXML
+    private void goBackToMovies(){
         System.out.println("MOVIES EMPLOYEE");
         try{
             SceneManager.loadScene("../view/employee-movies.fxml", 1400,800);
@@ -37,62 +35,6 @@ public class PaymentEmployeeController implements Initializable {
             System.out.println(e.getMessage());
         }
     }
-
-    public void goToDiscounts(ActionEvent actionEvent) {
-        System.out.println("DISCOUNTS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-discounts.fxml", 1400,800);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void goToRecords(ActionEvent actionEvent) {
-        System.out.println("RECORDS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-records.fxml", 1400,800);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void goToStatistics(ActionEvent actionEvent) {
-        System.out.println("STATISTICS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-statistics.fxml", 1400,800);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void goToPurchases(ActionEvent actionEvent) {
-        System.out.println("PURCHASES EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-purchases.fxml", 1400,800);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void goToAccount(ActionEvent actionEvent) {
-        System.out.println("ACCOUNT EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-account.fxml", 1400,800);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void signout(ActionEvent actionEvent) {
-        System.out.println("SIGN OUT");
-        try{
-            SceneManager.loadScene("../view/login.fxml", 700,400);
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void exit(ActionEvent actionEvent) { System.exit(0); }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -104,5 +46,53 @@ public class PaymentEmployeeController implements Initializable {
             pane.getStylesheets().remove("css/LightTheme.css");
             pane.getStylesheets().add("css/DarkTheme.css");
         }
+
+        btn.setVisible(false);
+        thx.setVisible(false);
+
+        //animate();
+        startProcess();
+    }
+
+    private void startProcess() {
+
+        // Create a background Task
+        Task<Void> task = new Task<Void>() {
+            @Override
+            protected Void call() throws Exception {
+
+                // Set the total number of steps in our process
+                int steps = 1000;
+
+                // Simulate a long running task
+                for (int i = 0; i < steps; i++) {
+
+                    Thread.sleep(3); // Pause briefly
+
+                    // Update our progress and message properties
+                    updateProgress(i, steps);
+                    updateMessage(String.valueOf(i));
+                }
+                return null;
+            }
+        };
+
+        // This method allows us to handle any Exceptions thrown by the task
+        task.setOnFailed(wse -> {
+            wse.getSource().getException().printStackTrace();
+        });
+
+        // If the task completed successfully, perform other updates here
+        task.setOnSucceeded(wse -> {
+            label.setVisible(false);
+            thx.setVisible(true);
+            btn.setVisible(true);
+        });
+
+        // Before starting our task, we need to bind our UI values to the properties on the task
+        pb.progressProperty().bind(task.progressProperty());
+
+        // Now, start the task on a background thread
+        new Thread(task).start();
     }
 }
