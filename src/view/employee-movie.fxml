@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MovieEmployeeController">
+<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MovieEmployeeController">
    <children>
       <Button layoutX="1351.0" layoutY="4.0" mnemonicParsing="false" onAction="#exit" styleClass="buttonExit" text="X">
          <font>
@@ -24,11 +24,8 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <ImageView fitHeight="338.0" fitWidth="260.0" layoutX="348.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../imgs/topgun2.jpg" />
-         </image>
-      </ImageView>
+      <ImageView fitHeight="338.0" fitWidth="260.0" layoutX="348.0" layoutY="76.0" pickOnBounds="true"
+                 preserveRatio="true"/>
       <Label layoutX="602.0" layoutY="80.0" text="Title : ">
          <font>
             <Font size="25.0" />

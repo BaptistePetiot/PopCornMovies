@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import model.Me;
 import model.SceneManager;
 
@@ -17,6 +18,7 @@ public class PaymentEmployeeController implements Initializable {
 
     @FXML ImageView picture;
     @FXML Label firstNameAndLastName;
+    @FXML Pane pane;
 
     public void goToOverview(ActionEvent actionEvent) {
         System.out.println("OVERVIEW EMPLOYEE");
@@ -94,16 +96,13 @@ public class PaymentEmployeeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        File file = new File("picture" + Me.getId() + ".png");
-        if(file.exists()){
-            System.out.println("image exists");
-            Image image = new Image(file.toURI().toString());
-            picture.setImage(image);
-        }else{
-            System.out.println("image does not exist");
-            picture.setImage(new Image(new File("@../imgs/circle.png").toURI().toString()));
-            //picture.setImage(new Image(new File("circle.png").toURI().toString()));
+        // theme
+        if(Me.getTheme() == 0){
+            pane.getStylesheets().remove("css/DarkTheme.css");
+            pane.getStylesheets().add("css/LightTheme.css");
+        }else if(Me.getTheme() == 1){
+            pane.getStylesheets().remove("css/LightTheme.css");
+            pane.getStylesheets().add("css/DarkTheme.css");
         }
-        firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
     }
 }

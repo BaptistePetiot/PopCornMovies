@@ -13,7 +13,6 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.Pane;
 import model.Me;
 import model.SceneManager;
-import org.pdfsam.ui.RingProgressIndicator;
 
 import java.awt.image.BufferedImage;
 import java.net.URL;

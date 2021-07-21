@@ -19,5 +19,5 @@ Baptiste Petiot
 ##### BONUSES:
     - 2 themes
     - payment progress bar animation
-    - profile picture (adding and modifying)
+    - profile picture saved to DB (adding and modifying)
     - email (signup for customer and employee + for tickets at each purchase)

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RecordsEmployeeController">
+<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RecordsEmployeeController">
    <children>
       <Label layoutX="791.0" layoutY="6.0" prefHeight="45.0" prefWidth="115.0" text="Records">
          <font>
