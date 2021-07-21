@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MoviesCustomerController">
+   <children>
+      <Button layoutX="1351.0" mnemonicParsing="false" onAction="#exit" styleClass="buttonExit" text="X">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="54.0" fitWidth="58.0" layoutX="727.0" pickOnBounds="true" preserveRatio="true" styleClass="picture">
+         <image>
+            <Image url="@../imgs/film-strip.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="801.0" layoutY="5.0" text="Movies">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="54.0" fitWidth="58.0" layoutX="911.0" pickOnBounds="true" preserveRatio="true" styleClass="picture">
+         <image>
+            <Image url="@../imgs/film-strip.png" />
+         </image>
+      </ImageView>
+      <SplitMenuButton fx:id="splitMenu" layoutX="311.0" layoutY="15.0" mnemonicParsing="false" styleClass="genreMenu" text="Genre">
+        <items>
+          <MenuItem mnemonicParsing="false" onAction="#all" styleClass="genreMenuItem" text="All" />
+            <MenuItem mnemonicParsing="false" onAction="#action" styleClass="genreMenuItem" text="Action" />
+          <MenuItem mnemonicParsing="false" onAction="#adventure" styleClass="genreMenuItem" text="Adventure" />
+            <MenuItem mnemonicParsing="false" onAction="#fantasy" styleClass="genreMenuItem" text="Fantasy" />
+            <MenuItem mnemonicParsing="false" onAction="#documentary" styleClass="genreMenuItem" text="Documentary" />
+            <MenuItem mnemonicParsing="false" onAction="#scifi" styleClass="genreMenuItem" text="Science Fiction" />
+            <MenuItem mnemonicParsing="false" onAction="#horror" styleClass="genreMenuItem" text="Horror" />
+            <MenuItem mnemonicParsing="false" onAction="#animation" styleClass="genreMenuItem" text="Animation" />
+            <MenuItem mnemonicParsing="false" onAction="#thriller" styleClass="genreMenuItem" text="Thriller" />
+            <MenuItem mnemonicParsing="false" onAction="#comedy" styleClass="genreMenuItem" text="Comedy" />
+            <MenuItem mnemonicParsing="false" onAction="#drama" styleClass="genreMenuItem" text="Drama" />
+        </items>
+      </SplitMenuButton>
+      <ScrollPane hbarPolicy="NEVER" layoutX="310.0" layoutY="55.0" prefHeight="731.0" prefWidth="1077.0" vbarPolicy="ALWAYS">
+         <content>
+            <GridPane fx:id="gridPane" prefHeight="1103.0" prefWidth="1071.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <!--<ImageView fitHeight="361.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true">
+                     &lt;!&ndash;<image>
+                        <Image url="@../imgs" />
+                     </image>&ndash;&gt;
+                  </ImageView>-->
+
+                  <!--<ImageView fitHeight="361.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+                  <ImageView fitHeight="361.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" />
+                  <ImageView fitHeight="361.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" />
+                  <ImageView fitHeight="361.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1" />
+                  <ImageView fitHeight="361.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ImageView fitHeight="361.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <ImageView fitHeight="361.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <ImageView fitHeight="361.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2" />
+                  <ImageView fitHeight="361.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ImageView fitHeight="361.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <ImageView fitHeight="361.0" fitWidth="272.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2" />-->
+               </children>
+            </GridPane>
+         </content>
+      </ScrollPane>
+      <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="297.0" styleClass="menu">
+         <children>
+            <ImageView fx:id="picture" fitHeight="164.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true" styleClass="picture">
+               <VBox.margin>
+                  <Insets bottom="20.0" top="50.0" />
+               </VBox.margin>
+               <image>
+                  <Image url="@../imgs/circle.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="firstNameAndLastName" text="Guest">
+               <VBox.margin>
+                  <Insets bottom="40.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="buttonOverview" alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#goToOverview" prefHeight="73.0" prefWidth="320.0" style="-fx-cursor: hand;" text="Overview">
+               <graphic>
+                  <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="overview_logo">
+                     <image>
+                        <Image url="@../imgs/icons8-home-50.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <padding>
+                  <Insets left="45.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="tab" />
+                  <String fx:value="overview" />
+               </styleClass>
+            </Button>
+            <Button fx:id="buttonMovies" alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#goToMovies" prefHeight="73.0" prefWidth="311.0" style="-fx-cursor: hand;" text="Movies">
+               <graphic>
+                  <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="movies_logo">
+                     <image>
+                        <Image url="@../imgs/film-strip.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font size="30.0" />
+               </font>
+               <padding>
+                  <Insets left="45.0" />
+               </padding>
+               <styleClass>
+                  <String fx:value="tab" />
+                  <String fx:value="selected" />
+                  <String fx:value="movies" />
+               </styleClass>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</Pane>

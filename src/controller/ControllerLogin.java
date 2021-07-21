@@ -9,6 +9,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import model.Cinema;
+import model.MailSender;
 import model.Me;
 import model.SceneManager;
 
@@ -242,6 +243,9 @@ public class ControllerLogin{
 
                     // updating the array lists
                     Cinema.refresh();
+
+                    // send email
+                    MailSender.sendMail(emailSignup.getText(), firstName.getText(), true);
                 }else{
                     // inserting row in customer table
                     sqlINSERTStatement = "INSERT INTO `Customers` (`IdLogins`, `LastName`, `Firstname`, `DateOfCreation`) VALUES (" + maxId+1 + ", '"  + lastName.getText() + "', '" + firstName.getText() + "', '" + date + "');";
@@ -257,6 +261,9 @@ public class ControllerLogin{
 
                     // updating the array lists
                     Cinema.refresh();
+
+                    // send email
+                    MailSender.sendMail(emailSignup.getText(), firstName.getText(), false);
                 }
 
                 System.out.println("Correctly registered");
@@ -266,6 +273,8 @@ public class ControllerLogin{
         } catch(SQLException | IOException e) {
             System.out.println(e.getMessage());
             // add popup
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             try{
                 if(connection != null)

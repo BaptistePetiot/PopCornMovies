@@ -240,6 +240,9 @@ public class MovieCustomerController implements Initializable {
         labelPlot.setText(m.getPlot());
 
         ivMovie.setImage(new Image(m.getImageURL()));
+
+        // initialize price label to indicate that the user has to press enter to see the calculated price
+        price.setText("Press enter to see the calculated price");
     }
 
 
