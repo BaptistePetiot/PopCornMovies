@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2014, Andrea Vacondio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,8 +12,8 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */ 
-package model;
+ */
+package org.pdfsam.ui;
 
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
@@ -29,7 +29,7 @@ import javafx.util.Duration;
 
 /**
  * Skin of the ring progress indicator where an arc grows and by the progress value up to 100% where the arc becomes a ring.
- * 
+ *
  * @author Andrea Vacondio
  *
  */

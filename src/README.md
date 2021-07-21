@@ -14,3 +14,10 @@ Baptiste Petiot
     - insérer l'animation dans la page de payement
     - trouver pourquoi les purchases lancent une exception et trouver une solution pour que ca marche comme avant
     - comment encrypter et décrypter les passwords dans la bdd et en java
+    
+
+##### BONUSES:
+    - 2 themes
+    - payment progress bar animation
+    - profile picture (adding and modifying)
+    - email (signup for customer and employee + for tickets at each purchase)

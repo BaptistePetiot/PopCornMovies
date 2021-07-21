@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2014, Andrea Vacondio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */ 
-package model;
+ */
+package org.pdfsam.ui;
 
-import com.sun.javafx.css.converters.SizeConverter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.css.CssMetaData;
 import javafx.css.Styleable;
@@ -24,13 +27,11 @@ import javafx.css.StyleableProperty;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.sun.javafx.css.converters.SizeConverter;
 
 /**
  * Progress indicator showing a filling arc.
- * 
+ *
  * @author Andrea Vacondio
  *
  */
@@ -103,6 +104,6 @@ public class RingProgressIndicator extends ProgressCircleIndicator {
 
     @Override
     public List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
-    	 return StyleableProperties.STYLEABLES;
+        return StyleableProperties.STYLEABLES;
     }
 }

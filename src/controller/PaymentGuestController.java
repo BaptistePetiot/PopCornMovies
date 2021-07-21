@@ -2,33 +2,35 @@ package controller;
 
 import javafx.application.Platform;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.layout.Pane;
 import model.Me;
 import model.SceneManager;
+import org.pdfsam.ui.RingProgressIndicator;
 
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PaymentCustomerController implements Initializable {
+public class PaymentGuestController implements Initializable {
 
-    @FXML
-    ProgressBar pb;
-    @FXML
-    Label label, thx;
+    @FXML ProgressBar pb;
+    @FXML Label label, thx;
     @FXML Pane pane;
-    @FXML
-    Button btn;
+    @FXML Button btn;
 
     @FXML
     private void goBackToMovies(){
         System.out.println("MOVIES GUEST");
         try{
-            SceneManager.loadScene("../view/customer-movies.fxml", 1400,800);
+            SceneManager.loadScene("../view/guest-movies.fxml", 1400,800);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }
@@ -93,6 +95,5 @@ public class PaymentCustomerController implements Initializable {
         // Now, start the task on a background thread
         new Thread(task).start();
     }
-
 
 }

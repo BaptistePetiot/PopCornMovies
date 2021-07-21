@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2014, Andrea Vacondio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,24 +12,29 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */ 
-package model;
+ */
+package org.pdfsam.ui;
 
-import com.sun.javafx.css.converters.SizeConverter;
-import javafx.beans.property.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ReadOnlyBooleanProperty;
+import javafx.beans.property.ReadOnlyBooleanWrapper;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.ReadOnlyIntegerWrapper;
 import javafx.css.CssMetaData;
 import javafx.css.Styleable;
 import javafx.css.StyleableDoubleProperty;
 import javafx.css.StyleableProperty;
 import javafx.scene.control.Control;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import com.sun.javafx.css.converters.SizeConverter;
 
 /**
  * Base class for the progress indicator controls represented by circualr shapes
- * 
+ *
  * @author Andrea Vacondio
  *
  */
@@ -40,7 +45,7 @@ abstract class ProgressCircleIndicator extends Control {
     private ReadOnlyBooleanWrapper indeterminate = new ReadOnlyBooleanWrapper(false);
 
     public ProgressCircleIndicator() {
-        this.getStylesheets().add(ProgressCircleIndicator.class.getResource("/css/circleprogress.css").toExternalForm());
+        this.getStylesheets().add(ProgressCircleIndicator.class.getResource("circleprogress.css").toExternalForm());
     }
 
     public int getProgress() {
@@ -49,7 +54,7 @@ abstract class ProgressCircleIndicator extends Control {
 
     /**
      * Set the value for the progress, it cannot be more then 100 (meaning 100%). A negative value means indeterminate progress.
-     * 
+     *
      * @param progressValue
      * @see ProgressCircleIndicator#makeIndeterminate()
      */
@@ -142,7 +147,7 @@ abstract class ProgressCircleIndicator extends Control {
     public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {
         return StyleableProperties.STYLEABLES;
     }
-    
+
     @Override
     public List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
         return StyleableProperties.STYLEABLES;

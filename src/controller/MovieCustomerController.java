@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 
 public class MovieCustomerController implements Initializable, Consts {
     @FXML ImageView picture, ivMovie;
-    @FXML Label firstNameAndLastName, labelTitle, labelGenre, labelDirector, labelCast, labelPlot, price;
+    @FXML Label firstNameAndLastName, labelTitle, labelGenre, labelDirector, labelCast, labelPlot, price, duration;
     @FXML Pane pane;
     @FXML TextField tfNbrStudentDiscounts, tfNbrTickets;
 
@@ -145,7 +145,7 @@ public class MovieCustomerController implements Initializable, Consts {
 
             System.out.println("PAYMENT CUSTOMER");
             try{
-                SceneManager.loadScene("../view/customer-payment.fxml", 1100,800);  //TODO : MAKE IT WORK!!!!!
+                SceneManager.loadScene("../view/customer-payment.fxml", 959,262);
             }catch(Exception e){
                 System.out.println(e.getMessage());
             }
@@ -226,6 +226,7 @@ public class MovieCustomerController implements Initializable, Consts {
         labelGenre.setText(m.getGenre());
         labelDirector.setText(m.getDirector());
         labelCast.setText(m.getCast());
+        duration.setText(String.valueOf(m.getDuration()));
         /*String[] sentences = m.getPlot().split(".");
         StringBuilder plot = new StringBuilder();
         for(String s : sentences){

@@ -94,7 +94,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <TextField onKeyPressed="#displayPrice" fx:id="tfNbrStudentDiscounts" layoutX="824.0" layoutY="653.0" prefHeight="25.0" prefWidth="49.0" styleClass="tfNbrStudentDiscounts" />
+      <TextField fx:id="tfNbrStudentDiscounts" layoutX="824.0" layoutY="653.0" onKeyPressed="#displayPrice" prefHeight="25.0" prefWidth="49.0" styleClass="tfNbrStudentDiscounts" />
       <Button layoutX="795.0" layoutY="726.0" mnemonicParsing="false" onAction="#goToPayment" prefHeight="66.0" prefWidth="108.0" styleClass="buttonBuy" text="Buy">
          <font>
             <Font size="32.0" />
@@ -120,7 +120,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="price" layoutX="824.0" layoutY="687.0" styleClass="labelTotalPrice" >
+      <Label fx:id="price" layoutX="824.0" layoutY="687.0" styleClass="labelTotalPrice">
          <font>
             <Font size="25.0" />
          </font>
@@ -239,5 +239,20 @@
          </children>
       </VBox>
       <ImageView fx:id="ivMovie" fitHeight="292.0" fitWidth="239.0" layoutX="328.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true" />
+      <Label layoutX="339.0" layoutY="392.0" text="Duration:">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label fx:id="duration" layoutX="447.0" layoutY="392.0" prefHeight="36.0" prefWidth="49.0" styleClass="labelCast">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="496.0" layoutY="392.0" text="min">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

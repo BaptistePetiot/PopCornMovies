@@ -38,6 +38,7 @@ public class Cinema {
             rs = stmt.executeQuery("SELECT * FROM `Movies`");
             while(rs.next()){
                 int id = rs.getInt("Id");
+                int duration = rs.getInt("Duration");
                 String title = rs.getString("Title");
                 String genre = rs.getString("Genre");
                 String director = rs.getString("Director");
@@ -46,7 +47,7 @@ public class Cinema {
                 String imageURL = rs.getString("ImageURL");
 
                 //System.out.println(id + " | " + title + " | " + genre + " | " + director + " | " + cast + " | " + plot + " | " + imageURL);
-                movies.add(new Movie(id, title, genre, director, cast, plot, imageURL));
+                movies.add(new Movie(id, duration, title, genre, director, cast, plot, imageURL));
             }
 
             // fill customers

@@ -82,7 +82,7 @@
     -fx-background-color: #E63946;
 }
 
-.buttonImage{
+.buttonImage, .buttonBackToMovies{
     -fx-background-color: white;
     -fx-cursor: hand;
     -fx-text-fill: black;

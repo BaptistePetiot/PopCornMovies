@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (c) 2014, Andrea Vacondio
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package model;
+package org.pdfsam.ui;
 
 import javafx.scene.control.Skin;
 
 /**
  * Progress indicator showing a circle that fills
- * Tous les fichiers de ce package proviennent de compte GithUb de l'auteur :
+ *
  * @author Andrea Vacondio
  *
  */
 public class FillProgressIndicator extends ProgressCircleIndicator {
 
     public FillProgressIndicator() {
-        this.getStylesheets().add(RingProgressIndicator.class.getResource("/css/fillprogress.css").toExternalForm());
+        this.getStylesheets().add(RingProgressIndicator.class.getResource("fillprogress.css").toExternalForm());
         this.getStyleClass().add("fillindicator");
     }
 
