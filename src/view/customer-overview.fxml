@@ -22,20 +22,14 @@
             <Font size="25.0" />
          </font>
       </Button>
-      <ImageView fitHeight="689.0" fitWidth="500.0" layoutX="333.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../imgs/matrix.jpg" />
-         </image>
+      <ImageView fx:id="movie1" fitHeight="689.0" fitWidth="500.0" layoutX="333.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
       <Label layoutX="263.0" layoutY="99.0" rotate="-50.0" styleClass="discountAlert" text="-10% Summer discount">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <ImageView fitHeight="718.0" fitWidth="486.0" layoutX="850.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../imgs/satrwars.jpg" />
-         </image>
+      <ImageView fx:id="movie2" fitHeight="718.0" fitWidth="486.0" layoutX="850.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
       </ImageView>
       <VBox alignment="TOP_CENTER" layoutX="1.0" prefHeight="800.0" prefWidth="297.0" styleClass="menu">
          <children>
