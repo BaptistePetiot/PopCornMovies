@@ -154,8 +154,6 @@ public class MoviesEmployeeController implements Initializable {
             case "thriller" :
                 thriller();
                 break;
-
-
         }
     }
 
