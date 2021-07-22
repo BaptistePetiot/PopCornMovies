@@ -226,26 +226,23 @@ public class ControllerLogin{
                 while(rs.next()){
                     maxId = rs.getInt(1);
                 }
-
-                System.out.println("MAX ID : " + maxId);
-                int newId = maxId+1;
-                System.out.println("NEW ID : " + newId);
+                int nextId = maxId+1;
 
                 // inserting row in login table
-                String sqlINSERTStatement = "INSERT INTO `logins` (`Id`, `Email`, `Password`) VALUES (" + newId + ", '"  + emailSignup.getText() + "', '" + passwordSignup.getText() + "');";
+                String sqlINSERTStatement = "INSERT INTO `logins` (`Id`, `Email`, `Password`) VALUES (" + nextId + ", '"  + emailSignup.getText() + "', '" + passwordSignup.getText() + "');";
                 stmt.executeUpdate(sqlINSERTStatement);
 
                 if(isEmployee){
                     // inserting row in employee table
-                    sqlINSERTStatement = "INSERT INTO `Employees` (`IdLogins`, `LastName`, `Firstname`, `DateOfCreation`) VALUES (" + newId + ", '"  + lastName.getText() + "', '" + firstName.getText() + "', '" + date + "');";
+                    sqlINSERTStatement = "INSERT INTO `Employees` (`IdLogins`, `LastName`, `Firstname`, `DateOfCreation`) VALUES (" + nextId + ", '"  + lastName.getText() + "', '" + firstName.getText() + "', '" + date + "');";
                     stmt.executeUpdate(sqlINSERTStatement);
 
                     // inserting row in theme table
-                    sqlINSERTStatement = "INSERT INTO `Theme` (`IdLogins`, `themeNbr`) VALUES (" + newId + ", '0');";
+                    sqlINSERTStatement = "INSERT INTO `Theme` (`IdLogins`, `themeNbr`) VALUES (" + nextId + ", '0');";
                     stmt.executeUpdate(sqlINSERTStatement);
 
                     // inserting row in category table
-                    sqlINSERTStatement = "INSERT INTO `Category` (`IdLogins`, `categoryNbr`) VALUES (" + newId + ", '0');";
+                    sqlINSERTStatement = "INSERT INTO `Category` (`IdLogins`, `categoryNbr`) VALUES (" + nextId + ", '0');";
                     stmt.executeUpdate(sqlINSERTStatement);
 
                     // updating the array lists
@@ -255,15 +252,15 @@ public class ControllerLogin{
                     MailSender.sendMail(emailSignup.getText(), firstName.getText(), true);
                 }else{
                     // inserting row in customer table
-                    sqlINSERTStatement = "INSERT INTO `Customers` (`IdLogins`, `LastName`, `Firstname`, `DateOfCreation`) VALUES (" + newId + ", '"  + lastName.getText() + "', '" + firstName.getText() + "', '" + date + "');";
+                    sqlINSERTStatement = "INSERT INTO `Customers` (`IdLogins`, `LastName`, `Firstname`, `DateOfCreation`) VALUES (" + nextId + ", '"  + lastName.getText() + "', '" + firstName.getText() + "', '" + date + "');";
                     stmt.executeUpdate(sqlINSERTStatement);
 
                     // inserting row in theme table
-                    sqlINSERTStatement = "INSERT INTO `Theme` (`IdLogins`, `themeNbr`) VALUES (" + newId + ", '0');";
+                    sqlINSERTStatement = "INSERT INTO `Theme` (`IdLogins`, `themeNbr`) VALUES (" + nextId + ", '0');";
                     stmt.executeUpdate(sqlINSERTStatement);
 
                     // inserting row in category table
-                    sqlINSERTStatement = "INSERT INTO `Category` (`IdLogins`, `categoryNbr`) VALUES (" + newId + ", '0');";
+                    sqlINSERTStatement = "INSERT INTO `Category` (`IdLogins`, `categoryNbr`) VALUES (" + nextId + ", '0');";
                     stmt.executeUpdate(sqlINSERTStatement);
 
                     // updating the array lists
