@@ -3,7 +3,10 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -14,22 +17,54 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class NewMovieEmployeeController implements Initializable {
 
-    @FXML ImageView picture;
+    @FXML ImageView picture,newMoviePicture;
     @FXML Label firstNameAndLastName;
     @FXML Pane pane;
+    @FXML TextField newMovieTitle, newMovieGenre, newMovieDirector, newMovieCast, newMovieDuration, newMovieImage;
+    @FXML TextArea newMoviePlot;
 
     // credentials
     private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
     private final String user      = "root";
     private final String password  = "";
+
+    @FXML private void addMovie(){
+
+        System.out.println("ADD MOVIE");
+        try {
+            Connection connection = null;
+
+            // create a connection to the database
+            connection = DriverManager.getConnection(url, user, password);
+
+            // statement
+            Statement stmt=connection.createStatement();
+            ResultSet rs;
+
+            rs = stmt.executeQuery("SELECT MAX(`Id`) FROM `Movies`");
+
+            int maxId = 0;
+            while(rs.next()){
+                maxId = rs.getInt(1);
+            }
+            int nextId = maxId+1;
+            String sqlINSERTStatement = "INSERT INTO `Movies` (`Id`, `Title`, `Genre`, `Director`,`Cast`,`Plot`,`ImageURL`,`Duration`) VALUES (" + nextId + ", '"  + newMovieTitle.getText() + "', '" + newMovieGenre.getText() + "', '" + newMovieDirector + "', '" + newMovieCast.getText() + "', '" + newMoviePlot.getText() + "', '" + newMovieImage.getText() + "', '" + newMovieDuration.getText() + "');";
+            stmt.executeUpdate(sqlINSERTStatement);
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @FXML private void verifyPicture() {
+        String newImageURL = newMovieImage.getText();
+        newMoviePicture.setImage(new Image(newImageURL));
+    }
 
     private void loadPicture() throws Exception{
         File img = new File("picture.jpg");

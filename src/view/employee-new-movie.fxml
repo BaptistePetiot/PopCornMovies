@@ -12,44 +12,44 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewMovieEmployeeController">
+<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewMovieEmployeeController">
    <children>
       <Button layoutX="1351.0" layoutY="7.0" mnemonicParsing="false" onAction="#exit" styleClass="buttonExit" text="X">
          <font>
             <Font size="25.0" />
          </font>
       </Button>
-      <Button onAction="#goToMovies" layoutX="295.0" layoutY="7.0" mnemonicParsing="false" styleClass="buttonBack" text="&lt; back">
+      <Button layoutX="295.0" layoutY="7.0" mnemonicParsing="false" onAction="#goToMovies" styleClass="buttonBack" text="&lt; back">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Label layoutX="602.0" layoutY="83.0" text="Title : ">
+      <Label layoutX="606.0" layoutY="80.0" text="Title : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="602.0" layoutY="152.0" text="Genre : ">
+      <Label layoutX="606.0" layoutY="150.0" text="Genre : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="604.0" layoutY="230.0" text="Director : ">
+      <Label layoutX="606.0" layoutY="220.0" text="Director : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="607.0" layoutY="308.0" text="Cast : ">
+      <Label layoutX="606.0" layoutY="290.0" text="Cast : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="606.0" layoutY="385.0" text="Plot : ">
+      <Label layoutX="606.0" layoutY="360.0" text="Plot : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Button layoutX="783.0" layoutY="724.0" mnemonicParsing="false" prefHeight="69.0" prefWidth="206.0" styleClass="buttonAddMovie" text="Add Movie">
+      <Button layoutX="783.0" layoutY="724.0" mnemonicParsing="false" onAction="#addMovie" prefHeight="69.0" prefWidth="206.0" styleClass="buttonAddMovie" text="Add Movie">
          <font>
             <Font size="32.0" />
          </font>
@@ -69,12 +69,11 @@
             <Image url="@../imgs/film-strip.png" />
          </image>
       </ImageView>
-      <TextField layoutX="750.0" layoutY="89.0" prefHeight="25.0" prefWidth="309.0" styleClass="tfTitle" />
-      <TextField layoutX="751.0" layoutY="158.0" prefHeight="25.0" prefWidth="309.0" styleClass="tfGenre" />
-      <TextField layoutX="751.0" layoutY="236.0" prefHeight="25.0" prefWidth="309.0" styleClass="tfDirector" />
-      <TextField layoutX="751.0" layoutY="314.0" prefHeight="25.0" prefWidth="309.0" styleClass="tfCast" />
-      <TextArea layoutX="749.0" layoutY="393.0" prefHeight="290.0" prefWidth="599.0" />
-      <Button layoutX="348.0" layoutY="76.0" mnemonicParsing="false" prefHeight="344.0" prefWidth="230.0" styleClass="buttonImage" text="Add Image" />
+      <TextField fx:id="newMovieTitle" layoutX="750.0" layoutY="90.0" prefHeight="25.0" prefWidth="309.0" styleClass="tfTitle" />
+      <TextField fx:id="newMovieGenre" layoutX="751.0" layoutY="160.0" prefHeight="25.0" prefWidth="309.0" styleClass="tfGenre" />
+      <TextField fx:id="newMovieDirector" layoutX="751.0" layoutY="230.0" prefHeight="25.0" prefWidth="309.0" styleClass="tfDirector" />
+      <TextField fx:id="newMovieCast" layoutX="751.0" layoutY="300.0" prefHeight="25.0" prefWidth="309.0" styleClass="tfCast" />
+      <TextArea fx:id="newMoviePlot" layoutX="751.0" layoutY="370.0" prefHeight="153.0" prefWidth="560.0" />
       <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="297.0" styleClass="menu">
          <children>
             <ImageView fx:id="picture" fitHeight="164.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true" styleClass="picture">
@@ -242,5 +241,19 @@
             </Button>
          </children>
       </VBox>
+      <Label layoutX="606.0" layoutY="640.0" text="Image : ">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <Label layoutX="606.0" layoutY="570.0" text="Duration : ">
+         <font>
+            <Font size="25.0" />
+         </font>
+      </Label>
+      <TextField fx:id="newMovieDuration" layoutX="751.0" layoutY="580.0" prefHeight="25.0" prefWidth="309.0" styleClass="tfCast" />
+      <TextField fx:id="newMovieImage" layoutX="751.0" layoutY="650.0" prefHeight="25.0" prefWidth="309.0" styleClass="tfCast" />
+      <ImageView fx:id="newMoviePicture" fitHeight="239.0" fitWidth="187.0" layoutX="360.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="1098.0" layoutY="649.0" mnemonicParsing="false" onAction="#verifyPicture" text="verify" />
    </children>
 </Pane>

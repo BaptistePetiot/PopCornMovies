@@ -1,7 +1,7 @@
 CREATE TABLE `Logins` (Id integer(11), Email varchar(50), Password varchar(50), PRIMARY KEY(Id));
 CREATE TABLE `Customers` (IdLogins integer(11), LastName varchar(20), FirstName varchar(20), DateOfCreation date, FOREIGN KEY(IdLogins) REFERENCES Logins(Id));
 CREATE TABLE `Employees` (IdLogins integer(11), LastName varchar(20), FirstName varchar(20), DateOfCreation date, FOREIGN KEY(IdLogins) REFERENCES Logins(Id));
-CREATE TABLE `Movies` (Id integer(11), Title varchar(100), Genre varchar(100), Director varchar(100), Cast varchar(500), Plot varchar(10000), ImageURL varchar(500), Duration integer(5), PRIMARY KEY(Id),);
+CREATE TABLE `Movies` (Id integer(11), Title varchar(100), Genre varchar(100), Director varchar(100), Cast varchar(500), Plot varchar(10000), ImageURL varchar(500), Duration integer(5), PRIMARY KEY(Id));
 CREATE TABLE `Discounts` (Id integer(11), Name varchar(100), Amount varchar(5), Unit varchar(5), Status varchar(20), PRIMARY KEY(Id));
 CREATE TABLE `Purchases` (Id integer(11), IdLogins integer(11), IdMovies integer(11),Title varchar(100), NbrTickets integer(3), Date date, Price integer(3), PRIMARY KEY(Id), FOREIGN KEY(IdLogins) REFERENCES Logins(Id), FOREIGN KEY(IdMovies) REFERENCES Movies(Id));
 
