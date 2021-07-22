@@ -3,6 +3,7 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,11 +28,14 @@ public class RecordsEmployeeController implements Initializable {
     @FXML ImageView picture;
     @FXML Pane pane;
     @FXML VBox pnItems;
+    @FXML Button buttonCustomers, buttonEmployees;
 
     // credentials
     private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
     private final String user      = "root";
     private final String password  = "";
+
+    private boolean customersSelected;
 
     private void loadPicture() throws Exception{
         File img = new File("picture.jpg");
@@ -148,28 +152,23 @@ public class RecordsEmployeeController implements Initializable {
         }
     }
 
-    public void exit(ActionEvent actionEvent) { System.exit(0); }
+    @FXML
+    private void setRecordCustomers() {
+        customersSelected = true;
+        buttonEmployees.getStyleClass().remove("recordSelected");
+        buttonCustomers.getStyleClass().add("recordSelected");
+        showRecords();
+    }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        // load picture
-        try {
-            loadPicture();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    @FXML
+    private void setRecordEmployees() {
+        customersSelected = false;
+        buttonCustomers.getStyleClass().remove("recordSelected");
+        buttonEmployees.getStyleClass().add("recordSelected");
+        showRecords();
+    }
 
-        // theme
-        if(Me.getTheme() == 0){
-            pane.getStylesheets().remove("css/DarkTheme.css");
-            pane.getStylesheets().add("css/LightTheme.css");
-        }else if(Me.getTheme() == 1){
-            pane.getStylesheets().remove("css/LightTheme.css");
-            pane.getStylesheets().add("css/DarkTheme.css");
-        }
-
-        firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
-
+    private void showRecords(){
         // Retrieve records from DB
 
         // connect to DB
@@ -186,7 +185,13 @@ public class RecordsEmployeeController implements Initializable {
             // retrieve records
             pnItems.getChildren().clear();
 
-            rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, e.LastName, e.FirstName FROM `Purchases` as p,`Logins` as l, `Employees` as e WHERE p.IdLogins = l.Id AND l.Id = e.IdLogins");
+            if(customersSelected){
+                rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, c.LastName, c.FirstName FROM `Purchases` as p,`Logins` as l, `Customers` as c WHERE p.IdLogins = l.Id AND l.Id = c.IdLogins");
+            }else{
+                rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, e.LastName, e.FirstName FROM `Purchases` as p,`Logins` as l, `Employees` as e WHERE p.IdLogins = l.Id AND l.Id = e.IdLogins");
+            }
+
+
             while (rs.next()) {
                 String firstName = rs.getString("FirstName");
                 String lastName = rs.getString("LastName");
@@ -235,4 +240,33 @@ public class RecordsEmployeeController implements Initializable {
             System.out.println(e.getMessage());
         }
     }
+
+    public void exit(ActionEvent actionEvent) { System.exit(0); }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        customersSelected = true;
+        setRecordCustomers();
+
+        // load picture
+        try {
+            loadPicture();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // theme
+        if(Me.getTheme() == 0){
+            pane.getStylesheets().remove("css/DarkTheme.css");
+            pane.getStylesheets().add("css/LightTheme.css");
+        }else if(Me.getTheme() == 1){
+            pane.getStylesheets().remove("css/LightTheme.css");
+            pane.getStylesheets().add("css/DarkTheme.css");
+        }
+
+        firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
+
+        showRecords();
+    }
+
 }

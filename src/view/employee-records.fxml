@@ -258,5 +258,15 @@
             </Button>
          </children>
       </VBox>
+      <Button fx:id="buttonCustomers" onAction="#setRecordCustomers" layoutX="311.0" layoutY="16.0" mnemonicParsing="false" styleClass="buttonCustomers" text="Customers">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="buttonEmployees"  onAction="#setRecordEmployees" layoutX="421.0" layoutY="16.0" mnemonicParsing="false" styleClass="buttonEmployees" text="Employees">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

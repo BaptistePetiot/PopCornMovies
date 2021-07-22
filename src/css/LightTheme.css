@@ -103,3 +103,12 @@
     -fx-background-color: red;
     -fx-cursor: hand;
 }
+
+.buttonCustomers, .buttonEmployees{
+    -fx-background-color: white;
+    -fx-cursor: hand;
+}
+
+.recordSelected{
+    -fx-border-style: solid;
+}
