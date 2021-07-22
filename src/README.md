@@ -17,6 +17,7 @@ Baptiste Petiot
     
 
 ##### BONUSES:
+    - hand drawn logo
     - 2 themes
     - payment progress bar animation
     - profile picture saved to DB (adding and modifying)

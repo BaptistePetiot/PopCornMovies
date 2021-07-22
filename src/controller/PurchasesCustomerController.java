@@ -29,23 +29,18 @@ import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class PurchasesCustomerController implements Initializable {
-    @FXML
-    ImageView picture;
-    @FXML
-    Label firstNameAndLastName, thisMonth, thisYear, totalTickets;
-    @FXML
-    Pane pane;
-    @FXML
-    VBox pnItems;
+    @FXML ImageView picture;
+    @FXML Label firstNameAndLastName, thisMonth, thisYear, totalTickets;
+    @FXML Pane pane;
+    @FXML VBox pnItems;
 
     private int total, year, month;
+    private String date;
 
     // credentials
     private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
     private final String user = "root";
     private final String password = "";
-
-    private String date;
 
     public PurchasesCustomerController() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");

@@ -33,7 +33,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="117.0" prefWidth="163.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="45.0" prefWidth="166.0" styleClass="totalTickets" text="42">
+                  <Label fx:id="totalTickets" alignment="CENTER" prefHeight="45.0" prefWidth="166.0" styleClass="totalTickets">
                      <font>
                         <Font size="60.0" />
                      </font>
@@ -50,7 +50,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="117.0" prefWidth="163.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="45.0" prefWidth="166.0" styleClass="thisYear" text="25">
+                  <Label fx:id="thisYear" alignment="CENTER" prefHeight="45.0" prefWidth="166.0" styleClass="thisYear">
                      <font>
                         <Font size="60.0" />
                      </font>
@@ -67,7 +67,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="117.0" prefWidth="163.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="45.0" prefWidth="166.0" styleClass="thisMonth" text="7">
+                  <Label fx:id="thisMonth" alignment="CENTER" prefHeight="45.0" prefWidth="166.0" styleClass="thisMonth">
                      <font>
                         <Font size="60.0" />
                      </font>

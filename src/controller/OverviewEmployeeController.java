@@ -7,22 +7,22 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import model.Cinema;
 import model.Me;
+import model.Movie;
 import model.SceneManager;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class OverviewEmployeeController implements Initializable {
 
-    @FXML ImageView picture;
+    @FXML ImageView picture, movie1, movie2;
     @FXML Label firstNameAndLastName;
     @FXML Pane pane;
 
@@ -169,5 +169,42 @@ public class OverviewEmployeeController implements Initializable {
         }
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
+
+        // 2 MOST SEEN MOVIES
+        try{
+            // create a connection to the database
+            Connection connection = DriverManager.getConnection(url, user, password);
+            // statement
+            Statement stmt = connection.createStatement();
+
+            // get the 1st most seen movie
+            ResultSet rs = stmt.executeQuery("SELECT `NbrTickets`, Title, IdMovies, COUNT(*) AS count FROM Purchases GROUP BY NbrTickets ORDER BY count DESC;");
+            // SELECT * FROM `purchases` ORDER BY Title
+            int id1 = 0, id2 = 0;
+            int j = 0;
+            while(rs.next()){
+                if(j == 0){
+                    id1 = rs.getInt("IdMovies");
+                }else if(j == 1){
+                    id2 = rs.getInt("IdMovies");
+                }
+                j++;
+            }
+
+            Cinema.refresh();
+            ArrayList<Movie> movies = Cinema.getMovies();
+            for(Movie m : movies){
+                if(m.getId() == id1){
+                    Image im = new Image(m.getImageURL());
+                    movie1.setImage(im);
+                }else if(m.getId() == id2){
+                    Image im = new Image(m.getImageURL());
+                    movie2.setImage(im);
+                }
+            }
+
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
     }
 }
