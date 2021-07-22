@@ -6,7 +6,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import model.Me;
 import model.SceneManager;
 
@@ -14,10 +18,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class RecordsEmployeeController implements Initializable {
@@ -25,6 +26,7 @@ public class RecordsEmployeeController implements Initializable {
     @FXML Label firstNameAndLastName;
     @FXML ImageView picture;
     @FXML Pane pane;
+    @FXML VBox pnItems;
 
     // credentials
     private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
@@ -167,5 +169,70 @@ public class RecordsEmployeeController implements Initializable {
         }
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
+
+        // Retrieve records from DB
+
+        // connect to DB
+        Connection connection = null;
+
+        try {
+            // create a connection to the database
+            connection = DriverManager.getConnection(url, user, password);
+
+            // statement
+            Statement stmt = connection.createStatement();
+            ResultSet rs;
+
+            // retrieve records
+            pnItems.getChildren().clear();
+
+            rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, e.LastName, e.FirstName FROM `Purchases` as p,`Logins` as l, `Employees` as e WHERE p.IdLogins = l.Id AND l.Id = e.IdLogins");
+            while (rs.next()) {
+                String firstName = rs.getString("FirstName");
+                String lastName = rs.getString("LastName");
+                String email = rs.getString("Email");
+                String title = rs.getString("Title");
+                int nbrT = rs.getInt("NbrTickets");
+                String cinemaDate = rs.getString("Date");
+
+                GridPane gp = new GridPane();
+                ColumnConstraints cc1 = new ColumnConstraints(150);
+                ColumnConstraints cc2 = new ColumnConstraints(110);
+                ColumnConstraints cc3 = new ColumnConstraints(240);
+                ColumnConstraints cc4 = new ColumnConstraints(320);
+                ColumnConstraints cc5 = new ColumnConstraints(73);
+                ColumnConstraints cc6 = new ColumnConstraints(180);
+                gp.getColumnConstraints().addAll(cc1, cc2, cc3, cc4, cc5, cc6);
+
+                Label recordFirstName = new Label(firstName);
+                recordFirstName.setFont(new Font(25));
+                gp.add(recordFirstName,0,0);
+
+                Label recordLastName = new Label(lastName);
+                recordLastName.setFont(new Font(25));
+                gp.add(recordLastName,1,0);
+
+                Label recordEmail = new Label(email);
+                recordEmail.setFont(new Font(25));
+                gp.add(recordEmail,2,0);
+
+                Label recordTitle = new Label(title);
+                recordTitle.setFont(new Font(25));
+                gp.add(recordTitle,3,0);
+
+                Label recordNbrTickets = new Label(String.valueOf(nbrT));
+                recordNbrTickets.setFont(new Font(25));
+                gp.add(recordNbrTickets,4,0);
+
+                Label recordDate = new Label(cinemaDate);
+                recordDate.setFont(new Font(25));
+                gp.add(recordDate,5,0);
+
+                pnItems.getChildren().add(gp);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
