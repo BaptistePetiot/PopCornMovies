@@ -286,6 +286,8 @@ public class MoviesEmployeeController implements Initializable {
         dramaMoviesCoords = new HashMap<>();
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
+
+        all();
     }
 
     private void goToMovie(Movie m){
@@ -354,7 +356,6 @@ public class MoviesEmployeeController implements Initializable {
             allMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
-
         }
     }
 

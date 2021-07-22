@@ -105,6 +105,7 @@ public class MoviesGuestController implements Initializable {
         thrillerMoviesCoords = new HashMap<>();
         comedyMoviesCoords = new HashMap<>();
         dramaMoviesCoords = new HashMap<>();
+        all();
 
     }
 
@@ -127,7 +128,7 @@ public class MoviesGuestController implements Initializable {
         }
     }
 
-    public void all(ActionEvent actionEvent) {
+    public void all() {
         c = 0; r = 0;
         Cinema.refresh();
 

@@ -169,6 +169,7 @@ public class MoviesCustomerController implements Initializable {
         dramaMoviesCoords = new HashMap<>();
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
+        all();
     }
 
     private void goToMovie(Movie m){
@@ -190,7 +191,7 @@ public class MoviesCustomerController implements Initializable {
         }
     }
 
-    public void all(ActionEvent actionEvent) {
+    public void all() {
         c = 0; r = 0;
         Cinema.refresh();
 
