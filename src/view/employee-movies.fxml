@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MoviesEmployeeController">
+<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MoviesEmployeeController">
    <children>
       <Button layoutX="1351.0" mnemonicParsing="false" onAction="#exit" styleClass="buttonExit" text="X">
          <font>
@@ -40,17 +40,17 @@
       </ImageView>
       <SplitMenuButton fx:id="splitMenu" layoutX="311.0" layoutY="15.0" mnemonicParsing="false" styleClass="genreMenu" text="Genre">
         <items>
-          <MenuItem onAction="#all" mnemonicParsing="false" styleClass="genreMenuItem" text="All" />
-            <MenuItem onAction="#action" mnemonicParsing="false" styleClass="genreMenuItem" text="Action" />
-          <MenuItem onAction="#adventure" mnemonicParsing="false" styleClass="genreMenuItem" text="Adventure" />
-            <MenuItem onAction="#fantasy" mnemonicParsing="false" styleClass="genreMenuItem" text="Fantasy" />
-            <MenuItem onAction="#documentary" mnemonicParsing="false" styleClass="genreMenuItem" text="Documentary" />
-            <MenuItem onAction="#scifi" mnemonicParsing="false" styleClass="genreMenuItem" text="Science Fiction" />
-            <MenuItem onAction="#horror" mnemonicParsing="false" styleClass="genreMenuItem" text="Horror" />
-            <MenuItem onAction="#animation" mnemonicParsing="false" styleClass="genreMenuItem" text="Animation" />
-            <MenuItem onAction="#thriller" mnemonicParsing="false" styleClass="genreMenuItem" text="Thriller" />
-            <MenuItem onAction="#comedy" mnemonicParsing="false" styleClass="genreMenuItem" text="Comedy" />
-            <MenuItem onAction="#drama" mnemonicParsing="false" styleClass="genreMenuItem" text="Drama" />
+          <MenuItem mnemonicParsing="false" onAction="#all" styleClass="genreMenuItem" text="All" />
+            <MenuItem mnemonicParsing="false" onAction="#action" styleClass="genreMenuItem" text="Action" />
+          <MenuItem mnemonicParsing="false" onAction="#adventure" styleClass="genreMenuItem" text="Adventure" />
+            <MenuItem mnemonicParsing="false" onAction="#fantasy" styleClass="genreMenuItem" text="Fantasy" />
+            <MenuItem mnemonicParsing="false" onAction="#documentary" styleClass="genreMenuItem" text="Documentary" />
+            <MenuItem mnemonicParsing="false" onAction="#scifi" styleClass="genreMenuItem" text="Science Fiction" />
+            <MenuItem mnemonicParsing="false" onAction="#horror" styleClass="genreMenuItem" text="Horror" />
+            <MenuItem mnemonicParsing="false" onAction="#animation" styleClass="genreMenuItem" text="Animation" />
+            <MenuItem mnemonicParsing="false" onAction="#thriller" styleClass="genreMenuItem" text="Thriller" />
+            <MenuItem mnemonicParsing="false" onAction="#comedy" styleClass="genreMenuItem" text="Comedy" />
+            <MenuItem mnemonicParsing="false" onAction="#drama" styleClass="genreMenuItem" text="Drama" />
         </items>
       </SplitMenuButton>
       <ScrollPane hbarPolicy="NEVER" layoutX="310.0" layoutY="55.0" prefHeight="731.0" prefWidth="1077.0" vbarPolicy="ALWAYS">
@@ -132,7 +132,7 @@
             </GridPane>
          </content>
       </ScrollPane>
-      <Button layoutX="419.0" layoutY="12.0" mnemonicParsing="false" onAction="#minusMovie" styleClass="buttonMinus">
+      <Button fx:id="minus" layoutX="444.0" layoutY="12.0" mnemonicParsing="false" onAction="#selectMinus">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -140,8 +140,11 @@
                </image>
             </ImageView>
          </graphic>
+         <styleClass>
+            <String fx:value="buttonMinus" />
+         </styleClass>
       </Button>
-      <Button layoutX="497.0" layoutY="12.0" mnemonicParsing="false" onAction="#plusMovie" styleClass="buttonPlus">
+      <Button layoutX="516.0" layoutY="12.0" mnemonicParsing="false" onAction="#plusMovie" styleClass="buttonPlus">
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
                <image>

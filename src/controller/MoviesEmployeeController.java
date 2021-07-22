@@ -3,9 +3,7 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -20,10 +18,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -35,6 +30,7 @@ public class MoviesEmployeeController implements Initializable {
     @FXML SplitMenuButton splitMenu;
     @FXML GridPane gridMovies;
     @FXML Pane pane;
+    @FXML Button minus;
 
     // credentials
     private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
@@ -43,7 +39,7 @@ public class MoviesEmployeeController implements Initializable {
 
     private int c, r;
     private HashMap<Pair<Integer,Integer>, Movie> allMoviesCoords, actionMoviesCoords, adventureMoviesCoords, fantasyMoviesCoords, documentaryMoviesCoords, scifiMoviesCoords, horrorMoviesCoords, animationMoviesCoords, thrillerMoviesCoords, comedyMoviesCoords, dramaMoviesCoords;
-
+    private boolean minusSelected;
     private void loadPicture() throws Exception{
         File img = new File("picture.jpg");
         FileOutputStream ostreamImage = new FileOutputStream(img);
@@ -87,9 +83,80 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void minusMovie(ActionEvent actionEvent) {
-        System.out.println("minus");
-        System.out.println(gridMovies.getChildren());
+    @FXML public void selectMinus() {
+        if(minusSelected){
+            minusSelected = false;
+            minus.getStyleClass().remove("minusSelected");
+            minus.getStyleClass().add("minusNotSelected");
+        } else {
+            minusSelected = true;
+            minus.getStyleClass().remove("minusNotSelected");
+            minus.getStyleClass().add("minusSelected");
+        }
+    }
+
+    public void deleteMovie(Movie m,String option){
+
+        int idMovieDell = m.getId();
+        System.out.println(idMovieDell);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete your this movie ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+            // connect to DB
+            Connection connection = null;
+            try {
+                // create a connection to the database
+                connection = DriverManager.getConnection(url, user, password);
+
+                // statement
+                Statement stmt = connection.createStatement();
+
+                // delete movie
+                stmt.executeUpdate("DELETE FROM movies WHERE Id = " + idMovieDell);
+
+            }catch (SQLException e){
+                System.out.println(e.getMessage());
+            }
+        }
+        Cinema.refresh();
+        switch (option){
+            case "all" :
+                all();
+                break;
+            case "action" :
+                action();
+                break;
+            case "drama" :
+                drama();
+                break;
+            case "horror" :
+                horror();
+                break;
+            case "science fiction" :
+                scifi();
+                break;
+            case "documentary" :
+                documentary();
+                break;
+            case "animation" :
+                animation();
+                break;
+            case "comedy" :
+                comedy();
+                break;
+            case "fantasy" :
+                fantasy();
+                break;
+            case "adventure" :
+                adventure();
+                break;
+            case "thriller" :
+                thriller();
+                break;
+
+
+        }
     }
 
     public void goToMovie(ActionEvent actionEvent) {
@@ -188,6 +255,10 @@ public class MoviesEmployeeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //handle minus button
+        minusSelected = false;
+        minus.getStyleClass().add("minusNotSelected");
+
         // load picture
         try {
             loadPicture();
@@ -238,7 +309,7 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void all(ActionEvent actionEvent) {
+    public void all() {
         c = 0; r = 0;
         Cinema.refresh();
 
@@ -262,7 +333,12 @@ public class MoviesEmployeeController implements Initializable {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
                 System.out.println(allMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(allMoviesCoords.get(new Pair<>(x,y)));
+                if (minusSelected){
+                    deleteMovie(allMoviesCoords.get(new Pair<>(x,y)),"all");
+                }else{
+                    goToMovie(allMoviesCoords.get(new Pair<>(x,y)));
+                }
+
             });
 
             ImageView iv = new ImageView();
@@ -284,7 +360,7 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void action(ActionEvent actionEvent) {
+    public void action() {
         c = 0; r = 0;
         Cinema.refresh();
 
@@ -309,7 +385,11 @@ public class MoviesEmployeeController implements Initializable {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
                 System.out.println(actionMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(actionMoviesCoords.get(new Pair<>(x,y)));
+                if (minusSelected){
+                    deleteMovie(actionMoviesCoords.get(new Pair<>(x, y)),"action");
+                }else {
+                    goToMovie(actionMoviesCoords.get(new Pair<>(x, y)));
+                }
             });
 
             ImageView iv = new ImageView();
@@ -331,7 +411,7 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void adventure(ActionEvent actionEvent) {
+    public void adventure() {
         c = 0; r = 0;
         Cinema.refresh();
 
@@ -356,7 +436,11 @@ public class MoviesEmployeeController implements Initializable {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
                 System.out.println(adventureMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(adventureMoviesCoords.get(new Pair<>(x,y)));
+                if (minusSelected){
+                    deleteMovie(adventureMoviesCoords.get(new Pair<>(x, y)),"adventure");
+                }else {
+                    goToMovie(adventureMoviesCoords.get(new Pair<>(x, y)));
+                }
             });
 
             ImageView iv = new ImageView();
@@ -378,7 +462,7 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void fantasy(ActionEvent actionEvent) {
+    public void fantasy() {
         c = 0; r = 0;
         // refresh available movies
         Cinema.refresh();
@@ -404,7 +488,11 @@ public class MoviesEmployeeController implements Initializable {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
                 System.out.println(fantasyMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(fantasyMoviesCoords.get(new Pair<>(x,y)));
+                if (minusSelected){
+                    deleteMovie(fantasyMoviesCoords.get(new Pair<>(x, y)),"fantasy");
+                }else {
+                    goToMovie(fantasyMoviesCoords.get(new Pair<>(x, y)));
+                }
             });
 
             ImageView iv = new ImageView();
@@ -428,7 +516,7 @@ public class MoviesEmployeeController implements Initializable {
 
     }
 
-    public void documentary(ActionEvent actionEvent) {
+    public void documentary() {
         c = 0; r = 0;
         Cinema.refresh();
 
@@ -453,7 +541,11 @@ public class MoviesEmployeeController implements Initializable {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
                 System.out.println(documentaryMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(documentaryMoviesCoords.get(new Pair<>(x,y)));
+                if (minusSelected){
+                    deleteMovie(documentaryMoviesCoords.get(new Pair<>(x, y)),"documentary");
+                }else {
+                    goToMovie(documentaryMoviesCoords.get(new Pair<>(x, y)));
+                }
             });
 
             ImageView iv = new ImageView();
@@ -475,7 +567,7 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void scifi(ActionEvent actionEvent) {
+    public void scifi() {
         c = 0; r = 0;
         Cinema.refresh();
 
@@ -500,7 +592,11 @@ public class MoviesEmployeeController implements Initializable {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
                 System.out.println(scifiMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(scifiMoviesCoords.get(new Pair<>(x,y)));
+                if (minusSelected){
+                    deleteMovie(scifiMoviesCoords.get(new Pair<>(x, y)),"science fiction");
+                }else {
+                    goToMovie(scifiMoviesCoords.get(new Pair<>(x, y)));
+                }
             });
 
             ImageView iv = new ImageView();
@@ -522,7 +618,7 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void horror(ActionEvent actionEvent) {
+    public void horror() {
         c = 0; r = 0;
         Cinema.refresh();
 
@@ -547,7 +643,11 @@ public class MoviesEmployeeController implements Initializable {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
                 System.out.println(horrorMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(horrorMoviesCoords.get(new Pair<>(x,y)));
+                if (minusSelected){
+                    deleteMovie(horrorMoviesCoords.get(new Pair<>(x, y)), "horror");
+                }else {
+                    goToMovie(horrorMoviesCoords.get(new Pair<>(x, y)));
+                }
             });
 
             ImageView iv = new ImageView();
@@ -570,7 +670,7 @@ public class MoviesEmployeeController implements Initializable {
 
     }
 
-    public void animation(ActionEvent actionEvent) {
+    public void animation() {
         c = 0; r = 0;
         Cinema.refresh();
 
@@ -595,7 +695,11 @@ public class MoviesEmployeeController implements Initializable {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
                 System.out.println(animationMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(animationMoviesCoords.get(new Pair<>(x,y)));
+                if (minusSelected){
+                    deleteMovie(animationMoviesCoords.get(new Pair<>(x, y)),"animation");
+                }else {
+                    goToMovie(animationMoviesCoords.get(new Pair<>(x, y)));
+                }
             });
 
             ImageView iv = new ImageView();
@@ -616,7 +720,7 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void thriller(ActionEvent actionEvent) {
+    public void thriller() {
         c = 0; r = 0;
         Cinema.refresh();
 
@@ -641,7 +745,11 @@ public class MoviesEmployeeController implements Initializable {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
                 System.out.println(thrillerMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(thrillerMoviesCoords.get(new Pair<>(x,y)));
+                if (minusSelected){
+                    deleteMovie(thrillerMoviesCoords.get(new Pair<>(x, y)),"thriller");
+                }else {
+                    goToMovie(thrillerMoviesCoords.get(new Pair<>(x, y)));
+                }
             });
 
             ImageView iv = new ImageView();
@@ -663,7 +771,7 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void comedy(ActionEvent actionEvent) {
+    public void comedy() {
         c = 0; r = 0;
         Cinema.refresh();
 
@@ -688,7 +796,11 @@ public class MoviesEmployeeController implements Initializable {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
                 System.out.println(comedyMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(comedyMoviesCoords.get(new Pair<>(x,y)));
+                if (minusSelected){
+                    deleteMovie(comedyMoviesCoords.get(new Pair<>(x, y)),"comedy");
+                }else {
+                    goToMovie(comedyMoviesCoords.get(new Pair<>(x, y)));
+                }
             });
 
             ImageView iv = new ImageView();
@@ -709,7 +821,7 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void drama(ActionEvent actionEvent) {
+    public void drama() {
         c = 0;
         r = 0;
         Cinema.refresh();
@@ -735,7 +847,11 @@ public class MoviesEmployeeController implements Initializable {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
                 System.out.println(dramaMoviesCoords.get(new Pair<>(x, y)).getTitle());
-                goToMovie(dramaMoviesCoords.get(new Pair<>(x, y)));
+                if (minusSelected){
+                    deleteMovie(dramaMoviesCoords.get(new Pair<>(x, y)),"drama");
+                }else {
+                    goToMovie(dramaMoviesCoords.get(new Pair<>(x, y)));
+                }
             });
 
             ImageView iv = new ImageView();

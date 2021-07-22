@@ -93,3 +93,13 @@
     -fx-background-color: white;
     -fx-cursor: hand;
 }
+
+.minusNotSelected{
+    -fx-background-color: white;
+    -fx-cursor: hand;
+}
+
+.minusSelected{
+    -fx-background-color: red;
+    -fx-cursor: hand;
+}
