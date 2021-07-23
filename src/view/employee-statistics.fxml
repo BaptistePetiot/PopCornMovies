@@ -46,7 +46,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <LineChart layoutX="329.0" layoutY="196.0" styleClass="lineChart">
+      <LineChart fx:id="lineChart" layoutX="329.0" layoutY="196.0" styleClass="lineChart">
         <xAxis>
           <CategoryAxis side="BOTTOM" />
         </xAxis>
@@ -54,13 +54,13 @@
           <NumberAxis side="LEFT" />
         </yAxis>
       </LineChart>
-      <PieChart layoutX="897.0" layoutY="202.0" prefHeight="366.0" prefWidth="478.0" styleClass="pieChart" />
+      <PieChart fx:id="pieChart" layoutX="897.0" layoutY="202.0" prefHeight="366.0" prefWidth="478.0" styleClass="pieChart" />
       <Label layoutX="579.0" layoutY="579.0" text="time">
          <font>
             <Font size="17.0" />
          </font>
       </Label>
-      <Label layoutX="268.0" layoutY="372.0" rotate="-90.0" text="nbr movies seen">
+      <Label layoutX="268.0" layoutY="372.0" rotate="-90.0" text="nbr of movies seen">
          <font>
             <Font size="17.0" />
          </font>

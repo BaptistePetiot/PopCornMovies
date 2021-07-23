@@ -1,12 +1,20 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import model.Me;
 import model.SceneManager;
 
@@ -18,6 +26,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Observable;
 import java.util.ResourceBundle;
 
 public class StatisticsEmployeeController implements Initializable {
@@ -25,6 +34,8 @@ public class StatisticsEmployeeController implements Initializable {
     @FXML ImageView picture;
     @FXML Label firstNameAndLastName;
     @FXML Pane pane;
+    @FXML PieChart pieChart;
+    @FXML LineChart lineChart;
 
     // credentials
     private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
@@ -148,6 +159,14 @@ public class StatisticsEmployeeController implements Initializable {
 
     public void exit(ActionEvent actionEvent) { System.exit(0);}
 
+    private void applyCustomColorSequence(ObservableList<PieChart.Data> pieChartData, String... pieColors) {
+        int i = 0;
+        for (PieChart.Data data : pieChartData) {
+            data.getNode().setStyle("-fx-pie-color: " + pieColors[i % pieColors.length] + ";");
+            i++;
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // load picture
@@ -168,7 +187,49 @@ public class StatisticsEmployeeController implements Initializable {
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
 
-        // display stats
+        // DISPLAY STATS
+        // retrieve nbr of tickets bought for each genre
 
+        PieChart.Data sliceAction = new PieChart.Data("Action",10);
+        PieChart.Data sliceAdventure = new PieChart.Data("Adventure", 10);
+        PieChart.Data sliceFantasy = new PieChart.Data("Fantasy",10);
+        PieChart.Data sliceDocumentary = new PieChart.Data("Documentary", 10);
+        PieChart.Data sliceSciFi = new PieChart.Data("SciFi",10);
+        PieChart.Data sliceHorror = new PieChart.Data("Horror", 10);
+        PieChart.Data sliceAnimation = new PieChart.Data("Animation",10);
+        PieChart.Data sliceThriller = new PieChart.Data("Thriller", 10);
+        PieChart.Data sliceComedy = new PieChart.Data("Comedy",10);
+        PieChart.Data sliceDrama = new PieChart.Data("Drama", 10);
+
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                sliceAction,
+                sliceAdventure,
+                sliceFantasy,
+                sliceDocumentary,
+                sliceSciFi,
+                sliceHorror,
+                sliceAnimation,
+                sliceThriller,
+                sliceComedy,
+                sliceDrama
+        );
+
+        pieChart.getData().addAll(sliceAction, sliceAdventure, sliceFantasy, sliceDocumentary, sliceSciFi, sliceHorror, sliceAnimation, sliceThriller, sliceComedy, sliceDrama);
+        pieChart.setStartAngle(90);
+        pieChart.setLegendVisible(false);
+
+        applyCustomColorSequence(
+                pieChartData,
+                "#FDAC53",
+                "#9BB7D4",
+                "#B55A30",
+                "#F5DF4D",
+                "#0072B5",
+                "#A0DAA9",
+                "#E9897E",
+                "#00A170",
+                "#926AA6",
+                "#D2386C"
+        );
     }
 }
