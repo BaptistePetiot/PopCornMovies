@@ -23,4 +23,5 @@ Baptiste Petiot
     - profile picture saved to DB (adding and modifying)
     - email (signup for customer and employee + for tickets at each purchase)
     - charts
+    - months bellow the line chart (x ticks) are dynamically generated depending on today's date
     
