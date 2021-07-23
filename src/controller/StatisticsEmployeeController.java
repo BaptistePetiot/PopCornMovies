@@ -50,7 +50,7 @@ public class StatisticsEmployeeController implements Initializable {
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(now);
-
+        month = new Month(cal.get(Calendar.MONTH) + 1);
     }
 
     private void loadPicture() throws Exception{
