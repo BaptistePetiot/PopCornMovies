@@ -10,67 +10,67 @@ public class Month {
     public Month(int month){
         this.month = month;
 
-        if(this.month == 0){
+        if(this.month == 1){
             this.m1 = 12;
         }else{
             this.m1 = month - 1;
         }
 
-        if(this.m1 == 0){
+        if(this.m1 == 1){
             this.m2 = 12;
         }else{
             this.m2 = m1 - 1;
         }
 
-        if(this.m2 == 0){
+        if(this.m2 == 1){
             this.m3 = 12;
         }else{
             this.m3 = m2 - 1;
         }
 
-        if(this.m3 == 0){
+        if(this.m3 == 1){
             this.m4 = 0;
         }else{
             this.m4 = m3 - 1;
         }
 
-        if(this.m4 == 0){
+        if(this.m4 == 1){
             this.m5 = 12;
         }else{
             this.m5 = m4 - 1;
         }
 
-        if(this.m5 == 0){
+        if(this.m5 == 1){
             this.m6 = 12;
         }else{
             this.m6 = m5 - 1;
         }
 
-        if(this.m6 == 0){
+        if(this.m6 == 1){
             this.m7 = 12;
         }else{
             this.m7 = m6 - 1;
         }
 
-        if(this.m7 == 0){
+        if(this.m7 == 1){
             this.m8 = 12;
         }else{
             this.m8 = m7 - 1;
         }
 
-        if(this.m8 == 0){
+        if(this.m8 == 1){
             this.m9 = 12;
         }else{
             this.m9 = m8 - 1;
         }
 
-        if(this.m9 == 0){
+        if(this.m9 == 1){
             this.m10 = 12;
         }else{
             this.m10 = m9 - 1;
         }
 
-        if(this.m10 == 0){
+        if(this.m10 == 1){
             this.m11 = 12;
         }else{
             this.m11 = m10 - 1;

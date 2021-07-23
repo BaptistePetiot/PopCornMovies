@@ -50,7 +50,6 @@ public class StatisticsEmployeeController implements Initializable {
 
         Calendar cal = Calendar.getInstance();
         cal.setTime(now);
-        month = new Month(cal.get(Calendar.MONTH) + 1);
 
     }
 
@@ -277,8 +276,8 @@ public class StatisticsEmployeeController implements Initializable {
                     "#D2386C"
             );
 
-            //line chart
-            // instanciating new line chart
+            // line chart
+            //instanciating new line chart
             final CategoryAxis xAxis = new CategoryAxis();
             final NumberAxis yAxis = new NumberAxis();
             xAxis.setLabel("Month");
@@ -286,6 +285,20 @@ public class StatisticsEmployeeController implements Initializable {
             final LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);
             lineChart.setLayoutX(329.0);
             lineChart.setLayoutY(196.0);
+
+            //x ticks
+            String one = month.previous2letters(11);
+            String two = month.previous2letters(10);
+            String three = month.previous2letters(9);
+            String four = month.previous2letters(8);
+            String five = month.previous2letters(7);
+            String six = month.previous2letters(6);
+            String seven = month.previous2letters(5);
+            String eight = month.previous2letters(4);
+            String nine = month.previous2letters(3);
+            String ten = month.previous2letters(2);
+            String eleven = month.previous2letters(1);
+            String twelve = month.current2letters();
 
             // employees
             int m11_e = 0, m10_e = 0, m9_e = 0, m8_e = 0, m7_e = 0, m6_e = 0, m5_e = 0, m4_e = 0, m3_e = 0, m2_e = 0, m1_e = 0, mCurrent_e = 0;
@@ -315,35 +328,22 @@ public class StatisticsEmployeeController implements Initializable {
             rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(11) + " AND p.IdLogins IN (SELECT IdLogins FROM Employees)");
             while(rs.next()){ m11_e = rs.getInt(1); }
 
-            //defining series
+            //defining employees series
             XYChart.Series seriesEmployees = new XYChart.Series();
             seriesEmployees.setName("Employees");
 
-            /*seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(11), m11));
-            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(10), m10));
-            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(9), m9));
-            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(8), m8));
-            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(7), m7));
-            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(6), m6));
-            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(5), m5));
-            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(4), m4));
-            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(3), m3));
-            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(2), m2));
-            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(1), m1));
-            seriesEmployees.getData().add(new XYChart.Data(month.current2letters(), mCurrent));*/
-
-            seriesEmployees.getData().add(new XYChart.Data("m-11", m11_e));
-            seriesEmployees.getData().add(new XYChart.Data("m-10", m10_e));
-            seriesEmployees.getData().add(new XYChart.Data("m-9", m9_e));
-            seriesEmployees.getData().add(new XYChart.Data("m-8", m8_e));
-            seriesEmployees.getData().add(new XYChart.Data("m-7", m7_e));
-            seriesEmployees.getData().add(new XYChart.Data("m-6", m6_e));
-            seriesEmployees.getData().add(new XYChart.Data("m-5", m5_e));
-            seriesEmployees.getData().add(new XYChart.Data("m-4", m4_e));
-            seriesEmployees.getData().add(new XYChart.Data("m-3", m3_e));
-            seriesEmployees.getData().add(new XYChart.Data("m-2", m2_e));
-            seriesEmployees.getData().add(new XYChart.Data("m-1", m1_e));
-            seriesEmployees.getData().add(new XYChart.Data("m", mCurrent_e));
+            seriesEmployees.getData().add(new XYChart.Data(one, m11_e));
+            seriesEmployees.getData().add(new XYChart.Data(two, m10_e));
+            seriesEmployees.getData().add(new XYChart.Data(three, m9_e));
+            seriesEmployees.getData().add(new XYChart.Data(four, m8_e));
+            seriesEmployees.getData().add(new XYChart.Data(five, m7_e));
+            seriesEmployees.getData().add(new XYChart.Data(six, m6_e));
+            seriesEmployees.getData().add(new XYChart.Data(seven, m5_e));
+            seriesEmployees.getData().add(new XYChart.Data(eight, m4_e));
+            seriesEmployees.getData().add(new XYChart.Data(nine, m3_e));
+            seriesEmployees.getData().add(new XYChart.Data(ten, m2_e));
+            seriesEmployees.getData().add(new XYChart.Data(eleven, m1_e));
+            seriesEmployees.getData().add(new XYChart.Data(twelve, mCurrent_e));
 
             // customers
 
@@ -374,21 +374,22 @@ public class StatisticsEmployeeController implements Initializable {
             rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(11) + " AND p.IdLogins IN (SELECT IdLogins FROM Customers)");
             while(rs.next()){ m11_c = rs.getInt(1); }
 
+            // defining customers series
             XYChart.Series seriesCustomers = new XYChart.Series();
             seriesCustomers.setName("Customers");
 
-            seriesCustomers.getData().add(new XYChart.Data("m-11", m11_c));
-            seriesCustomers.getData().add(new XYChart.Data("m-10", m10_c));
-            seriesCustomers.getData().add(new XYChart.Data("m-9", m9_c));
-            seriesCustomers.getData().add(new XYChart.Data("m-8", m8_c));
-            seriesCustomers.getData().add(new XYChart.Data("m-7", m7_c));
-            seriesCustomers.getData().add(new XYChart.Data("m-6", m6_c));
-            seriesCustomers.getData().add(new XYChart.Data("m-5", m5_c));
-            seriesCustomers.getData().add(new XYChart.Data("m-4", m4_c));
-            seriesCustomers.getData().add(new XYChart.Data("m-3", m3_c));
-            seriesCustomers.getData().add(new XYChart.Data("m-2", m2_c));
-            seriesCustomers.getData().add(new XYChart.Data("m-1", m1_c));
-            seriesCustomers.getData().add(new XYChart.Data("m", mCurrent_c));
+            seriesCustomers.getData().add(new XYChart.Data(one, m11_c));
+            seriesCustomers.getData().add(new XYChart.Data(two, m10_c));
+            seriesCustomers.getData().add(new XYChart.Data(three, m9_c));
+            seriesCustomers.getData().add(new XYChart.Data(four, m8_c));
+            seriesCustomers.getData().add(new XYChart.Data(five, m7_c));
+            seriesCustomers.getData().add(new XYChart.Data(six, m6_c));
+            seriesCustomers.getData().add(new XYChart.Data(seven, m5_c));
+            seriesCustomers.getData().add(new XYChart.Data(eight, m4_c));
+            seriesCustomers.getData().add(new XYChart.Data(nine, m3_c));
+            seriesCustomers.getData().add(new XYChart.Data(ten, m2_c));
+            seriesCustomers.getData().add(new XYChart.Data(eleven, m1_c));
+            seriesCustomers.getData().add(new XYChart.Data(twelve, mCurrent_c));
 
             lineChart.getData().addAll(seriesEmployees, seriesCustomers);
 

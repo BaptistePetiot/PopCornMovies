@@ -22,3 +22,5 @@ Baptiste Petiot
     - payment progress bar animation
     - profile picture saved to DB (adding and modifying)
     - email (signup for customer and employee + for tickets at each purchase)
+    - charts
+    
