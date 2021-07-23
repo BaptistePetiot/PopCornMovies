@@ -7,8 +7,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.PieChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -16,6 +15,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import model.Me;
+import model.Month;
 import model.SceneManager;
 
 import java.io.File;
@@ -23,6 +23,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
@@ -32,12 +34,25 @@ public class StatisticsEmployeeController implements Initializable {
     @FXML Label firstNameAndLastName;
     @FXML Pane pane;
     @FXML PieChart pieChart;
-    @FXML LineChart lineChart;
+    //@FXML LineChart lineChart;
 
     // credentials
     private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
     private final String user      = "root";
     private final String password  = "";
+
+    private Month month;
+
+    public StatisticsEmployeeController(){
+        //SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
+        Date now = new Date(System.currentTimeMillis());
+        //this.month = formatter.format(now);
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(now);
+        month = new Month(cal.get(Calendar.MONTH) + 1);
+
+    }
 
     private void loadPicture() throws Exception{
         File img = new File("picture.jpg");
@@ -185,6 +200,8 @@ public class StatisticsEmployeeController implements Initializable {
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
 
         // DISPLAY STATS
+        // pie chart
+
         // retrieve nbr of tickets bought for each genre
         int nbrAction=0, nbrAdventure=0, nbrFantasy=0, nbrDocumentary=0, nbrSciFi=0, nbrHorror=0, nbrAnimation=0, nbrThriller=0, nbrComedy=0, nbrDrama=0;
 
@@ -218,53 +235,122 @@ public class StatisticsEmployeeController implements Initializable {
             rs = stmt.executeQuery("SELECT SUM(p.NbrTickets), m.Genre FROM Purchases as p, Movies as m WHERE p.IdMovies = m.Id AND m.Genre = 'Drama'");
             while(rs.next()){ nbrDrama = rs.getInt(1); }
 
+            PieChart.Data sliceAction = new PieChart.Data("Action",nbrAction);
+            PieChart.Data sliceAdventure = new PieChart.Data("Adventure", nbrAdventure);
+            PieChart.Data sliceFantasy = new PieChart.Data("Fantasy",nbrFantasy);
+            PieChart.Data sliceDocumentary = new PieChart.Data("Documentary", nbrDocumentary);
+            PieChart.Data sliceSciFi = new PieChart.Data("SciFi",nbrSciFi);
+            PieChart.Data sliceHorror = new PieChart.Data("Horror", nbrHorror);
+            PieChart.Data sliceAnimation = new PieChart.Data("Animation",nbrAnimation);
+            PieChart.Data sliceThriller = new PieChart.Data("Thriller", nbrThriller);
+            PieChart.Data sliceComedy = new PieChart.Data("Comedy",nbrComedy);
+            PieChart.Data sliceDrama = new PieChart.Data("Drama", nbrDrama);
+
+            ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                    sliceAction,
+                    sliceAdventure,
+                    sliceFantasy,
+                    sliceDocumentary,
+                    sliceSciFi,
+                    sliceHorror,
+                    sliceAnimation,
+                    sliceThriller,
+                    sliceComedy,
+                    sliceDrama
+            );
+
+            pieChart.getData().addAll(sliceAction, sliceAdventure, sliceFantasy, sliceDocumentary, sliceSciFi, sliceHorror, sliceAnimation, sliceThriller, sliceComedy, sliceDrama);
+            pieChart.setStartAngle(90);
+            pieChart.setLegendVisible(false);
+
+            applyCustomColorSequence(
+                    pieChartData,
+                    "#FDAC53",
+                    "#9BB7D4",
+                    "#B55A30",
+                    "#F5DF4D",
+                    "#0072B5",
+                    "#A0DAA9",
+                    "#E9897E",
+                    "#00A170",
+                    "#926AA6",
+                    "#D2386C"
+            );
+
+            //line chart
+            int m11 = 0, m10 = 0, m9 = 0, m8 = 0, m7 = 0, m6 = 0, m5 = 0, m4 = 0, m3 = 0, m2 = 0, m1 = 0, mCurrent = 0;
+
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.current());
+            while(rs.next()){ mCurrent = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(1));
+            while(rs.next()){ m1 = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(2));
+            while(rs.next()){ m2 = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(3));
+            while(rs.next()){ m3 = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(4));
+            while(rs.next()){ m4 = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(5));
+            while(rs.next()){ m5 = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(6));
+            while(rs.next()){ m6 = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(7));
+            while(rs.next()){ m7 = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(8));
+            while(rs.next()){ m8 = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(9));
+            while(rs.next()){ m9 = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(10));
+            while(rs.next()){ m10 = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(11));
+            while(rs.next()){ m11 = rs.getInt(1); }
+
+            // instanciating new line chart
+            final CategoryAxis xAxis = new CategoryAxis();
+            final NumberAxis yAxis = new NumberAxis();
+            xAxis.setLabel("Month");
+            yAxis.setLabel("Nbr of tickets bought");
+            final LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);
+            lineChart.setLayoutX(329.0);
+            lineChart.setLayoutY(196.0);
+
+            //defining a series
+            XYChart.Series seriesEmployees = new XYChart.Series();
+            seriesEmployees.setName("Employees");
+
+            /*seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(11), m11));
+            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(10), m10));
+            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(9), m9));
+            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(8), m8));
+            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(7), m7));
+            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(6), m6));
+            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(5), m5));
+            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(4), m4));
+            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(3), m3));
+            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(2), m2));
+            seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(1), m1));
+            seriesEmployees.getData().add(new XYChart.Data(month.current2letters(), mCurrent));*/
+
+            seriesEmployees.getData().add(new XYChart.Data("m-11", m11));
+            seriesEmployees.getData().add(new XYChart.Data("m-10", m10));
+            seriesEmployees.getData().add(new XYChart.Data("m-9", m9));
+            seriesEmployees.getData().add(new XYChart.Data("m-8", m8));
+            seriesEmployees.getData().add(new XYChart.Data("m-7", m7));
+            seriesEmployees.getData().add(new XYChart.Data("m-6", m6));
+            seriesEmployees.getData().add(new XYChart.Data("m-5", m5));
+            seriesEmployees.getData().add(new XYChart.Data("m-4", m4));
+            seriesEmployees.getData().add(new XYChart.Data("m-3", m3));
+            seriesEmployees.getData().add(new XYChart.Data("m-2", m2));
+            seriesEmployees.getData().add(new XYChart.Data("m-1", m1));
+            seriesEmployees.getData().add(new XYChart.Data("m", mCurrent));
+
+            lineChart.getData().add(seriesEmployees);
+
+            pane.getChildren().add(lineChart);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-
-
-
-        PieChart.Data sliceAction = new PieChart.Data("Action",nbrAction);
-        PieChart.Data sliceAdventure = new PieChart.Data("Adventure", nbrAdventure);
-        PieChart.Data sliceFantasy = new PieChart.Data("Fantasy",nbrFantasy);
-        PieChart.Data sliceDocumentary = new PieChart.Data("Documentary", nbrDocumentary);
-        PieChart.Data sliceSciFi = new PieChart.Data("SciFi",nbrSciFi);
-        PieChart.Data sliceHorror = new PieChart.Data("Horror", nbrHorror);
-        PieChart.Data sliceAnimation = new PieChart.Data("Animation",nbrAnimation);
-        PieChart.Data sliceThriller = new PieChart.Data("Thriller", nbrThriller);
-        PieChart.Data sliceComedy = new PieChart.Data("Comedy",nbrComedy);
-        PieChart.Data sliceDrama = new PieChart.Data("Drama", nbrDrama);
-
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                sliceAction,
-                sliceAdventure,
-                sliceFantasy,
-                sliceDocumentary,
-                sliceSciFi,
-                sliceHorror,
-                sliceAnimation,
-                sliceThriller,
-                sliceComedy,
-                sliceDrama
-        );
-
-        pieChart.getData().addAll(sliceAction, sliceAdventure, sliceFantasy, sliceDocumentary, sliceSciFi, sliceHorror, sliceAnimation, sliceThriller, sliceComedy, sliceDrama);
-        pieChart.setStartAngle(90);
-        pieChart.setLegendVisible(false);
-
-        applyCustomColorSequence(
-                pieChartData,
-                "#FDAC53",
-                "#9BB7D4",
-                "#B55A30",
-                "#F5DF4D",
-                "#0072B5",
-                "#A0DAA9",
-                "#E9897E",
-                "#00A170",
-                "#926AA6",
-                "#D2386C"
-        );
     }
 }
