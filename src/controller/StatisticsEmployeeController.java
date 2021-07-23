@@ -167,5 +167,8 @@ public class StatisticsEmployeeController implements Initializable {
         }
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
+
+        // display stats
+
     }
 }

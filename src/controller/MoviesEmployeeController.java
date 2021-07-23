@@ -99,7 +99,7 @@ public class MoviesEmployeeController implements Initializable {
 
         int idMovieDell = m.getId();
         System.out.println(idMovieDell);
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete your this movie ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this movie ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {

@@ -90,8 +90,11 @@
       </Label>
       <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="297.0" styleClass="menu">
          <children>
-            <ImageView fx:id="picture" fitHeight="164.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true"
-                       styleClass="picture"/>
+            <ImageView fx:id="picture" fitHeight="164.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true" styleClass="picture">
+               <image>
+                  <Image url="@../imgs/circle.png" />
+               </image>
+            </ImageView>
             <Label fx:id="firstNameAndLastName" text="FirstName&amp;LastName">
                <font>
                   <Font size="15.0" />
