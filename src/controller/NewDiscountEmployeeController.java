@@ -3,16 +3,15 @@ package controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import model.Me;
 import model.SceneManager;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -20,51 +19,16 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class NewMovieEmployeeController implements Initializable {
-
-    @FXML ImageView picture,newMoviePicture;
+public class NewDiscountEmployeeController implements Initializable {
+    @FXML ImageView picture;
     @FXML Label firstNameAndLastName;
     @FXML Pane pane;
-    @FXML TextField newMovieTitle, newMovieGenre, newMovieDirector, newMovieCast, newMovieDuration, newMovieImage;
-    @FXML TextArea newMoviePlot;
+    @FXML TextField newDiscountName, newDiscountAmount, newDiscountUnit, newDiscountStatus;
 
     // credentials
     private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
     private final String user      = "root";
     private final String password  = "";
-
-    @FXML private void addMovie(){
-
-        System.out.println("ADD MOVIE");
-        try {
-            Connection connection = null;
-
-            // create a connection to the database
-            connection = DriverManager.getConnection(url, user, password);
-
-            // statement
-            Statement stmt=connection.createStatement();
-            ResultSet rs;
-
-            rs = stmt.executeQuery("SELECT MAX(`Id`) FROM `Movies`");
-
-            int maxId = 0;
-            while(rs.next()){
-                maxId = rs.getInt(1);
-            }
-            int nextId = maxId+1;
-            String sqlINSERTStatement = "INSERT INTO `Movies` (`Id`, `Title`, `Genre`, `Director`,`Cast`,`Plot`,`ImageURL`,`Duration`) VALUES (" + nextId + ", '"  + newMovieTitle.getText() + "', '" + newMovieGenre.getText() + "', '" + newMovieDirector.getText() + "', '" + newMovieCast.getText() + "', '" + newMoviePlot.getText() + "', '" + newMovieImage.getText() + "', '" + newMovieDuration.getText() + "');";
-            stmt.executeUpdate(sqlINSERTStatement);
-
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    @FXML private void verifyPicture() {
-        String newImageURL = newMovieImage.getText();
-        newMoviePicture.setImage(new Image(newImageURL));
-    }
 
     private void loadPicture() throws Exception{
         File img = new File("picture.jpg");
@@ -77,7 +41,7 @@ public class NewMovieEmployeeController implements Initializable {
             PreparedStatement ps = connection.prepareStatement("SELECT picture FROM pictures WHERE IdLogins=?");
 
             try{
-                ps.setInt(1,Me.getId());
+                ps.setInt(1, Me.getId());
                 ResultSet rs = ps.executeQuery();
 
                 try{
@@ -106,6 +70,33 @@ public class NewMovieEmployeeController implements Initializable {
         }
         finally{
             ostreamImage.close();
+        }
+    }
+
+    @FXML private void addDiscount(){
+        System.out.println("ADD DISCOUNT");
+        try {
+            Connection connection = null;
+
+            // create a connection to the database
+            connection = DriverManager.getConnection(url, user, password);
+
+            // statement
+            Statement stmt=connection.createStatement();
+            ResultSet rs;
+
+            rs = stmt.executeQuery("SELECT MAX(`Id`) FROM `Discounts`");
+
+            int maxId = 0;
+            while(rs.next()){
+                maxId = rs.getInt(1);
+            }
+            int nextId = maxId+1;
+            String sqlINSERTStatement = "INSERT INTO `Discounts` (`Id`, `Name`, `Amount`, `Unit`,`Status`) VALUES (" + nextId + ", '"  + newDiscountName.getText() + "', '" + newDiscountAmount.getText() + "', '" + newDiscountUnit.getText() + "', '" + newDiscountStatus.getText() + "');";
+            stmt.executeUpdate(sqlINSERTStatement);
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -181,7 +172,7 @@ public class NewMovieEmployeeController implements Initializable {
         }
     }
 
-    public void exit(ActionEvent actionEvent) { System.exit(0);}
+    public void exit(ActionEvent actionEvent) { System.exit(0); }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

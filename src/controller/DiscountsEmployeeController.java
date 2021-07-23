@@ -6,7 +6,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import model.Me;
 import model.SceneManager;
 
@@ -14,16 +18,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class DiscountsEmployeeController implements Initializable {
     @FXML ImageView picture;
     @FXML Label firstNameAndLastName;
     @FXML Pane pane;
+    @FXML VBox pnItems;
 
     // credentials
     private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
@@ -70,6 +72,15 @@ public class DiscountsEmployeeController implements Initializable {
         }
         finally{
             ostreamImage.close();
+        }
+    }
+
+    @FXML private void goToNewDiscount(){
+        System.out.println("NEW DISCOUNT");
+        try{
+            SceneManager.loadScene("../view/employee-new-discount.fxml", 1400,800);
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }
 
@@ -166,5 +177,57 @@ public class DiscountsEmployeeController implements Initializable {
         }
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
+
+        // Retrieve discounts from BD
+        // connect to DB
+        Connection connection = null;
+
+        try {
+            // create a connection to the database
+            connection = DriverManager.getConnection(url, user, password);
+
+            // statement
+            Statement stmt = connection.createStatement();
+            ResultSet rs;
+            pnItems.getChildren().clear();
+
+            rs = stmt.executeQuery("SELECT Name, Amount, Unit, Status FROM `Discounts`");
+            while (rs.next()) {
+                String Name = rs.getString("Name");
+                String Amount = rs.getString("Amount");
+                String Unit = rs.getString("Unit");
+                String Status = rs.getString("Status");
+
+
+                GridPane gp = new GridPane();
+                ColumnConstraints cc1 = new ColumnConstraints(525);
+                ColumnConstraints cc2 = new ColumnConstraints(160);
+                ColumnConstraints cc3 = new ColumnConstraints(130);
+                ColumnConstraints cc4 = new ColumnConstraints(100);
+
+                gp.getColumnConstraints().addAll(cc1, cc2, cc3, cc4);
+
+                Label discountName = new Label(Name);
+                discountName.setFont(new Font(25));
+                gp.add(discountName,0,0);
+
+                Label discountAmount = new Label(Amount);
+                discountAmount.setFont(new Font(25));
+                gp.add(discountAmount,1,0);
+
+                Label discountUnit = new Label(Unit);
+                discountUnit.setFont(new Font(25));
+                gp.add(discountUnit,2,0);
+
+                Label discountStatus = new Label(Status);
+                discountStatus.setFont(new Font(25));
+                gp.add(discountStatus,3,0);
+
+                pnItems.getChildren().add(gp);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

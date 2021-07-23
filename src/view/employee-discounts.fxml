@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DiscountsEmployeeController">
+<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.DiscountsEmployeeController">
    <children>
       <Label layoutX="778.0" layoutY="5.0" prefHeight="45.0" prefWidth="142.0" text="Discounts">
          <font>
@@ -75,7 +75,7 @@
             <Font size="25.0" />
          </font>
       </Button>
-      <Button layoutX="1303.0" layoutY="74.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="55.0">
+      <Button layoutX="1303.0" layoutY="74.0" mnemonicParsing="false" onAction="#goToNewDiscount" prefHeight="53.0" prefWidth="55.0">
          <graphic>
             <ImageView fitHeight="39.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" styleClass="buttonPlus">
                <image>
