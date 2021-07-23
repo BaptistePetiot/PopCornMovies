@@ -35,7 +35,7 @@ public class RecordsEmployeeController implements Initializable {
     private final String user      = "root";
     private final String password  = "";
 
-    private boolean customersSelected;
+    private boolean customersSelected, orderByEmail, orderByTitle, orderByNbrTickets, orderByDate;
 
     private void loadPicture() throws Exception{
         File img = new File("picture.jpg");
@@ -168,6 +168,38 @@ public class RecordsEmployeeController implements Initializable {
         showRecords();
     }
 
+    public void orderByEmail(ActionEvent actionEvent) {
+        orderByDate = false;
+        orderByEmail = true;
+        orderByNbrTickets = false;
+        orderByTitle = false;
+        showRecords();
+    }
+
+    public void orderByTitle(ActionEvent actionEvent) {
+        orderByDate = false;
+        orderByEmail = false;
+        orderByNbrTickets = false;
+        orderByTitle = true;
+        showRecords();
+    }
+
+    public void orderByNbrTickets(ActionEvent actionEvent) {
+        orderByDate = false;
+        orderByEmail = false;
+        orderByNbrTickets = true;
+        orderByTitle = false;
+        showRecords();
+    }
+
+    public void orderByDate(ActionEvent actionEvent) {
+        orderByDate = true;
+        orderByEmail = false;
+        orderByNbrTickets = false;
+        orderByTitle = false;
+        showRecords();
+    }
+
     private void showRecords(){
         // Retrieve records from DB
 
@@ -180,15 +212,39 @@ public class RecordsEmployeeController implements Initializable {
 
             // statement
             Statement stmt = connection.createStatement();
-            ResultSet rs;
+            ResultSet rs = null;
 
             // retrieve records
             pnItems.getChildren().clear();
 
             if(customersSelected){
-                rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, c.LastName, c.FirstName FROM `Purchases` as p,`Logins` as l, `Customers` as c WHERE p.IdLogins = l.Id AND l.Id = c.IdLogins");
+                if(orderByEmail){
+                    System.out.println("Customers : order by email addresses");
+                    rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, c.LastName, c.FirstName FROM `Purchases` as p,`Logins` as l, `Customers` as c WHERE p.IdLogins = l.Id AND l.Id = c.IdLogins ORDER BY l.Email");
+                }else if(orderByTitle){
+                    System.out.println("Customers : order by movie titles");
+                    rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, c.LastName, c.FirstName FROM `Purchases` as p,`Logins` as l, `Customers` as c WHERE p.IdLogins = l.Id AND l.Id = c.IdLogins ORDER BY p.Title");
+                }else if(orderByNbrTickets){
+                    System.out.println("Customers : order by nbr of tickets");
+                    rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, c.LastName, c.FirstName FROM `Purchases` as p,`Logins` as l, `Customers` as c WHERE p.IdLogins = l.Id AND l.Id = c.IdLogins ORDER BY p.NbrTickets");
+                }else if(orderByDate){
+                    System.out.println("Customers : order by date");
+                    rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, c.LastName, c.FirstName FROM `Purchases` as p,`Logins` as l, `Customers` as c WHERE p.IdLogins = l.Id AND l.Id = c.IdLogins ORDER BY p.Date");
+                }
             }else{
-                rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, e.LastName, e.FirstName FROM `Purchases` as p,`Logins` as l, `Employees` as e WHERE p.IdLogins = l.Id AND l.Id = e.IdLogins");
+                if(orderByEmail){
+                    System.out.println("Employees : order by email addresses");
+                    rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, e.LastName, e.FirstName FROM `Purchases` as p,`Logins` as l, `Employees` as e WHERE p.IdLogins = l.Id AND l.Id = e.IdLogins ORDER BY l.Email");
+                }else if(orderByTitle){
+                    System.out.println("Employees : order by movie titles");
+                    rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, e.LastName, e.FirstName FROM `Purchases` as p,`Logins` as l, `Employees` as e WHERE p.IdLogins = l.Id AND l.Id = e.IdLogins ORDER BY p.Title");
+                }else if(orderByNbrTickets){
+                    System.out.println("Employees : order by nbr of tickets");
+                    rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, e.LastName, e.FirstName FROM `Purchases` as p,`Logins` as l, `Employees` as e WHERE p.IdLogins = l.Id AND l.Id = e.IdLogins ORDER BY p.NbrTickets");
+                }else if(orderByDate){
+                    System.out.println("Employees : order by date");
+                    rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, e.LastName, e.FirstName FROM `Purchases` as p,`Logins` as l, `Employees` as e WHERE p.IdLogins = l.Id AND l.Id = e.IdLogins ORDER BY p.Date");
+                }
             }
 
 
@@ -245,6 +301,11 @@ public class RecordsEmployeeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        orderByDate = true;
+        orderByEmail = false;
+        orderByNbrTickets = false;
+        orderByTitle = false;
+
         customersSelected = true;
         setRecordCustomers();
 
@@ -268,5 +329,4 @@ public class RecordsEmployeeController implements Initializable {
 
         showRecords();
     }
-
 }
