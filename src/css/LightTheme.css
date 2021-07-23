@@ -112,14 +112,3 @@
 .recordSelected{
     -fx-border-style: solid;
 }
-
-.default-color0.chart-pie{ -fx-pie-color: #07A0C3; }
-.default-color1.chart-pie{ -fx-pie-color: #F0C808; }
-.default-color2.chart-pie{ -fx-pie-color: #FFF1D0; }
-.default-color3.chart-pie{ -fx-pie-color: #DD1C1A; }
-.default-color4.chart-pie{ -fx-pie-color: #49A078; }
-.default-color5.chart-pie{ -fx-pie-color: #CE84AD; }
-.default-color6.chart-pie{ -fx-pie-color: #474973; }
-.default-color7.chart-pie{ -fx-pie-color: #F56200; }
-.default-color8.chart-pie{ -fx-pie-color: #779CAB; }
-.default-color9.chart-pie{ -fx-pie-color: #046B76; }

@@ -22,10 +22,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.Observable;
 import java.util.ResourceBundle;
 
@@ -189,17 +186,55 @@ public class StatisticsEmployeeController implements Initializable {
 
         // DISPLAY STATS
         // retrieve nbr of tickets bought for each genre
+        int nbrAction=0, nbrAdventure=0, nbrFantasy=0, nbrDocumentary=0, nbrSciFi=0, nbrHorror=0, nbrAnimation=0, nbrThriller=0, nbrComedy=0, nbrDrama=0;
 
-        PieChart.Data sliceAction = new PieChart.Data("Action",10);
-        PieChart.Data sliceAdventure = new PieChart.Data("Adventure", 10);
-        PieChart.Data sliceFantasy = new PieChart.Data("Fantasy",10);
-        PieChart.Data sliceDocumentary = new PieChart.Data("Documentary", 10);
-        PieChart.Data sliceSciFi = new PieChart.Data("SciFi",10);
-        PieChart.Data sliceHorror = new PieChart.Data("Horror", 10);
-        PieChart.Data sliceAnimation = new PieChart.Data("Animation",10);
-        PieChart.Data sliceThriller = new PieChart.Data("Thriller", 10);
-        PieChart.Data sliceComedy = new PieChart.Data("Comedy",10);
-        PieChart.Data sliceDrama = new PieChart.Data("Drama", 10);
+        // create a connection to the database
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(url, user, password);
+
+            // statement
+            Statement stmt=connection.createStatement();
+            ResultSet rs;
+
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets), m.Genre FROM Purchases as p, Movies as m WHERE p.IdMovies = m.Id AND m.Genre = 'Action'");
+            while(rs.next()){ nbrAction = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets), m.Genre FROM Purchases as p, Movies as m WHERE p.IdMovies = m.Id AND m.Genre = 'Adventure'");
+            while(rs.next()){ nbrAdventure = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets), m.Genre FROM Purchases as p, Movies as m WHERE p.IdMovies = m.Id AND m.Genre = 'Fantasy'");
+            while(rs.next()){ nbrFantasy = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets), m.Genre FROM Purchases as p, Movies as m WHERE p.IdMovies = m.Id AND m.Genre = 'Documentary'");
+            while(rs.next()){ nbrDocumentary = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets), m.Genre FROM Purchases as p, Movies as m WHERE p.IdMovies = m.Id AND m.Genre = 'Science Fiction'");
+            while(rs.next()){ nbrSciFi = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets), m.Genre FROM Purchases as p, Movies as m WHERE p.IdMovies = m.Id AND m.Genre = 'Horror'");
+            while(rs.next()){ nbrHorror = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets), m.Genre FROM Purchases as p, Movies as m WHERE p.IdMovies = m.Id AND m.Genre = 'Animation'");
+            while(rs.next()){ nbrAnimation = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets), m.Genre FROM Purchases as p, Movies as m WHERE p.IdMovies = m.Id AND m.Genre = 'Thriller'");
+            while(rs.next()){ nbrThriller = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets), m.Genre FROM Purchases as p, Movies as m WHERE p.IdMovies = m.Id AND m.Genre = 'Comedy'");
+            while(rs.next()){ nbrComedy = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets), m.Genre FROM Purchases as p, Movies as m WHERE p.IdMovies = m.Id AND m.Genre = 'Drama'");
+            while(rs.next()){ nbrDrama = rs.getInt(1); }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+        PieChart.Data sliceAction = new PieChart.Data("Action",nbrAction);
+        PieChart.Data sliceAdventure = new PieChart.Data("Adventure", nbrAdventure);
+        PieChart.Data sliceFantasy = new PieChart.Data("Fantasy",nbrFantasy);
+        PieChart.Data sliceDocumentary = new PieChart.Data("Documentary", nbrDocumentary);
+        PieChart.Data sliceSciFi = new PieChart.Data("SciFi",nbrSciFi);
+        PieChart.Data sliceHorror = new PieChart.Data("Horror", nbrHorror);
+        PieChart.Data sliceAnimation = new PieChart.Data("Animation",nbrAnimation);
+        PieChart.Data sliceThriller = new PieChart.Data("Thriller", nbrThriller);
+        PieChart.Data sliceComedy = new PieChart.Data("Comedy",nbrComedy);
+        PieChart.Data sliceDrama = new PieChart.Data("Drama", nbrDrama);
 
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
                 sliceAction,
