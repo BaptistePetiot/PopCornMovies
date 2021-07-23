@@ -278,33 +278,6 @@ public class StatisticsEmployeeController implements Initializable {
             );
 
             //line chart
-            int m11 = 0, m10 = 0, m9 = 0, m8 = 0, m7 = 0, m6 = 0, m5 = 0, m4 = 0, m3 = 0, m2 = 0, m1 = 0, mCurrent = 0;
-
-            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.current());
-            while(rs.next()){ mCurrent = rs.getInt(1); }
-            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(1));
-            while(rs.next()){ m1 = rs.getInt(1); }
-            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(2));
-            while(rs.next()){ m2 = rs.getInt(1); }
-            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(3));
-            while(rs.next()){ m3 = rs.getInt(1); }
-            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(4));
-            while(rs.next()){ m4 = rs.getInt(1); }
-            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(5));
-            while(rs.next()){ m5 = rs.getInt(1); }
-            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(6));
-            while(rs.next()){ m6 = rs.getInt(1); }
-            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(7));
-            while(rs.next()){ m7 = rs.getInt(1); }
-            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(8));
-            while(rs.next()){ m8 = rs.getInt(1); }
-            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(9));
-            while(rs.next()){ m9 = rs.getInt(1); }
-            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(10));
-            while(rs.next()){ m10 = rs.getInt(1); }
-            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(11));
-            while(rs.next()){ m11 = rs.getInt(1); }
-
             // instanciating new line chart
             final CategoryAxis xAxis = new CategoryAxis();
             final NumberAxis yAxis = new NumberAxis();
@@ -314,7 +287,35 @@ public class StatisticsEmployeeController implements Initializable {
             lineChart.setLayoutX(329.0);
             lineChart.setLayoutY(196.0);
 
-            //defining a series
+            // employees
+            int m11_e = 0, m10_e = 0, m9_e = 0, m8_e = 0, m7_e = 0, m6_e = 0, m5_e = 0, m4_e = 0, m3_e = 0, m2_e = 0, m1_e = 0, mCurrent_e = 0;
+
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.current() + " AND p.IdLogins IN (SELECT IdLogins FROM Employees)");
+            while(rs.next()){ mCurrent_e = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(1) + " AND p.IdLogins IN (SELECT IdLogins FROM Employees)");
+            while(rs.next()){ m1_e = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(2) + " AND p.IdLogins IN (SELECT IdLogins FROM Employees)");
+            while(rs.next()){ m2_e = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(3) + " AND p.IdLogins IN (SELECT IdLogins FROM Employees)");
+            while(rs.next()){ m3_e = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(4) + " AND p.IdLogins IN (SELECT IdLogins FROM Employees)");
+            while(rs.next()){ m4_e = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(5) + " AND p.IdLogins IN (SELECT IdLogins FROM Employees)");
+            while(rs.next()){ m5_e = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(6) + " AND p.IdLogins IN (SELECT IdLogins FROM Employees)");
+            while(rs.next()){ m6_e = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(7) + " AND p.IdLogins IN (SELECT IdLogins FROM Employees)");
+            while(rs.next()){ m7_e = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(8) + " AND p.IdLogins IN (SELECT IdLogins FROM Employees)");
+            while(rs.next()){ m8_e = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(9) + " AND p.IdLogins IN (SELECT IdLogins FROM Employees)");
+            while(rs.next()){ m9_e = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(10) + " AND p.IdLogins IN (SELECT IdLogins FROM Employees)");
+            while(rs.next()){ m10_e = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(11) + " AND p.IdLogins IN (SELECT IdLogins FROM Employees)");
+            while(rs.next()){ m11_e = rs.getInt(1); }
+
+            //defining series
             XYChart.Series seriesEmployees = new XYChart.Series();
             seriesEmployees.setName("Employees");
 
@@ -331,20 +332,65 @@ public class StatisticsEmployeeController implements Initializable {
             seriesEmployees.getData().add(new XYChart.Data(month.previous2letters(1), m1));
             seriesEmployees.getData().add(new XYChart.Data(month.current2letters(), mCurrent));*/
 
-            seriesEmployees.getData().add(new XYChart.Data("m-11", m11));
-            seriesEmployees.getData().add(new XYChart.Data("m-10", m10));
-            seriesEmployees.getData().add(new XYChart.Data("m-9", m9));
-            seriesEmployees.getData().add(new XYChart.Data("m-8", m8));
-            seriesEmployees.getData().add(new XYChart.Data("m-7", m7));
-            seriesEmployees.getData().add(new XYChart.Data("m-6", m6));
-            seriesEmployees.getData().add(new XYChart.Data("m-5", m5));
-            seriesEmployees.getData().add(new XYChart.Data("m-4", m4));
-            seriesEmployees.getData().add(new XYChart.Data("m-3", m3));
-            seriesEmployees.getData().add(new XYChart.Data("m-2", m2));
-            seriesEmployees.getData().add(new XYChart.Data("m-1", m1));
-            seriesEmployees.getData().add(new XYChart.Data("m", mCurrent));
+            seriesEmployees.getData().add(new XYChart.Data("m-11", m11_e));
+            seriesEmployees.getData().add(new XYChart.Data("m-10", m10_e));
+            seriesEmployees.getData().add(new XYChart.Data("m-9", m9_e));
+            seriesEmployees.getData().add(new XYChart.Data("m-8", m8_e));
+            seriesEmployees.getData().add(new XYChart.Data("m-7", m7_e));
+            seriesEmployees.getData().add(new XYChart.Data("m-6", m6_e));
+            seriesEmployees.getData().add(new XYChart.Data("m-5", m5_e));
+            seriesEmployees.getData().add(new XYChart.Data("m-4", m4_e));
+            seriesEmployees.getData().add(new XYChart.Data("m-3", m3_e));
+            seriesEmployees.getData().add(new XYChart.Data("m-2", m2_e));
+            seriesEmployees.getData().add(new XYChart.Data("m-1", m1_e));
+            seriesEmployees.getData().add(new XYChart.Data("m", mCurrent_e));
 
-            lineChart.getData().add(seriesEmployees);
+            // customers
+
+            int m11_c = 0, m10_c = 0, m9_c = 0, m8_c = 0, m7_c = 0, m6_c = 0, m5_c = 0, m4_c = 0, m3_c = 0, m2_c = 0, m1_c = 0, mCurrent_c = 0;
+
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.current() + " AND p.IdLogins IN (SELECT IdLogins FROM Customers)");
+            while(rs.next()){ mCurrent_c = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(1) + " AND p.IdLogins IN (SELECT IdLogins FROM Customers)");
+            while(rs.next()){ m1_c = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(2) + " AND p.IdLogins IN (SELECT IdLogins FROM Customers)");
+            while(rs.next()){ m2_c = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(3) + " AND p.IdLogins IN (SELECT IdLogins FROM Customers)");
+            while(rs.next()){ m3_c = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(4) + " AND p.IdLogins IN (SELECT IdLogins FROM Customers)");
+            while(rs.next()){ m4_c = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(5) + " AND p.IdLogins IN (SELECT IdLogins FROM Customers)");
+            while(rs.next()){ m5_c = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(6) + " AND p.IdLogins IN (SELECT IdLogins FROM Customers)");
+            while(rs.next()){ m6_c = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(7) + " AND p.IdLogins IN (SELECT IdLogins FROM Customers)");
+            while(rs.next()){ m7_c = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(8) + " AND p.IdLogins IN (SELECT IdLogins FROM Customers)");
+            while(rs.next()){ m8_c = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(9) + " AND p.IdLogins IN (SELECT IdLogins FROM Customers)");
+            while(rs.next()){ m9_c = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(10) + " AND p.IdLogins IN (SELECT IdLogins FROM Customers)");
+            while(rs.next()){ m10_c = rs.getInt(1); }
+            rs = stmt.executeQuery("SELECT SUM(p.NbrTickets) FROM Purchases as p WHERE MONTH(p.Date) = " + month.previous(11) + " AND p.IdLogins IN (SELECT IdLogins FROM Customers)");
+            while(rs.next()){ m11_c = rs.getInt(1); }
+
+            XYChart.Series seriesCustomers = new XYChart.Series();
+            seriesCustomers.setName("Customers");
+
+            seriesCustomers.getData().add(new XYChart.Data("m-11", m11_c));
+            seriesCustomers.getData().add(new XYChart.Data("m-10", m10_c));
+            seriesCustomers.getData().add(new XYChart.Data("m-9", m9_c));
+            seriesCustomers.getData().add(new XYChart.Data("m-8", m8_c));
+            seriesCustomers.getData().add(new XYChart.Data("m-7", m7_c));
+            seriesCustomers.getData().add(new XYChart.Data("m-6", m6_c));
+            seriesCustomers.getData().add(new XYChart.Data("m-5", m5_c));
+            seriesCustomers.getData().add(new XYChart.Data("m-4", m4_c));
+            seriesCustomers.getData().add(new XYChart.Data("m-3", m3_c));
+            seriesCustomers.getData().add(new XYChart.Data("m-2", m2_c));
+            seriesCustomers.getData().add(new XYChart.Data("m-1", m1_c));
+            seriesCustomers.getData().add(new XYChart.Data("m", mCurrent_c));
+
+            lineChart.getData().addAll(seriesEmployees, seriesCustomers);
 
             pane.getChildren().add(lineChart);
 
