@@ -9,14 +9,20 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import model.Cinema;
-import model.MailSender;
-import model.Me;
-import model.SceneManager;
+import model.*;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 
 public class ControllerLogin{
     //private Cinema cinema;
@@ -40,11 +46,36 @@ public class ControllerLogin{
     private final String user      = "root";
     private final String password  = "";
 
-    public ControllerLogin() {
+    public ControllerLogin() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, InvalidAlgorithmParameterException, NoSuchPaddingException {
+        // handle date
         this.isEmployee = false;
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
         Date now = new Date(System.currentTimeMillis());
         this.date = formatter.format(now);
+
+        /*
+        // Encryption test
+        System.out.println(" ENCRYPTION ");
+        String input = "jarvis";
+
+        SecretKey key = PasswordEncrypterDecrypter.generateKey();
+        byte[] iv = PasswordEncrypterDecrypter.generateIv();
+        IvParameterSpec ivParameterSpec = PasswordEncrypterDecrypter.generateIvParameterSpec(iv);
+
+        System.out.println(" SAVE TO DB ");
+        String cipherPassword = PasswordEncrypterDecrypter.encrypt(input, key, ivParameterSpec);
+        String s = PasswordEncrypterDecrypter.secretKey2String(key);
+        String ivString = PasswordEncrypterDecrypter.array2String(iv);
+        System.out.println("password : " + cipherPassword + " , key : " + s + " , iv : " + ivString);
+
+        System.out.println(" DECRYPTION ");
+        byte[] iv2Array = PasswordEncrypterDecrypter.string2Array(ivString);
+        IvParameterSpec iv2 = new IvParameterSpec(iv2Array);
+        SecretKey key2 = PasswordEncrypterDecrypter.string2SecretKey(s);
+        String clearPassword = PasswordEncrypterDecrypter.decrypt(cipherPassword, key2, iv2);
+        System.out.println("password : " + clearPassword);
+        */
+
     }
 
     @FXML
@@ -70,7 +101,8 @@ public class ControllerLogin{
 
             // check email
             String email = emailLogin.getText();
-            String clearPassword = passwordLogin.getText();
+            String password = passwordLogin.getText();
+            String clearPassword = "", cipherPassword = "", ivString = "";
             if(email.contains("@") && email.contains(".")){ // check email format
                 rs=stmt.executeQuery("SELECT `Email` FROM logins");
                 while(rs.next()){
@@ -84,12 +116,26 @@ public class ControllerLogin{
                 System.out.println("Email invalid or unknown");
             }else{
                 // check password
-                rs=stmt.executeQuery("SELECT `Password` FROM logins WHERE Email = '" + email + "';");
+                // retrieve cipherPassword + key from DB
+                rs=stmt.executeQuery("SELECT `HashPassword`, `KeyPassword`, `IV` FROM logins WHERE Email = '" + email + "';");
+                String keyPassword = "";
                 while(rs.next()){
-                    String s = rs.getString(1);
-                    if(s.equals(clearPassword)){
-                        passwordOK = true;
-                    }
+                    cipherPassword = rs.getString("HashPassword");
+                    keyPassword = rs.getString("KeyPassword");
+                    ivString = rs.getString("IV");
+                }
+
+
+
+                // CRYPTO
+                // decrypt
+                byte[] ivArray = PasswordEncrypterDecrypter.string2Array(ivString);
+                IvParameterSpec iv = new IvParameterSpec(ivArray);
+                SecretKey key = PasswordEncrypterDecrypter.string2SecretKey(keyPassword);
+                clearPassword = PasswordEncrypterDecrypter.decrypt(cipherPassword, key, iv);
+
+                if(clearPassword.equals(password)){
+                    passwordOK = true;
                 }
             }
             if(!passwordOK){
@@ -100,7 +146,7 @@ public class ControllerLogin{
                 // detect whether the user connecting is a customer or an employee
                 boolean isCustomer = true;
                 int nbrRows = 0;
-                rs = stmt.executeQuery("SELECT * FROM Customers WHERE IdLogins = (SELECT `Id` FROM logins WHERE Email = '" + email + "'AND Password = '" + clearPassword + "');");
+                rs = stmt.executeQuery("SELECT * FROM Customers WHERE IdLogins = (SELECT `Id` FROM logins WHERE Email = '" + email + "'AND HashPassword = '" + cipherPassword + "');");
 
                 int customerId = 0;
                 String customerLastName, customerFirstName;
@@ -129,7 +175,7 @@ public class ControllerLogin{
                 }
 
                 if(nbrRows == 0){
-                    rs = stmt.executeQuery("SELECT * FROM Employees WHERE IdLogins = (SELECT `Id` FROM logins WHERE Email = '" + email + "'AND Password = '" + clearPassword + "');");
+                    rs = stmt.executeQuery("SELECT * FROM Employees WHERE IdLogins = (SELECT `Id` FROM logins WHERE Email = '" + email + "'AND HashPassword = '" + cipherPassword + "');");
                     int employeeId = 0;
                     String employeeLastName, employeeFirstName;
                     while(rs.next()){
@@ -171,6 +217,18 @@ public class ControllerLogin{
         } catch(SQLException e) {
             System.out.println(e.getMessage());
             // add popup
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeyException e) {
+            e.printStackTrace();
+        } catch (InvalidAlgorithmParameterException e) {
+            e.printStackTrace();
+        } catch (NoSuchPaddingException e) {
+            e.printStackTrace();
+        } catch (BadPaddingException e) {
+            e.printStackTrace();
+        } catch (IllegalBlockSizeException e) {
+            e.printStackTrace();
         } finally {
             try{
                 if(connection != null)
@@ -182,13 +240,13 @@ public class ControllerLogin{
     }
 
     @FXML
-    public void handleEnterSignup(KeyEvent keyEvent){
+    public void handleEnterSignup(KeyEvent keyEvent) throws BadPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, NoSuchPaddingException, InvalidKeyException {
         if( keyEvent.getCode() == KeyCode.ENTER ) {
             signup();
         }
     }
 
-    @FXML private void signup(){
+    @FXML private void signup() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, InvalidAlgorithmParameterException, NoSuchPaddingException {
         // connect to DB
         Connection connection = null;
         boolean emailOK = false;
@@ -207,7 +265,7 @@ public class ControllerLogin{
                 rs=stmt.executeQuery("SELECT `Email` FROM logins");
                 emailOK = true;
                 while(rs.next()){
-                    String s = rs.getString(1);
+                    String s = rs.getString("Email");
                     if(s.equals(email)){    //check email is not already in DB
                         emailOK = false;
                         break;
@@ -228,8 +286,21 @@ public class ControllerLogin{
                 }
                 int nextId = maxId+1;
 
-                // inserting row in login table
-                String sqlINSERTStatement = "INSERT INTO `logins` (`Id`, `Email`, `Password`) VALUES (" + nextId + ", '"  + emailSignup.getText() + "', '" + passwordSignup.getText() + "');";
+                // CRYPTO
+
+                //generate key
+                SecretKey key = PasswordEncrypterDecrypter.generateKey();
+                byte[] iv = PasswordEncrypterDecrypter.generateIv();
+                IvParameterSpec ivParameterSpec = PasswordEncrypterDecrypter.generateIvParameterSpec(iv);
+
+                //encrypt
+                String cipherPassword = PasswordEncrypterDecrypter.encrypt(passwordSignup.getText(), key, ivParameterSpec);
+                // save cipherPassword + key + iv to DB
+                String keyPassword = PasswordEncrypterDecrypter.secretKey2String(key);
+                String ivString = PasswordEncrypterDecrypter.array2String(iv);
+
+                // inserting row in logins table
+                String sqlINSERTStatement = "INSERT INTO `logins` (`Id`, `Email`, `HashPassword`, `KeyPassword`, `IV`) VALUES ('" + nextId + "', '"  + emailSignup.getText() + "', '" + cipherPassword + "', '" + keyPassword + "', '" + ivString + "');";
                 stmt.executeUpdate(sqlINSERTStatement);
 
                 if(isEmployee){

@@ -55,17 +55,18 @@ public class Cinema {
             // fill customers
             rs = stmt.executeQuery("SELECT * FROM `Customers`,`Logins` WHERE Customers.IdLogins = Logins.Id");
             int id;
-            String lastName, firstName, dateOfCreation, email, password;
+            String lastName, firstName, dateOfCreation, email, hashPassword, key;
             while(rs.next()){
                 id = rs.getInt("Id");
                 email = rs.getString("Email");
-                password = rs.getString("Password");
+                hashPassword = rs.getString("HashPassword");
+                key = rs.getString("KeyPassword");
                 lastName = rs.getString("LastName");
                 firstName = rs.getString("FirstName");
                 dateOfCreation = rs.getString("DateOfCreation");
 
                 //System.out.println(id + " | " + email + " | " + password + " | " + lastName + " | " + firstName + " | " + dateOfCreation);
-                customers.add(new Customer(id, email, password, lastName, firstName, dateOfCreation));
+                customers.add(new Customer(id, email, hashPassword, key, lastName, firstName, dateOfCreation));
             }
 
             // fill employees
@@ -73,13 +74,14 @@ public class Cinema {
             while(rs.next()){
                 id = rs.getInt("Id");
                 email = rs.getString("Email");
-                password = rs.getString("Password");
+                hashPassword = rs.getString("HashPassword");
+                key = rs.getString("KeyPassword");
                 lastName = rs.getString("LastName");
                 firstName = rs.getString("FirstName");
                 dateOfCreation = rs.getString("DateOfCreation");
 
                 //System.out.println(id + " | " + email + " | " + password + " | " + lastName + " | " + firstName + " | " + dateOfCreation);
-                employees.add(new Employee(id, email, password, lastName, firstName, dateOfCreation));
+                employees.add(new Employee(id, email, hashPassword, key, lastName, firstName, dateOfCreation));
             }
 
             // fill discounts

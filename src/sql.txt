@@ -1,4 +1,4 @@
-CREATE TABLE `Logins` (Id integer(11), Email varchar(50), Password varchar(50), PRIMARY KEY(Id));
+CREATE TABLE `Logins` (Id integer(11), Email varchar(50), HashPassword varchar(500), KeyPassword varchar(500), IV varchar(500), PRIMARY KEY(Id));
 CREATE TABLE `Customers` (IdLogins integer(11), LastName varchar(20), FirstName varchar(20), DateOfCreation date, FOREIGN KEY(IdLogins) REFERENCES Logins(Id));
 CREATE TABLE `Employees` (IdLogins integer(11), LastName varchar(20), FirstName varchar(20), DateOfCreation date, FOREIGN KEY(IdLogins) REFERENCES Logins(Id));
 CREATE TABLE `Movies` (Id integer(11), Title varchar(100), Genre varchar(100), Director varchar(100), Cast varchar(500), Plot varchar(10000), ImageURL varchar(500), Duration integer(5), PRIMARY KEY(Id));
