@@ -23,7 +23,7 @@
          </font>
       </Button>
       <ImageView fx:id="movie1" fitHeight="689.0" fitWidth="500.0" layoutX="333.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="263.0" layoutY="99.0" rotate="-50.0" styleClass="discountAlert" text="-10% Summer discount">
+      <Label fx:id="discountAlert" layoutX="250.0" layoutY="120.0" rotate="-50.0" styleClass="discountAlert">
          <font>
             <Font size="25.0" />
          </font>

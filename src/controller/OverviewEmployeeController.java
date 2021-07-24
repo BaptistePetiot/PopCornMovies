@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 public class OverviewEmployeeController implements Initializable {
 
     @FXML ImageView picture, movie1, movie2;
-    @FXML Label firstNameAndLastName;
+    @FXML Label firstNameAndLastName, discountAlert;
     @FXML Pane pane;
 
     // credentials
@@ -201,6 +201,20 @@ public class OverviewEmployeeController implements Initializable {
                     Image im = new Image(m.getImageURL());
                     movie2.setImage(im);
                 }
+            }
+
+            // DISCOUNT ALERT
+            rs = stmt.executeQuery("SELECT Name, Amount, Unit FROM Discounts WHERE Status = 'Active' ORDER BY Amount DESC");
+            String name = "", amount = "", unit = "";
+            if(rs.next()){
+                name = rs.getString("Name");
+                amount = rs.getString("Amount");
+                unit = rs.getString("Unit");
+
+                discountAlert.setVisible(true);
+                discountAlert.setText("-" + amount + " " + unit + " " + name + " discount");
+            }else{
+                discountAlert.setVisible(false);
             }
 
         }catch (SQLException e){

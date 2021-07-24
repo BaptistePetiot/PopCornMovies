@@ -268,7 +268,7 @@
          </font>
       </Label>
       <TextField fx:id="tfNbrStudentDiscounts" layoutX="827.0" layoutY="651.0" onKeyPressed="#displayPrice" prefHeight="25.0" prefWidth="49.0" styleClass="tfNbrStudentDiscounts" />
-      <Button layoutX="798.0" layoutY="724.0" mnemonicParsing="false" onAction="#goToPayment" prefHeight="66.0" prefWidth="108.0" styleClass="buttonBuy" text="Buy">
+      <Button layoutX="798.0" layoutY="724.0" mnemonicParsing="false" onAction="#goToPayment" prefHeight="66.0" prefWidth="108.0" styleClass="btn" text="Buy">
          <font>
             <Font size="32.0" />
          </font>
