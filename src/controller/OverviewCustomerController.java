@@ -152,8 +152,7 @@ public class OverviewCustomerController implements Initializable {
             Statement stmt = connection.createStatement();
 
             // get the 1st most seen movie
-            ResultSet rs = stmt.executeQuery("SELECT `NbrTickets`, Title, IdMovies, COUNT(*) AS count FROM Purchases GROUP BY NbrTickets ORDER BY count DESC;");
-            // SELECT * FROM `purchases` ORDER BY Title
+            ResultSet rs = stmt.executeQuery("SELECT IdMovies, SUM(NbrTickets) AS s FROM Purchases GROUP BY IdMovies ORDER BY s DESC");
             int id1 = 0, id2 = 0;
             int j = 0;
             while(rs.next()){

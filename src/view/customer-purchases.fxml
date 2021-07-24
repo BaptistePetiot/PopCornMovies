@@ -210,7 +210,7 @@
             </Button>
          </children>
       </VBox>
-      <HBox alignment="CENTER_LEFT" layoutX="348.0" layoutY="223.0" prefHeight="53.0" prefWidth="1023.0">
+      <HBox alignment="CENTER_LEFT" layoutX="337.0" layoutY="223.0" prefHeight="53.0" prefWidth="1023.0" styleClass="titlesPanel">
          <children>
             <Label prefHeight="36.0" prefWidth="51.0" text="Title">
                <font>

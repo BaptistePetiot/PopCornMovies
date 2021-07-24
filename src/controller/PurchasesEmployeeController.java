@@ -12,7 +12,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import model.Me;
-import model.Purchase;
 import model.SceneManager;
 
 import java.io.File;
