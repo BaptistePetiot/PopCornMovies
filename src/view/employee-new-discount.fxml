@@ -44,7 +44,7 @@
                 <Font size="25.0" />
             </font>
         </Label>
-        <Button layoutX="755.0" layoutY="554.0" mnemonicParsing="false" onAction="#addDiscount" prefHeight="69.0" prefWidth="267.0" styleClass="buttonAddMovie" text="Add Discount">
+        <Button layoutX="755.0" layoutY="554.0" mnemonicParsing="false" onAction="#addDiscount" prefHeight="69.0" prefWidth="267.0" styleClass="btn" text="Add Discount">
             <font>
                 <Font size="32.0" />
             </font>

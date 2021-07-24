@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewMovieEmployeeController">
+<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewMovieEmployeeController">
    <children>
       <Button layoutX="1351.0" layoutY="7.0" mnemonicParsing="false" onAction="#exit" styleClass="buttonExit" text="X">
          <font>
@@ -49,7 +49,7 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <Button layoutX="783.0" layoutY="724.0" mnemonicParsing="false" onAction="#addMovie" prefHeight="69.0" prefWidth="206.0" styleClass="buttonAddMovie" text="Add Movie">
+      <Button layoutX="783.0" layoutY="724.0" mnemonicParsing="false" onAction="#addMovie" prefHeight="69.0" prefWidth="206.0" styleClass="btn" text="Add Movie">
          <font>
             <Font size="32.0" />
          </font>
@@ -254,6 +254,6 @@
       <TextField fx:id="newMovieDuration" layoutX="751.0" layoutY="580.0" prefHeight="25.0" prefWidth="309.0" styleClass="tfCast" />
       <TextField fx:id="newMovieImage" layoutX="751.0" layoutY="650.0" prefHeight="25.0" prefWidth="309.0" styleClass="tfCast" />
       <ImageView fx:id="newMoviePicture" fitHeight="239.0" fitWidth="187.0" layoutX="360.0" layoutY="89.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="1098.0" layoutY="649.0" mnemonicParsing="false" onAction="#verifyPicture" text="verify" />
+      <Button layoutX="1098.0" layoutY="649.0" mnemonicParsing="false" onAction="#verifyPicture" styleClass="btn" text="verify" />
    </children>
 </Pane>

@@ -59,26 +59,22 @@
     -fx-font-weight: bold;
 }
 
-.buttonBuy, .buttonAddPicture, .buttonDeleteAccount, .buttonMinus, .buttonPlus, .buttonModify{
+
+.btn{
     -fx-text-fill: black;
     -fx-border-style: solid;
-    -fx-border-radius: 45;
-    -fx-background-color: white;
+    -fx-background-color: transparent;
     -fx-cursor: hand;
 }
 
-.buttonAddPicture{
-    -fx-background-radius: 45;
-    -fx-background-color: #A8DADC;
-}
-
-.buttonBuy, buttonAddMovie{
-    -fx-background-radius: 45;
-    -fx-background-color: #26BFBC;
+.buttonBuy, .buttonAddPicture, .buttonDeleteAccount, .buttonMinus, .buttonPlus, .buttonModify{
+    -fx-text-fill: black;
+    -fx-border-style: solid;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
 }
 
 .buttonDeleteAccount{
-    -fx-background-radius: 45;
     -fx-background-color: #E63946;
 }
 

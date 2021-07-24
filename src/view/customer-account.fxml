@@ -63,15 +63,19 @@
             <Font size="25.0" />
          </font>
       </RadioButton>
-      <Button layoutX="756.0" layoutY="600.0" mnemonicParsing="false" onAction="#addPicture" styleClass="buttonAddPicture" text="Add a picture">
+      <Button layoutX="756.0" layoutY="600.0" mnemonicParsing="false" onAction="#addPicture" styleClass="btn" text="Add a picture">
          <font>
             <Font size="25.0" />
          </font>
       </Button>
-      <Button layoutX="748.0" layoutY="717.0" mnemonicParsing="false" onAction="#delete" styleClass="buttonDeleteAccount" text="Delete account">
+      <Button layoutX="748.0" layoutY="717.0" mnemonicParsing="false" onAction="#delete" text="Delete account">
          <font>
             <Font size="25.0" />
          </font>
+         <styleClass>
+            <String fx:value="btn" />
+            <String fx:value="buttonDeleteAccount" />
+         </styleClass>
       </Button>
       <Label layoutX="667.0" layoutY="251.0" text="Category">
          <font>

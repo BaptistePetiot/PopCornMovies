@@ -5,9 +5,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Pair;
@@ -33,6 +35,7 @@ public class MoviesGuestController implements Initializable {
     @FXML SplitMenuButton splitMenu;
     @FXML GridPane gridPane;
     @FXML Pane pane;
+    @FXML ScrollPane scrollPane;
 
     private int c, r;
     private HashMap<Pair<Integer,Integer>, Movie> allMoviesCoords, actionMoviesCoords, adventureMoviesCoords, fantasyMoviesCoords, documentaryMoviesCoords, scifiMoviesCoords, horrorMoviesCoords, animationMoviesCoords, thrillerMoviesCoords, comedyMoviesCoords, dramaMoviesCoords;
@@ -136,8 +139,18 @@ public class MoviesGuestController implements Initializable {
 
         ArrayList<Movie> allMovies = Cinema.getMovies();
 
-        // Clear nodes
-        gridPane.getChildren().clear();
+        // create new grid
+        GridPane gridMovies = new GridPane();
+        gridMovies.setPrefHeight(1103.0);
+        gridMovies.setPrefWidth(1071.0);
+        // set constraints
+        for (int i = 0; i < 4; i++) {
+            ColumnConstraints column = new ColumnConstraints(267);
+            gridMovies.getColumnConstraints().add(column);
+        }
+
+        // add to scroll pane
+        scrollPane.setContent(gridMovies);
 
         for(Movie m : allMovies){
             System.out.println(m.getTitle());
@@ -166,7 +179,7 @@ public class MoviesGuestController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             allMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -184,7 +197,21 @@ public class MoviesGuestController implements Initializable {
         actionMovies.removeIf(m -> !m.getGenre().equals("Action"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        //gridMovies.getChildren().clear();
+
+        // create new grid
+        GridPane gridMovies = new GridPane();
+        gridMovies.setPrefHeight(1103.0);
+        gridMovies.setPrefWidth(1071.0);
+        //gridMovies.getChildren().clear();   // Clear nodes
+        // set constraints
+        for (int i = 0; i < 4; i++) {
+            ColumnConstraints column = new ColumnConstraints(267);
+            gridMovies.getColumnConstraints().add(column);
+        }
+
+        // add to scroll pane
+        scrollPane.setContent(gridMovies);
 
         for(Movie m : actionMovies){
             System.out.println(m.getTitle());
@@ -213,7 +240,7 @@ public class MoviesGuestController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             actionMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -231,7 +258,21 @@ public class MoviesGuestController implements Initializable {
         adventureyMovies.removeIf(m -> !m.getGenre().equals("Adventure"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        //gridMovies.getChildren().clear();
+
+        // create new grid
+        GridPane gridMovies = new GridPane();
+        gridMovies.setPrefHeight(1103.0);
+        gridMovies.setPrefWidth(1071.0);
+        //gridMovies.getChildren().clear();   // Clear nodes
+        // set constraints
+        for (int i = 0; i < 4; i++) {
+            ColumnConstraints column = new ColumnConstraints(267);
+            gridMovies.getColumnConstraints().add(column);
+        }
+
+        // add to scroll pane
+        scrollPane.setContent(gridMovies);
 
         for(Movie m : adventureyMovies){
             System.out.println(m.getTitle());
@@ -260,7 +301,7 @@ public class MoviesGuestController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             adventureMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -280,7 +321,22 @@ public class MoviesGuestController implements Initializable {
         fantasyMovies.removeIf(m -> !m.getGenre().equals("Fantasy"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        //gridMovies.getChildren().clear();
+
+        // create new grid
+        GridPane gridMovies = new GridPane();
+        gridMovies.setPrefHeight(1103.0);
+        gridMovies.setPrefWidth(1071.0);
+        //gridMovies.getChildren().clear();   // Clear nodes
+        // set constraints
+        for (int i = 0; i < 4; i++) {
+            ColumnConstraints column = new ColumnConstraints(267);
+            gridMovies.getColumnConstraints().add(column);
+        }
+
+        // add to scroll pane
+        scrollPane.setContent(gridMovies);
+
         for(Movie m : fantasyMovies){
             System.out.println(m.getTitle());
         }
@@ -308,7 +364,7 @@ public class MoviesGuestController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             fantasyMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -328,7 +384,21 @@ public class MoviesGuestController implements Initializable {
         documentaryMovies.removeIf(m -> !m.getGenre().equals("Documentary"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        //gridMovies.getChildren().clear();
+
+        // create new grid
+        GridPane gridMovies = new GridPane();
+        gridMovies.setPrefHeight(1103.0);
+        gridMovies.setPrefWidth(1071.0);
+        //gridMovies.getChildren().clear();   // Clear nodes
+        // set constraints
+        for (int i = 0; i < 4; i++) {
+            ColumnConstraints column = new ColumnConstraints(267);
+            gridMovies.getColumnConstraints().add(column);
+        }
+
+        // add to scroll pane
+        scrollPane.setContent(gridMovies);
 
         for(Movie m : documentaryMovies){
             System.out.println(m.getTitle());
@@ -357,7 +427,7 @@ public class MoviesGuestController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             documentaryMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -375,7 +445,21 @@ public class MoviesGuestController implements Initializable {
         scifiMovies.removeIf(m -> !m.getGenre().equals("Science Fiction"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        //gridMovies.getChildren().clear();
+
+        // create new grid
+        GridPane gridMovies = new GridPane();
+        gridMovies.setPrefHeight(1103.0);
+        gridMovies.setPrefWidth(1071.0);
+        //gridMovies.getChildren().clear();   // Clear nodes
+        // set constraints
+        for (int i = 0; i < 4; i++) {
+            ColumnConstraints column = new ColumnConstraints(267);
+            gridMovies.getColumnConstraints().add(column);
+        }
+
+        // add to scroll pane
+        scrollPane.setContent(gridMovies);
 
         for(Movie m : scifiMovies){
             System.out.println(m.getTitle());
@@ -404,7 +488,7 @@ public class MoviesGuestController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             scifiMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -422,7 +506,21 @@ public class MoviesGuestController implements Initializable {
         horrorMovies.removeIf(m -> !m.getGenre().equals("Horror"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        //gridMovies.getChildren().clear();
+
+        // create new grid
+        GridPane gridMovies = new GridPane();
+        gridMovies.setPrefHeight(1103.0);
+        gridMovies.setPrefWidth(1071.0);
+        //gridMovies.getChildren().clear();   // Clear nodes
+        // set constraints
+        for (int i = 0; i < 4; i++) {
+            ColumnConstraints column = new ColumnConstraints(267);
+            gridMovies.getColumnConstraints().add(column);
+        }
+
+        // add to scroll pane
+        scrollPane.setContent(gridMovies);
 
         for(Movie m : horrorMovies){
             System.out.println(m.getTitle());
@@ -451,7 +549,7 @@ public class MoviesGuestController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             horrorMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -470,7 +568,21 @@ public class MoviesGuestController implements Initializable {
         animationMovies.removeIf(m -> !m.getGenre().equals("Animation"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        //gridMovies.getChildren().clear();
+
+        // create new grid
+        GridPane gridMovies = new GridPane();
+        gridMovies.setPrefHeight(1103.0);
+        gridMovies.setPrefWidth(1071.0);
+        //gridMovies.getChildren().clear();   // Clear nodes
+        // set constraints
+        for (int i = 0; i < 4; i++) {
+            ColumnConstraints column = new ColumnConstraints(267);
+            gridMovies.getColumnConstraints().add(column);
+        }
+
+        // add to scroll pane
+        scrollPane.setContent(gridMovies);
 
         for(Movie m : animationMovies){
             System.out.println(m.getTitle());
@@ -499,7 +611,7 @@ public class MoviesGuestController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             animationMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -516,7 +628,21 @@ public class MoviesGuestController implements Initializable {
         thrillerMovies.removeIf(m -> !m.getGenre().equals("Thriller"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        //gridMovies.getChildren().clear();
+
+        // create new grid
+        GridPane gridMovies = new GridPane();
+        gridMovies.setPrefHeight(1103.0);
+        gridMovies.setPrefWidth(1071.0);
+        //gridMovies.getChildren().clear();   // Clear nodes
+        // set constraints
+        for (int i = 0; i < 4; i++) {
+            ColumnConstraints column = new ColumnConstraints(267);
+            gridMovies.getColumnConstraints().add(column);
+        }
+
+        // add to scroll pane
+        scrollPane.setContent(gridMovies);
 
         for(Movie m : thrillerMovies){
             System.out.println(m.getTitle());
@@ -545,7 +671,7 @@ public class MoviesGuestController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             thrillerMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -563,7 +689,21 @@ public class MoviesGuestController implements Initializable {
         comedyMovies.removeIf(m -> !m.getGenre().equals("Comedy"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        //gridMovies.getChildren().clear();
+
+        // create new grid
+        GridPane gridMovies = new GridPane();
+        gridMovies.setPrefHeight(1103.0);
+        gridMovies.setPrefWidth(1071.0);
+        //gridMovies.getChildren().clear();   // Clear nodes
+        // set constraints
+        for (int i = 0; i < 4; i++) {
+            ColumnConstraints column = new ColumnConstraints(267);
+            gridMovies.getColumnConstraints().add(column);
+        }
+
+        // add to scroll pane
+        scrollPane.setContent(gridMovies);
 
         for(Movie m : comedyMovies){
             System.out.println(m.getTitle());
@@ -592,7 +732,7 @@ public class MoviesGuestController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             comedyMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
@@ -609,7 +749,21 @@ public class MoviesGuestController implements Initializable {
         dramaMovies.removeIf(m -> !m.getGenre().equals("Drama"));
 
         // Clear nodes
-        gridPane.getChildren().clear();
+        //gridMovies.getChildren().clear();
+
+        // create new grid
+        GridPane gridMovies = new GridPane();
+        gridMovies.setPrefHeight(1103.0);
+        gridMovies.setPrefWidth(1071.0);
+        //gridMovies.getChildren().clear();   // Clear nodes
+        // set constraints
+        for (int i = 0; i < 4; i++) {
+            ColumnConstraints column = new ColumnConstraints(267);
+            gridMovies.getColumnConstraints().add(column);
+        }
+
+        // add to scroll pane
+        scrollPane.setContent(gridMovies);
 
         for(Movie m : dramaMovies){
             System.out.println(m.getTitle());
@@ -638,7 +792,7 @@ public class MoviesGuestController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridPane.add(btn, c, r,1,1);
+            gridMovies.add(btn, c, r,1,1);
             dramaMoviesCoords.put(new Pair<>(c,r), m);
 
             updateColumnAndRow(i);
