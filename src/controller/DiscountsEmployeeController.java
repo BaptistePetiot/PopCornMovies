@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.ColumnConstraints;
@@ -158,6 +159,12 @@ public class DiscountsEmployeeController implements Initializable {
 
     public void exit(ActionEvent actionEvent) { System.exit(0); }
 
+    @FXML private void deleteChoosenDiscount(){
+
+    }
+    @FXML private void modifyChoosenDiscount(){
+
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // load picture
@@ -198,14 +205,14 @@ public class DiscountsEmployeeController implements Initializable {
                 String Unit = rs.getString("Unit");
                 String Status = rs.getString("Status");
 
-
                 GridPane gp = new GridPane();
-                ColumnConstraints cc1 = new ColumnConstraints(525);
+                ColumnConstraints cc1 = new ColumnConstraints(425);
                 ColumnConstraints cc2 = new ColumnConstraints(160);
                 ColumnConstraints cc3 = new ColumnConstraints(130);
                 ColumnConstraints cc4 = new ColumnConstraints(100);
+                ColumnConstraints cc5 = new ColumnConstraints(100);
 
-                gp.getColumnConstraints().addAll(cc1, cc2, cc3, cc4);
+                gp.getColumnConstraints().addAll(cc1, cc2, cc3, cc4, cc5);
 
                 Label discountName = new Label(Name);
                 discountName.setFont(new Font(25));
@@ -222,6 +229,10 @@ public class DiscountsEmployeeController implements Initializable {
                 Label discountStatus = new Label(Status);
                 discountStatus.setFont(new Font(25));
                 gp.add(discountStatus,3,0);
+
+                RadioButton selection = new RadioButton("");
+                selection.setFont(new Font(25));
+                gp.add(selection,4,0);
 
                 pnItems.getChildren().add(gp);
 

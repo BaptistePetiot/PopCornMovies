@@ -4,6 +4,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.control.TextField;
@@ -23,7 +25,9 @@ public class NewDiscountEmployeeController implements Initializable {
     @FXML ImageView picture;
     @FXML Label firstNameAndLastName;
     @FXML Pane pane;
-    @FXML TextField newDiscountName, newDiscountAmount, newDiscountUnit, newDiscountStatus;
+    @FXML TextField newDiscountName, newDiscountAmount, newDiscountStatus;
+    @FXML ToggleGroup categoryGroup;
+    @FXML RadioButton percent, livreStearling;
 
     // credentials
     private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
@@ -75,6 +79,8 @@ public class NewDiscountEmployeeController implements Initializable {
 
     @FXML private void addDiscount(){
         System.out.println("ADD DISCOUNT");
+
+
         try {
             Connection connection = null;
 
@@ -85,6 +91,13 @@ public class NewDiscountEmployeeController implements Initializable {
             Statement stmt=connection.createStatement();
             ResultSet rs;
 
+            String choosenUnit = "";
+            if (percent.isSelected()) {
+                choosenUnit = "%";
+            } else if (livreStearling.isSelected()){
+                choosenUnit = "£";
+            }
+
             rs = stmt.executeQuery("SELECT MAX(`Id`) FROM `Discounts`");
 
             int maxId = 0;
@@ -92,7 +105,7 @@ public class NewDiscountEmployeeController implements Initializable {
                 maxId = rs.getInt(1);
             }
             int nextId = maxId+1;
-            String sqlINSERTStatement = "INSERT INTO `Discounts` (`Id`, `Name`, `Amount`, `Unit`,`Status`) VALUES (" + nextId + ", '"  + newDiscountName.getText() + "', '" + newDiscountAmount.getText() + "', '" + newDiscountUnit.getText() + "', '" + newDiscountStatus.getText() + "');";
+            String sqlINSERTStatement = "INSERT INTO `Discounts` (`Id`, `Name`, `Amount`, `Unit`,`Status`) VALUES (" + nextId + ", '"  + newDiscountName.getText() + "', '" + newDiscountAmount.getText() + "', '" + choosenUnit + "', '" + newDiscountStatus.getText() + "');";
             stmt.executeUpdate(sqlINSERTStatement);
 
         } catch (SQLException e) {
@@ -193,5 +206,10 @@ public class NewDiscountEmployeeController implements Initializable {
         }
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
+
+        categoryGroup = new ToggleGroup();
+        percent.setToggleGroup(categoryGroup);
+        livreStearling.setToggleGroup(categoryGroup);
+
     }
 }
