@@ -12,16 +12,18 @@ public class Cinema {
     private static ArrayList<Movie> movies;
     private static ArrayList<Employee> employees;
     private static ArrayList<Customer> customers;
+    private static ArrayList<Discount> discounts;
 
     public Cinema(){
         refresh();
     }
 
     public static void refresh(){
-        // empty all array lists
+        // initialize all array lists empty
         movies = new ArrayList<>();
         employees = new ArrayList<>();
         customers = new ArrayList<>();
+        discounts = new ArrayList<>();
 
         // connect to DB
         Connection connection = null;
@@ -80,6 +82,18 @@ public class Cinema {
                 employees.add(new Employee(id, email, password, lastName, firstName, dateOfCreation));
             }
 
+            // fill discounts
+            rs = stmt.executeQuery("SELECT * FROM `Discounts`");
+            while(rs.next()){
+                id = rs.getInt("Id");
+                String name = rs.getString("Name");
+                int amount = rs.getInt("Amount");
+                char unit = rs.getString("Unit").charAt(0);
+                String status = rs.getString("Status");
+
+                discounts.add(new Discount(id, name, amount, unit, status));
+            }
+
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }finally {
@@ -97,4 +111,6 @@ public class Cinema {
     public static ArrayList<Employee> getEmployees() { return employees; }
 
     public static ArrayList<Movie> getMovies() { return movies; }
+
+    public static ArrayList<Discount> getDiscounts() { return discounts; }
 }

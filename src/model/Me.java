@@ -4,6 +4,7 @@ public class Me {
     private static int id;
     private static String firstName, lastName, email;
     private static Movie lookingAtMovie;
+    private static Discount modifyingDiscount;
     private static int category = 0, theme = 0;
 
     public static int getId() { return id; }
@@ -20,4 +21,6 @@ public class Me {
     public static void setTheme(int theme) { Me.theme = theme; }
     public static String getEmail() { return email; }
     public static void setEmail(String email) { Me.email = email; }
+    public static Discount getModifyingDiscount() { return modifyingDiscount; }
+    public static void setModifyingDiscount(Discount modifyingDiscount) { Me.modifyingDiscount = modifyingDiscount; }
 }

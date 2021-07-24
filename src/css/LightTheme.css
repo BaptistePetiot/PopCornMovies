@@ -59,7 +59,7 @@
     -fx-font-weight: bold;
 }
 
-.buttonBuy, .buttonAddPicture, .buttonDeleteAccount, .buttonMinus, .buttonPlus{
+.buttonBuy, .buttonAddPicture, .buttonDeleteAccount, .buttonMinus, .buttonPlus, .buttonModify{
     -fx-text-fill: black;
     -fx-border-style: solid;
     -fx-border-radius: 45;
@@ -89,17 +89,17 @@
     -fx-border-style: solid;
 }
 
-.buttonMovie{
+.buttonMovie, .buttonDiscount{
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.minusNotSelected, .modifyNotSelected{
     -fx-background-color: white;
     -fx-cursor: hand;
 }
 
-.minusNotSelected{
-    -fx-background-color: white;
-    -fx-cursor: hand;
-}
-
-.minusSelected{
+.minusSelected, .modifySelected{
     -fx-background-color: red;
     -fx-cursor: hand;
 }

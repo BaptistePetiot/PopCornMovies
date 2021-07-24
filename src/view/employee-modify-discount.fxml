@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.NewDiscountEmployeeController">
+<Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ModifyDiscountEmployeeController">
     <children>
         <Button layoutX="1351.0" layoutY="7.0" mnemonicParsing="false" onAction="#exit" styleClass="buttonExit" text="X">
             <font>
@@ -44,22 +44,22 @@
                 <Font size="25.0" />
             </font>
         </Label>
-        <Button layoutX="755.0" layoutY="554.0" mnemonicParsing="false" onAction="#addDiscount" prefHeight="69.0" prefWidth="267.0" styleClass="buttonAddMovie" text="Add Discount">
+        <Button layoutX="746.0" layoutY="554.0" mnemonicParsing="false" onAction="#modifyDiscount" prefHeight="69.0" prefWidth="287.0" styleClass="buttonAddMovie" text="Modify Discount">
             <font>
                 <Font size="32.0" />
             </font>
         </Button>
-        <ImageView fitHeight="54.0" fitWidth="58.0" layoutX="747.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" styleClass="picture">
+        <ImageView fitHeight="54.0" fitWidth="58.0" layoutX="724.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" styleClass="picture">
             <image>
                 <Image url="@../imgs/icons8-discount-50.png" />
             </image>
         </ImageView>
-        <Label layoutX="811.0" layoutY="22.0" text="New discount">
+        <Label layoutX="792.0" layoutY="23.0" text="Modify discount">
             <font>
                 <Font size="30.0" />
             </font>
         </Label>
-        <ImageView fitHeight="54.0" fitWidth="58.0" layoutX="999.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" styleClass="picture">
+        <ImageView fitHeight="54.0" fitWidth="58.0" layoutX="1018.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true" styleClass="picture">
             <image>
                 <Image url="@../imgs/icons8-discount-50.png" />
             </image>
@@ -231,8 +231,8 @@
                 </Button>
             </children>
         </VBox>
-      <TextField fx:id="newDiscountName" layoutX="729.0" layoutY="186.0" prefHeight="25.0" prefWidth="341.0" />
-      <TextField fx:id="newDiscountAmount" layoutX="731.0" layoutY="256.0" prefHeight="25.0" prefWidth="341.0" />
+      <TextField fx:id="name" layoutX="729.0" layoutY="186.0" prefHeight="25.0" prefWidth="341.0" />
+      <TextField fx:id="amount" layoutX="731.0" layoutY="256.0" prefHeight="25.0" prefWidth="341.0" />
       <RadioButton fx:id="livreStearling" layoutX="751.0" layoutY="320.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="49.0" text="£">
          <font>
             <Font size="24.0" />

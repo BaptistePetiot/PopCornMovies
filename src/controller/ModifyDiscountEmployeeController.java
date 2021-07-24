@@ -5,16 +5,16 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import model.Cinema;
+import model.Discount;
 import model.Me;
 import model.SceneManager;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -22,11 +22,11 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class NewDiscountEmployeeController implements Initializable {
+public class ModifyDiscountEmployeeController implements Initializable {
     @FXML ImageView picture;
     @FXML Label firstNameAndLastName;
     @FXML Pane pane;
-    @FXML TextField newDiscountName, newDiscountAmount;
+    @FXML TextField name, amount;
     @FXML ToggleGroup unitGroup, statusGroup;
     @FXML RadioButton percent, livreStearling, active, inactive;
 
@@ -34,6 +34,8 @@ public class NewDiscountEmployeeController implements Initializable {
     private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
     private final String user      = "root";
     private final String password  = "";
+
+    Discount modifyingDiscount;
 
     private void loadPicture() throws Exception{
         File img = new File("picture.jpg");
@@ -78,8 +80,30 @@ public class NewDiscountEmployeeController implements Initializable {
         }
     }
 
-    @FXML private void addDiscount(){
-        System.out.println("ADD DISCOUNT");
+    private void fillInDiscount(){
+        System.out.println("fill in discount");
+        name.setText(modifyingDiscount.getName());
+        amount.setText(String.valueOf(modifyingDiscount.getAmount()));
+
+        if(modifyingDiscount.getUnit() == '%'){
+            percent.setSelected(true);
+            livreStearling.setSelected(false);
+        }else{
+            livreStearling.setSelected(true);
+            percent.setSelected(false);
+        }
+
+        if(modifyingDiscount.getStatus().equals("Active")){
+            active.setSelected(true);
+            inactive.setSelected(false);
+        }else{
+            inactive.setSelected(true);
+            active.setSelected(false);
+        }
+    }
+
+    @FXML private void modifyDiscount(){
+        System.out.println("modify discount");
 
         try {
             Connection connection = null;
@@ -89,7 +113,6 @@ public class NewDiscountEmployeeController implements Initializable {
 
             // statement
             Statement stmt=connection.createStatement();
-            ResultSet rs;
 
             String chosenUnit = "";
             if (percent.isSelected()) {
@@ -105,15 +128,8 @@ public class NewDiscountEmployeeController implements Initializable {
                 chosenStatus = "Inactive";
             }
 
-            rs = stmt.executeQuery("SELECT MAX(`Id`) FROM `Discounts`");
-
-            int maxId = 0;
-            while(rs.next()){
-                maxId = rs.getInt(1);
-            }
-            int nextId = maxId+1;
-            String sqlINSERTStatement = "INSERT INTO `Discounts` (`Id`, `Name`, `Amount`, `Unit`,`Status`) VALUES (" + nextId + ", '"  + newDiscountName.getText() + "', '" + newDiscountAmount.getText() + "', '" + chosenUnit + "', '" + chosenStatus + "');";
-            stmt.executeUpdate(sqlINSERTStatement);
+            String sqlUPDATEStatement = "UPDATE `Discounts` SET Name='"  + name.getText() + "', Amount='" + amount.getText() + "', Unit='" + chosenUnit + "', Status='" + chosenStatus + "' WHERE Id=" + modifyingDiscount.getId();
+            stmt.executeUpdate(sqlUPDATEStatement);
 
             Cinema.refresh();
             goToDiscounts();
@@ -198,6 +214,8 @@ public class NewDiscountEmployeeController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        modifyingDiscount = Me.getModifyingDiscount();
+
         // load picture
         try {
             loadPicture();
@@ -221,11 +239,12 @@ public class NewDiscountEmployeeController implements Initializable {
         percent.setToggleGroup(unitGroup);
         livreStearling.setSelected(true);
 
-
         statusGroup = new ToggleGroup();
         active.setToggleGroup(statusGroup);
         inactive.setToggleGroup(statusGroup);
         active.setSelected(true);
+
+        fillInDiscount();
 
     }
 }
