@@ -251,15 +251,6 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <ScrollPane layoutX="687.0" layoutY="361.0" prefHeight="242.0" prefWidth="699.0">
-         <content>
-            <Label fx:id="labelPlot" prefHeight="302.0" prefWidth="1039.0" styleClass="labelPlot">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
-         </content>
-      </ScrollPane>
       <Label layoutX="602.0" layoutY="605.0" styleClass="title" text="Number of tickets : ">
          <font>
             <Font size="25.0" />
@@ -311,5 +302,10 @@
             <Font size="25.0" />
          </font>
       </Label>
+      <ScrollPane layoutX="684.0" layoutY="363.0" prefHeight="242.0" prefWidth="699.0">
+         <content>
+            <Label fx:id="labelPlot" prefHeight="231.0" prefWidth="699.0" styleClass="labelPlot" />
+         </content>
+      </ScrollPane>
    </children>
 </Pane>

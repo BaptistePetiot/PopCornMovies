@@ -247,6 +247,8 @@ public class MovieEmployeeController implements Initializable {
         labelDirector.setText(m.getDirector());
         labelCast.setText(m.getCast());
         duration.setText(String.valueOf(m.getDuration()));
+        labelPlot.setMaxWidth(695);
+        labelPlot.setWrapText(true);
         labelPlot.setText(m.getPlot());
 
         ivMovie.setImage(new Image(m.getImageURL()));

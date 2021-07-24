@@ -71,11 +71,10 @@
       </Label>
       <ScrollPane layoutX="684.0" layoutY="363.0" prefHeight="242.0" prefWidth="699.0">
          <content>
-            <Label fx:id="labelPlot" prefHeight="302.0" prefWidth="1039.0" styleClass="labelPlot">
-               <font>
-                  <Font size="15.0" />
-               </font>
-            </Label>
+
+         </content>
+         <content>
+            <Label prefHeight="231.0" prefWidth="699.0" styleClass="labelPlot" />
          </content>
       </ScrollPane>
       <!--<Text fx:id="textPlot" layoutX="691.0" layoutY="401.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textPlot" wrappingWidth="687.0">

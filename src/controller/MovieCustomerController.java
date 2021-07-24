@@ -227,13 +227,9 @@ public class MovieCustomerController implements Initializable, Consts {
         labelDirector.setText(m.getDirector());
         labelCast.setText(m.getCast());
         duration.setText(String.valueOf(m.getDuration()));
-        /*String[] sentences = m.getPlot().split(".");
-        StringBuilder plot = new StringBuilder();
-        for(String s : sentences){
-            plot.append(s).append("\n");
-        }
-        labelPlot.setText(plot.toString());
-        System.out.println(plot.toString());*/
+
+        labelPlot.setMaxWidth(695);
+        labelPlot.setWrapText(true);
         labelPlot.setText(m.getPlot());
 
         ivMovie.setImage(new Image(m.getImageURL()));
