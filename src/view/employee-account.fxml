@@ -23,7 +23,7 @@
             <Image url="@../imgs/icons8-account-64.png" />
          </image>
       </ImageView>
-      <Label layoutX="794.0" layoutY="5.0" text="Account">
+      <Label layoutX="794.0" layoutY="5.0" styleClass="title" text="Account">
          <font>
             <Font size="30.0" />
          </font>
@@ -33,57 +33,61 @@
             <Image url="@../imgs/icons8-account-64.png" />
          </image>
       </ImageView>
-      <Label layoutX="641.0" layoutY="139.0" text="Date of creation :">
+      <Label layoutX="641.0" layoutY="139.0" styleClass="title" text="Date of creation :">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <RadioButton fx:id="regular" layoutX="652.0" layoutY="320.0" mnemonicParsing="false" selected="true" text="Regular">
+      <RadioButton fx:id="regular" layoutX="652.0" layoutY="320.0" mnemonicParsing="false" selected="true" styleClass="regular" text="Regular">
          <font>
             <Font size="25.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="senior" layoutX="652.0" layoutY="487.0" mnemonicParsing="false" text="Senior">
+      <RadioButton fx:id="senior" layoutX="652.0" layoutY="487.0" mnemonicParsing="false" styleClass="senior" text="Senior">
          <font>
             <Font size="25.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="child" layoutX="652.0" layoutY="400.0" mnemonicParsing="false" text="Child">
+      <RadioButton fx:id="child" layoutX="652.0" layoutY="400.0" mnemonicParsing="false" styleClass="child" text="Child">
          <font>
             <Font size="25.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="dark" layoutX="969.0" layoutY="400.0" mnemonicParsing="false" text="Dark">
+      <RadioButton fx:id="dark" layoutX="969.0" layoutY="400.0" mnemonicParsing="false" styleClass="dark" text="Dark">
          <font>
             <Font size="25.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="light" layoutX="967.0" layoutY="320.0" mnemonicParsing="false" selected="true" text="Light">
+      <RadioButton fx:id="light" layoutX="967.0" layoutY="320.0" mnemonicParsing="false" selected="true" styleClass="light" text="Light">
          <font>
             <Font size="25.0" />
          </font>
       </RadioButton>
-      <Button layoutX="756.0" layoutY="600.0" mnemonicParsing="false" onAction="#addPicture" styleClass="buttonAddPicture" text="Add a picture">
+      <Button layoutX="756.0" layoutY="600.0" mnemonicParsing="false" onAction="#addPicture" styleClass="btn" text="Add a picture">
          <font>
             <Font size="25.0" />
          </font>
       </Button>
-      <Button onAction="#delete" layoutX="748.0" layoutY="717.0" mnemonicParsing="false" styleClass="buttonDeleteAccount" text="Delete account">
+      <Button layoutX="748.0" layoutY="717.0" mnemonicParsing="false" onAction="#delete" text="Delete account">
          <font>
             <Font size="25.0" />
          </font>
+         <styleClass>
+            <String fx:value="buttonDeleteAccount" />
+            <String fx:value="btn" />
+         </styleClass>
       </Button>
-      <Label layoutX="667.0" layoutY="251.0" text="Category">
+      <Label layoutX="667.0" layoutY="251.0" styleClass="title" text="Category">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="980.0" layoutY="251.0" text="Theme">
+      <Label layoutX="980.0" layoutY="251.0" styleClass="title" text="Theme">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="864.0" layoutY="139.0" text="2021-06-22">
+      <Label layoutX="864.0" layoutY="139.0" styleClass="title" text="2021-06-22">
          <font>
             <Font size="25.0" />
          </font>

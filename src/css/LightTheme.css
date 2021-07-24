@@ -96,12 +96,12 @@
 }
 
 .minusSelected, .modifySelected{
-    -fx-background-color: red;
+    -fx-background-color: gray;
     -fx-cursor: hand;
 }
 
 .buttonCustomers, .buttonEmployees{
-    -fx-background-color: white;
+    -fx-background-color: transparent;
     -fx-cursor: hand;
 }
 
@@ -112,6 +112,10 @@
 .recordBtn{
     -fx-background-color: transparent;
     -fx-cursor: hand;
+}
+
+.scrollPane > .viewport {
+    -fx-background: white;
 }
 
 .discountAlert{

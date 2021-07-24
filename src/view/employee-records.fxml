@@ -14,7 +14,7 @@
 
 <Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RecordsEmployeeController">
    <children>
-      <Label layoutX="791.0" layoutY="6.0" prefHeight="45.0" prefWidth="115.0" text="Records">
+      <Label layoutX="791.0" layoutY="6.0" prefHeight="45.0" prefWidth="115.0" styleClass="title" text="Records">
          <font>
             <Font size="30.0" />
          </font>
@@ -47,7 +47,7 @@
                   <Insets left="15.0" />
                </HBox.margin>
             </Label>
-            <Button fx:id="buttonEmail" onAction="#orderByEmail" mnemonicParsing="false" styleClass="recordBtn">
+            <Button fx:id="buttonEmail" mnemonicParsing="false" onAction="#orderByEmail" styleClass="recordBtn">
                <graphic>
                   <Label prefHeight="36.0" prefWidth="60.0" text="Email">
                      <font>
@@ -59,7 +59,7 @@
                   <Insets left="70.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="buttonTitle" onAction="#orderByTitle" mnemonicParsing="false" styleClass="recordBtn">
+            <Button fx:id="buttonTitle" mnemonicParsing="false" onAction="#orderByTitle" styleClass="recordBtn">
                <graphic>
                   <Label prefHeight="36.0" prefWidth="54.0" text="Title">
                      <font>
@@ -71,7 +71,7 @@
                   <Insets left="140.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="buttonNbrTickets" onAction="#orderByNbrTickets" mnemonicParsing="false" styleClass="recordBtn">
+            <Button fx:id="buttonNbrTickets" mnemonicParsing="false" onAction="#orderByNbrTickets" styleClass="recordBtn">
                <graphic>
                   <Label prefHeight="36.0" prefWidth="126.0" text="NbrTickets">
                      <font>
@@ -83,7 +83,7 @@
                   <Insets left="130.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="buttonDate" onAction="#orderByDate" mnemonicParsing="false" styleClass="recordBtn">
+            <Button fx:id="buttonDate" mnemonicParsing="false" onAction="#orderByDate" styleClass="recordBtn">
                <graphic>
                   <Label prefHeight="36.0" prefWidth="57.0" text="Date">
                      <font>
@@ -97,9 +97,9 @@
             </Button>
          </children>
       </HBox>
-      <ScrollPane hbarPolicy="NEVER" layoutX="311.0" layoutY="139.0" prefHeight="639.0" prefWidth="1065.0" style="-fx-background-insets: 0;" vbarPolicy="ALWAYS">
+      <ScrollPane hbarPolicy="NEVER" layoutX="311.0" layoutY="139.0" prefHeight="639.0" prefWidth="1065.0" style="-fx-background-insets: 0;" styleClass="scrollPane" vbarPolicy="ALWAYS">
          <content>
-            <VBox fx:id="pnItems" alignment="TOP_CENTER" prefHeight="637.0" prefWidth="1073.0" styleClass="scrollablePurchasesVBox" />
+            <VBox fx:id="pnItems" alignment="TOP_CENTER" prefHeight="637.0" prefWidth="1073.0" />
          </content>
       </ScrollPane>
       <Button layoutX="1351.0" mnemonicParsing="false" onAction="#exit" styleClass="buttonExit" text="X">

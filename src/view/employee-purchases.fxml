@@ -14,7 +14,7 @@
 
 <Pane fx:id="pane" prefHeight="800.0" prefWidth="1400.0" styleClass="pane" stylesheets="@../css/LightTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PurchasesEmployeeController">
    <children>
-      <Label layoutX="778.0" layoutY="5.0" prefHeight="45.0" prefWidth="142.0" text="Purchases">
+      <Label layoutX="778.0" layoutY="5.0" prefHeight="45.0" prefWidth="142.0" styleClass="title" text="Purchases">
          <font>
             <Font size="30.0" />
          </font>
@@ -38,7 +38,7 @@
                         <Font size="60.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" prefHeight="45.0" prefWidth="166.0" text="Total tickets">
+                  <Label alignment="CENTER" prefHeight="45.0" prefWidth="166.0" styleClass="title" text="Total tickets">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -55,7 +55,7 @@
                         <Font size="60.0" />
                      </font>
                   </Label>
-                  <Label text="This year">
+                  <Label styleClass="title" text="This year">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -72,7 +72,7 @@
                         <Font size="60.0" />
                      </font>
                   </Label>
-                  <Label text="This month">
+                  <Label styleClass="title" text="This month">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -84,7 +84,7 @@
             </VBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" layoutX="338.0" layoutY="213.0" prefHeight="53.0" prefWidth="1023.0" styleClass="titlesPanel">
+      <HBox alignment="CENTER_LEFT" layoutX="338.0" layoutY="213.0" prefHeight="53.0" prefWidth="1023.0">
          <children>
             <Label prefHeight="36.0" prefWidth="51.0" text="Title">
                <font>
@@ -128,9 +128,9 @@
             </Label>
          </children>
       </HBox>
-      <ScrollPane hbarPolicy="NEVER" layoutX="338.0" layoutY="285.0" prefHeight="501.0" prefWidth="1023.0" style="-fx-background-insets: 0;" vbarPolicy="ALWAYS">
+      <ScrollPane hbarPolicy="NEVER" layoutX="338.0" layoutY="285.0" prefHeight="501.0" prefWidth="1023.0" style="-fx-background-insets: 0;" styleClass="scrollPane" vbarPolicy="ALWAYS">
          <content>
-            <VBox fx:id="pnItems" prefHeight="499.0" prefWidth="1101.0" styleClass="scrollablePurchasesVBox" />
+            <VBox fx:id="pnItems" prefHeight="499.0" prefWidth="1101.0" />
          </content>
       </ScrollPane>
       <Button layoutX="1351.0" mnemonicParsing="false" onAction="#exit" styleClass="buttonExit" text="X">

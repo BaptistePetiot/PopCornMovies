@@ -53,8 +53,10 @@ public class NewMovieEmployeeController implements Initializable {
                 maxId = rs.getInt(1);
             }
             int nextId = maxId+1;
-            String sqlINSERTStatement = "INSERT INTO `Movies` (`Id`, `Title`, `Genre`, `Director`,`Cast`,`Plot`,`ImageURL`,`Duration`) VALUES (" + nextId + ", '"  + newMovieTitle.getText() + "', '" + newMovieGenre.getText() + "', '" + newMovieDirector.getText() + "', '" + newMovieCast.getText() + "', '" + newMoviePlot.getText() + "', '" + newMovieImage.getText() + "', '" + newMovieDuration.getText() + "');";
+            String sqlINSERTStatement = "INSERT INTO `Movies` (`Id`, `Title`, `Genre`, `Director`,`Cast`,`Plot`,`ImageURL`,`Duration`) VALUES (" + nextId + ", '"  + newMovieTitle.getText() + "', '" + newMovieGenre.getText() + "', '" + newMovieDirector.getText() + "', '" + newMovieCast.getText() + "', '" + newMoviePlot.getText().replace("'", "") + "', '" + newMovieImage.getText() + "', '" + newMovieDuration.getText() + "');";
             stmt.executeUpdate(sqlINSERTStatement);
+
+            goToMovies();
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -118,7 +120,7 @@ public class NewMovieEmployeeController implements Initializable {
         }
     }
 
-    public void goToMovies(ActionEvent actionEvent) {
+    public void goToMovies() {
         System.out.println("MOVIES EMPLOYEE");
         try{
             SceneManager.loadScene("../view/employee-movies.fxml", 1400,800);

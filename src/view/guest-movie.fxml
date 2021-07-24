@@ -24,47 +24,47 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Label layoutX="602.0" layoutY="80.0" text="Title : ">
+      <Label layoutX="602.0" layoutY="80.0" styleClass="title" text="Title : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="602.0" layoutY="149.0" text="Genre : ">
+      <Label layoutX="602.0" layoutY="149.0" styleClass="title" text="Genre : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="604.0" layoutY="227.0" text="Director : ">
+      <Label layoutX="604.0" layoutY="227.0" styleClass="title" text="Director : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="607.0" layoutY="305.0" text="Cast : ">
+      <Label layoutX="607.0" layoutY="305.0" styleClass="title" text="Cast : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="606.0" layoutY="382.0" text="Plot : ">
+      <Label layoutX="606.0" layoutY="382.0" styleClass="title" text="Plot : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="labelTitle" layoutX="749.0" layoutY="80.0" styleClass="labelTitle">
+      <Label fx:id="labelTitle" layoutX="749.0" layoutY="80.0" styleClass="title">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="labelGenre" layoutX="748.0" layoutY="149.0" styleClass="labelGenre">
+      <Label fx:id="labelGenre" layoutX="748.0" layoutY="149.0" styleClass="title">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="labelDirector" layoutX="753.0" layoutY="227.0" styleClass="labelDirector">
+      <Label fx:id="labelDirector" layoutX="753.0" layoutY="227.0" styleClass="title">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="labelCast" layoutX="750.0" layoutY="305.0" prefHeight="36.0" prefWidth="472.0" styleClass="labelCast">
+      <Label fx:id="labelCast" layoutX="750.0" layoutY="305.0" prefHeight="36.0" prefWidth="472.0" styleClass="title">
          <font>
             <Font size="25.0" />
          </font>
@@ -83,7 +83,7 @@
             <Font size="18.0" />
          </font>
       </Text>-->
-      <Label layoutX="592.0" layoutY="633.0" text="Number of tickets : ">
+      <Label layoutX="592.0" layoutY="633.0" styleClass="title" text="Number of tickets : ">
          <font>
             <Font size="25.0" />
          </font>
@@ -99,7 +99,7 @@
             <Image url="@../imgs/film-strip.png" />
          </image>
       </ImageView>
-      <Label layoutX="811.0" layoutY="19.0" text="Movies">
+      <Label layoutX="811.0" layoutY="19.0" styleClass="title" text="Movies">
          <font>
             <Font size="30.0" />
          </font>
@@ -109,12 +109,12 @@
             <Image url="@../imgs/film-strip.png" />
          </image>
       </ImageView>
-      <Label layoutX="674.0" layoutY="678.0" text="Total price :">
+      <Label layoutX="674.0" layoutY="678.0" styleClass="title" text="Total price :">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="price" layoutX="824.0" layoutY="687.0" styleClass="labelTotalPrice">
+      <Label fx:id="price" layoutX="824.0" layoutY="687.0" styleClass="title">
          <font>
             <Font size="25.0" />
          </font>
@@ -217,17 +217,17 @@
          </children>
       </VBox>
       <ImageView fx:id="ivMovie" fitHeight="292.0" fitWidth="239.0" layoutX="328.0" layoutY="81.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="329.0" layoutY="382.0" text="Duration:">
+      <Label layoutX="329.0" layoutY="382.0" styleClass="title" text="Duration:">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="duration" layoutX="437.0" layoutY="382.0" prefHeight="36.0" prefWidth="49.0" styleClass="labelCast">
+      <Label fx:id="duration" layoutX="437.0" layoutY="382.0" prefHeight="36.0" prefWidth="49.0" styleClass="title">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="486.0" layoutY="382.0" text="min">
+      <Label layoutX="486.0" layoutY="382.0" styleClass="title" text="min">
          <font>
             <Font size="25.0" />
          </font>

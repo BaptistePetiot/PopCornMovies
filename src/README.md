@@ -15,6 +15,8 @@ Baptiste Petiot
     - trouver pourquoi les purchases lancent une exception et trouver une solution pour que ca marche comme avant
     - comment encrypter et décrypter les passwords dans la bdd et en java
     
+##### CRITERIA FOR NOTATION:
+    - 
 
 ##### BONUSES:
     - hand drawn logo
@@ -25,3 +27,5 @@ Baptiste Petiot
     - charts
         - months bellow the line chart (x ticks) are dynamically generated depending on today's date
     - password encryption using AES algorithm
+    
+    

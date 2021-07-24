@@ -24,27 +24,27 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Label layoutX="606.0" layoutY="80.0" text="Title : ">
+      <Label layoutX="606.0" layoutY="80.0" styleClass="title" text="Title : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="606.0" layoutY="150.0" text="Genre : ">
+      <Label layoutX="606.0" layoutY="150.0" styleClass="title" text="Genre : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="606.0" layoutY="220.0" text="Director : ">
+      <Label layoutX="606.0" layoutY="220.0" styleClass="title" text="Director : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="606.0" layoutY="290.0" text="Cast : ">
+      <Label layoutX="606.0" layoutY="290.0" styleClass="title" text="Cast : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="606.0" layoutY="360.0" text="Plot : ">
+      <Label layoutX="606.0" layoutY="360.0" styleClass="title" text="Plot : ">
          <font>
             <Font size="25.0" />
          </font>
@@ -59,7 +59,7 @@
             <Image url="@../imgs/film-strip.png" />
          </image>
       </ImageView>
-      <Label layoutX="811.0" layoutY="22.0" text="New Movie">
+      <Label layoutX="811.0" layoutY="22.0" styleClass="title" text="New Movie">
          <font>
             <Font size="30.0" />
          </font>
@@ -241,12 +241,12 @@
             </Button>
          </children>
       </VBox>
-      <Label layoutX="606.0" layoutY="640.0" text="Image : ">
+      <Label layoutX="606.0" layoutY="640.0" styleClass="title" text="Image : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="606.0" layoutY="570.0" text="Duration : ">
+      <Label layoutX="606.0" layoutY="570.0" styleClass="title" text="Duration : ">
          <font>
             <Font size="25.0" />
          </font>

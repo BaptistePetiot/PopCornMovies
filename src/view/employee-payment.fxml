@@ -8,19 +8,19 @@
 
 <Pane fx:id="pane" prefHeight="262.0" prefWidth="959.0" styleClass="pane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PaymentEmployeeController">
    <children>
-      <Label layoutX="432.0" layoutY="24.0" text="Payment">
+      <Label layoutX="432.0" layoutY="24.0" text="Payment" styleClass="title">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
       <ProgressBar fx:id="pb" layoutX="142.0" layoutY="153.0" prefHeight="27.0" prefWidth="695.0" progress="0.0" />
-      <Label fx:id="label" layoutX="225.0" layoutY="81.0" prefHeight="45.0" prefWidth="532.0" text="Please wait while the transaction is approved by your bank.">
+      <Label fx:id="label" layoutX="225.0" layoutY="81.0" prefHeight="45.0" prefWidth="532.0" text="Please wait while the transaction is approved by your bank." styleClass="title">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Button fx:id="btn" layoutX="406.0" layoutY="213.0" mnemonicParsing="false" onAction="#goBackToMovies" prefHeight="25.0" prefWidth="170.0" styleClass="buttonBackToMovies" text="Go Back To PopCorn Movies" />
-      <Label fx:id="thx" layoutX="362.0" layoutY="81.0" prefHeight="45.0" prefWidth="261.0" text="Thank you for your purchase!">
+      <Button fx:id="btn" layoutX="406.0" layoutY="213.0" mnemonicParsing="false" onAction="#goBackToMovies" prefHeight="25.0" prefWidth="170.0" styleClass="btn" text="Go Back To PopCorn Movies" />
+      <Label fx:id="thx" layoutX="362.0" layoutY="81.0" prefHeight="45.0" prefWidth="261.0" text="Thank you for your purchase!" styleClass="title">
          <font>
             <Font size="20.0" />
          </font>

@@ -29,7 +29,7 @@
             <Image url="@../imgs/film-strip.png" />
          </image>
       </ImageView>
-      <Label layoutX="811.0" layoutY="19.0" text="Movies">
+      <Label layoutX="811.0" layoutY="19.0" styleClass="title" text="Movies">
          <font>
             <Font size="30.0" />
          </font>
@@ -41,7 +41,11 @@
       </ImageView>
       <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="297.0" styleClass="menu">
          <children>
-            <ImageView fx:id="picture" fitHeight="164.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true" styleClass="picture" />
+            <ImageView fx:id="picture" fitHeight="164.0" fitWidth="143.0" pickOnBounds="true" preserveRatio="true" styleClass="picture">
+               <image>
+                  <Image url="@../imgs/circle.png" />
+               </image>
+            </ImageView>
             <Label fx:id="firstNameAndLastName" text="FirstName&amp;LastName">
                <font>
                   <Font size="15.0" />
@@ -202,47 +206,47 @@
             </Button>
          </children>
       </VBox>
-      <Label layoutX="605.0" layoutY="78.0" text="Title : ">
+      <Label layoutX="605.0" layoutY="78.0" styleClass="title" text="Title : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="605.0" layoutY="147.0" text="Genre : ">
+      <Label layoutX="605.0" layoutY="147.0" styleClass="title" text="Genre : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="607.0" layoutY="225.0" text="Director : ">
+      <Label layoutX="607.0" layoutY="225.0" styleClass="title" text="Director : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="610.0" layoutY="303.0" text="Cast : ">
+      <Label layoutX="610.0" layoutY="303.0" styleClass="title" text="Cast : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label layoutX="609.0" layoutY="380.0" text="Plot : ">
+      <Label layoutX="609.0" layoutY="380.0" styleClass="title" text="Plot : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="labelTitle" layoutX="752.0" layoutY="78.0" styleClass="labelTitle">
+      <Label fx:id="labelTitle" layoutX="752.0" layoutY="78.0" styleClass="title">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="labelGenre" layoutX="751.0" layoutY="147.0" styleClass="labelGenre">
+      <Label fx:id="labelGenre" layoutX="751.0" layoutY="147.0" styleClass="title">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="labelDirector" layoutX="756.0" layoutY="225.0" styleClass="labelDirector">
+      <Label fx:id="labelDirector" layoutX="756.0" layoutY="225.0" styleClass="title">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="labelCast" layoutX="753.0" layoutY="303.0" prefHeight="36.0" prefWidth="472.0" styleClass="labelCast">
+      <Label fx:id="labelCast" layoutX="753.0" layoutY="303.0" prefHeight="36.0" prefWidth="472.0" styleClass="title">
          <font>
             <Font size="25.0" />
          </font>
@@ -256,13 +260,13 @@
             </Label>
          </content>
       </ScrollPane>
-      <Label layoutX="602.0" layoutY="605.0" text="Number of tickets : ">
+      <Label layoutX="602.0" layoutY="605.0" styleClass="title" text="Number of tickets : ">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
       <TextField fx:id="tfNbrTickets" layoutX="827.0" layoutY="611.0" prefHeight="25.0" prefWidth="49.0" styleClass="tfNbrTickets" />
-      <Label layoutX="477.0" layoutY="645.0" text="Number of student discounts :">
+      <Label layoutX="477.0" layoutY="645.0" styleClass="title" text="Number of student discounts :">
          <font>
             <Font size="25.0" />
          </font>
@@ -273,28 +277,36 @@
             <Font size="32.0" />
          </font>
       </Button>
-      <Label layoutX="684.0" layoutY="685.0" text="Total price :">
+      <Label layoutX="684.0" layoutY="685.0" styleClass="title" text="Total price :">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="price" layoutX="827.0" layoutY="685.0" styleClass="labelTotalPrice">
+      <Label fx:id="price" layoutX="827.0" layoutY="685.0">
          <font>
             <Font size="25.0" />
          </font>
+         <styleClass>
+            <String fx:value="labelTotalPrice" />
+            <String fx:value="title" />
+         </styleClass>
       </Label>
       <ImageView fx:id="ivMovie" fitHeight="292.0" fitWidth="239.0" layoutX="331.0" layoutY="79.0" pickOnBounds="true" preserveRatio="true" />
-      <Label layoutX="342.0" layoutY="390.0" text="Duration:">
+      <Label layoutX="342.0" layoutY="390.0" styleClass="title" text="Duration:">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="duration" layoutX="450.0" layoutY="390.0" prefHeight="36.0" prefWidth="49.0" styleClass="labelCast">
+      <Label fx:id="duration" layoutX="450.0" layoutY="390.0" prefHeight="36.0" prefWidth="49.0">
          <font>
             <Font size="25.0" />
          </font>
+         <styleClass>
+            <String fx:value="labelCast" />
+            <String fx:value="title" />
+         </styleClass>
       </Label>
-      <Label layoutX="499.0" layoutY="390.0" text="min">
+      <Label layoutX="499.0" layoutY="390.0" styleClass="title" text="min">
          <font>
             <Font size="25.0" />
          </font>

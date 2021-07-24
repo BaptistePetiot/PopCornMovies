@@ -28,7 +28,7 @@
             <Image url="@../imgs/film-strip.png" />
          </image>
       </ImageView>
-      <Label layoutX="801.0" layoutY="5.0" text="Movies">
+      <Label layoutX="801.0" layoutY="5.0" text="Movies" styleClass="title">
          <font>
             <Font size="30.0" />
          </font>
@@ -53,7 +53,7 @@
             <MenuItem mnemonicParsing="false" onAction="#drama" styleClass="genreMenuItem" text="Drama" />
         </items>
       </SplitMenuButton>
-      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="310.0" layoutY="55.0" prefHeight="731.0" prefWidth="1077.0" vbarPolicy="ALWAYS">
+      <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" layoutX="310.0" layoutY="55.0" prefHeight="731.0" prefWidth="1077.0" vbarPolicy="ALWAYS" styleClass="scrollPane">
          <content>
             <!--<GridPane fx:id="gridMovies" prefHeight="1103.0" prefWidth="1071.0">
               <columnConstraints>
@@ -133,7 +133,7 @@
             </GridPane>-->
          </content>
       </ScrollPane>
-      <Button fx:id="minus" layoutX="444.0" layoutY="12.0" mnemonicParsing="false" onAction="#selectMinus">
+      <Button fx:id="minus" layoutX="444.0" layoutY="12.0" mnemonicParsing="false" onAction="#selectMinus" >
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -145,7 +145,7 @@
             <String fx:value="buttonMinus" />
          </styleClass>
       </Button>
-      <Button layoutX="516.0" layoutY="12.0" mnemonicParsing="false" onAction="#plusMovie" styleClass="buttonPlus">
+      <Button layoutX="516.0" layoutY="12.0" mnemonicParsing="false" onAction="#plusMovie" styleClass="buttonPlus" >
          <graphic>
             <ImageView fitHeight="24.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
                <image>

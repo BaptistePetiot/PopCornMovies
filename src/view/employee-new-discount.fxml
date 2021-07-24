@@ -24,22 +24,22 @@
                 <Font size="15.0" />
             </font>
         </Button>
-        <Label layoutX="590.0" layoutY="180.0" text="Name :">
+        <Label layoutX="590.0" layoutY="180.0" styleClass="title" text="Name :">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="590.0" layoutY="250.0" text="Amount :">
+        <Label layoutX="590.0" layoutY="250.0" styleClass="title" text="Amount :">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="590.0" layoutY="320.0" text="Unit :">
+        <Label layoutX="590.0" layoutY="320.0" styleClass="title" text="Unit :">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Label layoutX="590.0" layoutY="390.0" text="Status :">
+        <Label layoutX="590.0" layoutY="390.0" styleClass="title" text="Status :">
             <font>
                 <Font size="25.0" />
             </font>
@@ -54,7 +54,7 @@
                 <Image url="@../imgs/icons8-discount-50.png" />
             </image>
         </ImageView>
-        <Label layoutX="811.0" layoutY="22.0" text="New discount">
+        <Label layoutX="811.0" layoutY="22.0" styleClass="title" text="New discount">
             <font>
                 <Font size="30.0" />
             </font>
@@ -233,22 +233,22 @@
         </VBox>
       <TextField fx:id="newDiscountName" layoutX="729.0" layoutY="186.0" prefHeight="25.0" prefWidth="341.0" />
       <TextField fx:id="newDiscountAmount" layoutX="731.0" layoutY="256.0" prefHeight="25.0" prefWidth="341.0" />
-      <RadioButton fx:id="livreStearling" layoutX="751.0" layoutY="320.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="49.0" text="£">
+      <RadioButton fx:id="livreStearling" layoutX="751.0" layoutY="320.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="49.0" styleClass="poundSterling" text="£">
          <font>
             <Font size="24.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="percent" layoutX="889.0" layoutY="320.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="49.0" text="\%">
+      <RadioButton fx:id="percent" layoutX="889.0" layoutY="320.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="49.0" styleClass="percent" text="\%">
          <font>
             <Font size="24.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="active" layoutX="751.0" layoutY="400.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="111.0" text="Active">
+      <RadioButton fx:id="active" layoutX="751.0" layoutY="400.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="111.0" styleClass="active" text="Active">
          <font>
             <Font size="24.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="inactive" layoutX="889.0" layoutY="400.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="129.0" text="Inactive">
+      <RadioButton fx:id="inactive" layoutX="889.0" layoutY="400.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="129.0" styleClass="inactive" text="Inactive">
          <font>
             <Font size="24.0" />
          </font>

@@ -1,5 +1,9 @@
-.anchorPane{
+.anchorPane, .pane{
     -fx-background-color: #1D3557;
+}
+
+label{
+    -fx-text-fill: white;
 }
 
 .menu{
@@ -10,12 +14,75 @@
     -fx-background-color:  #A8DADC;
 }
 
-.buttonExit{
+.tab:hover{
+    -fx-background-color:   #3e75c2;
+}
+
+.selected{
+    -fx-background-color:   #3e75c2;
+}
+
+.btn{
+    -fx-text-fill: white;
+    -fx-border-style: solid;
+    -fx-border-color: white;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+
+.buttonCustomers, .buttonEmployees, .buttonExit, .buttonBack{
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
     -fx-text-fill: white;
 }
 
-.buttonExit{
-    -fx-text-fill: white;
+.buttonMovie, .buttonDiscount{
     -fx-background-color: #1D3557;
     -fx-cursor: hand;
 }
+.minusNotSelected, .modifyNotSelected{
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-border-style: solid;
+    -fx-border-color: black;
+    -fx-text-fill: black;
+}
+
+.minusSelected, .modifySelected, .buttonDeleteAccount{
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-border-style: solid;
+    -fx-border-color: white;
+    -fx-text-fill: white;
+}
+
+.buttonDeleteAccount{
+    -fx-background-color: #E63946;
+}
+
+.recordSelected{
+    -fx-border-style: solid;
+    -fx-border-color: white;
+}
+
+.scrollPane > .viewport {
+    -fx-background: #1D3557;
+}
+
+.title, .light, .dark, .active, .inactive, .poundSterling, .percent, .regular, .child, .senior{
+    -fx-text-fill: white;
+}
+
+.scrollablePurchasesVBox{
+    -fx-background: transparent;
+}
+
+.discountAlert{
+    -fx-background-color: #f0542e;
+}
+
+.chart-pie-label {
+    -fx-fill: white;
+    -fx-font-size: 1em;
+}
+

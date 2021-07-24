@@ -280,8 +280,7 @@ public class StatisticsEmployeeController implements Initializable {
             //instanciating new line chart
             final CategoryAxis xAxis = new CategoryAxis();
             final NumberAxis yAxis = new NumberAxis();
-            xAxis.setLabel("Month");
-            yAxis.setLabel("Nbr of tickets bought");
+
             final LineChart<String,Number> lineChart = new LineChart<String,Number>(xAxis,yAxis);
             lineChart.setLayoutX(329.0);
             lineChart.setLayoutY(196.0);

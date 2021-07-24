@@ -23,7 +23,7 @@
             <Image url="@../imgs/icons8-account-64.png" />
          </image>
       </ImageView>
-      <Label layoutX="794.0" layoutY="5.0" text="Account">
+      <Label layoutX="794.0" layoutY="5.0" text="Settings" styleClass="title">
          <font>
             <Font size="30.0" />
          </font>
@@ -33,17 +33,17 @@
             <Image url="@../imgs/icons8-account-64.png" />
          </image>
       </ImageView>
-      <RadioButton fx:id="dark" layoutX="799.0" layoutY="408.0" mnemonicParsing="false" text="Dark">
+      <RadioButton fx:id="dark" layoutX="799.0" layoutY="408.0" mnemonicParsing="false" text="Dark" styleClass="dark">
          <font>
             <Font size="35.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="light" layoutX="798.0" layoutY="309.0" mnemonicParsing="false" text="Light">
+      <RadioButton fx:id="light" layoutX="798.0" layoutY="309.0" mnemonicParsing="false" text="Light" styleClass="light">
          <font>
             <Font size="35.0" />
          </font>
       </RadioButton>
-      <Label layoutX="773.0" layoutY="197.0" text="Theme">
+      <Label layoutX="773.0" layoutY="197.0" text="Theme" styleClass="title">
          <font>
             <Font size="50.0" />
          </font>

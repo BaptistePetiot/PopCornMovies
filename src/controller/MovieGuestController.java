@@ -129,7 +129,7 @@ public class MovieGuestController implements Initializable, Consts {
             int purchaseId = maxId + 1;
 
             // add purchase to DB
-            stmt.executeUpdate("INSERT INTO `purchases` (`Id`, `IdLogins`, `IdMovies`, `Title`, `NbrTickets`, `Date`, `Price`) VALUES ('  " + purchaseId + "', ' " + Me.getId() + "', ' "+ Me.getLookingAtMovie().getId() +  "', ' "+ Me.getLookingAtMovie().getTitle() + "', '" + nbrTickets + "', '" + date + "', '" + cost + "');");
+            stmt.executeUpdate("INSERT INTO `purchases` (`Id`, `IdLogins`, `IdMovies`, `Title`, `NbrTickets`, `Date`, `Price`) VALUES ('  " + purchaseId + "', '0', ' "+ Me.getLookingAtMovie().getId() +  "', ' "+ Me.getLookingAtMovie().getTitle() + "', '" + nbrTickets + "', '" + date + "', '" + cost + "');");
 
         }catch (SQLException e){
             System.out.println(e.getMessage());
