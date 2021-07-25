@@ -121,7 +121,7 @@ public class MovieGuestController implements Initializable, Consts {
                 TextInputDialog dialog = new TextInputDialog();
                 dialog.setTitle("Email");
                 dialog.setHeaderText("Enter your email to receive your tickets, don't worry it won't be stored in the database.");
-                dialog.setContentText("Email:");
+                dialog.setContentText("Email, (the right one or you will lose your tickets) :");
                 Optional<String> result = dialog.showAndWait();
 
                 result.ifPresent(email -> {
