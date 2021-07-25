@@ -36,7 +36,7 @@ public class MovieEmployeeController implements Initializable {
     TextField tfNbrStudentDiscounts, tfNbrTickets;
 
     // class attributes
-    private int cost = 0;
+    private double cost = 0;
     private String date;
     private int nbrTickets;
 
@@ -268,8 +268,46 @@ public class MovieEmployeeController implements Initializable {
         nbrTickets = Integer.parseInt(tfNbrTickets.getText());
         int nbrStudentTickets = Integer.parseInt(tfNbrStudentDiscounts.getText());
         int nbrNormalTickets = nbrTickets - nbrStudentTickets;
+        int personalTicket = 1;
 
-        cost = nbrStudentTickets * Consts.STUDENT_PRICE + nbrNormalTickets * Consts.NORMAL_PRICE;
+        // takes into account the personal category of the user (for one ticket only obviously)
+        double price = 0;
+        if(Me.getCategory() == 0){
+            price = personalTicket * Consts.NORMAL_PRICE + nbrStudentTickets * Consts.STUDENT_PRICE + nbrNormalTickets * Consts.NORMAL_PRICE;
+        }else if(Me.getCategory() == 1){
+            price = personalTicket * Consts.SENIOR_PRICE + nbrStudentTickets * Consts.STUDENT_PRICE + nbrNormalTickets * Consts.NORMAL_PRICE;
+        }else if(Me.getCategory() == 2){
+            price = personalTicket * Consts.CHILD_PRICE + nbrStudentTickets * Consts.STUDENT_PRICE + nbrNormalTickets * Consts.NORMAL_PRICE;
+        }
+
+        // takes into account the highest active discount
+        try{
+            // create a connection to the database
+            Connection connection = DriverManager.getConnection(url, user, password);
+            // statement
+            Statement stmt = connection.createStatement();
+
+            // DISCOUNT
+            ResultSet rs = stmt.executeQuery("SELECT Name, Amount, Unit FROM Discounts WHERE Status = 'Active' ORDER BY Amount DESC");
+            String unit = "";
+            int amount = 0;
+            if (rs.next()) {
+                amount = rs.getInt("Amount");
+                unit = rs.getString("Unit");
+
+                if(unit.equals("%")){
+                    cost = price * (100.0 - amount)/100;
+                }else{
+                    cost = price - amount;
+                }
+
+            }else{
+                cost = price;
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 
     /***

@@ -18,7 +18,6 @@ public class Discount {
 
     }
 
-
     public int getId() {
         return this.id;
     }
