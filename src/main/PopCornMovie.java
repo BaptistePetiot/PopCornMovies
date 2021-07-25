@@ -11,6 +11,7 @@ import java.util.Objects;
 
 /**
  * PopCorn Movie application
+ * @author Baptiste Petiot
  */
 public class PopCornMovie extends Application {
 
