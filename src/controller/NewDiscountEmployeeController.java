@@ -86,6 +86,15 @@ public class NewDiscountEmployeeController implements Initializable {
     }
 
     /**
+     * check if a string is alphanumeric or not
+     * @param s : String
+     * @return boolean
+     */
+    private boolean isAlphaNumeric(String s) {
+        return s != null && s.matches("^[a-zA-Z0-9]*$");
+    }
+
+    /**
      * adds new discount to the DB
      */
     @FXML
@@ -122,12 +131,23 @@ public class NewDiscountEmployeeController implements Initializable {
             while (rs.next()) {
                 maxId = rs.getInt(1);
             }
-            int nextId = maxId + 1;
-            String sqlINSERTStatement = "INSERT INTO `Discounts` (`Id`, `Name`, `Amount`, `Unit`,`Status`) VALUES (" + nextId + ", '" + newDiscountName.getText() + "', '" + newDiscountAmount.getText() + "', '" + chosenUnit + "', '" + chosenStatus + "');";
-            stmt.executeUpdate(sqlINSERTStatement);
 
-            Cinema.refresh();
-            goToDiscounts();
+            // checks if the name contains non alphanumeric characters
+            if(!isAlphaNumeric(newDiscountName.getText()) || !isAlphaNumeric(newDiscountAmount.getText())){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Problem");
+                alert.setHeaderText("Cannot register this new discount");
+                alert.setContentText("Please enter a valid (alphanumeric characters only) discount");
+                alert.showAndWait();
+            }else{
+                int nextId = maxId + 1;
+                String sqlINSERTStatement = "INSERT INTO `Discounts` (`Id`, `Name`, `Amount`, `Unit`,`Status`) VALUES (" + nextId + ", '" + newDiscountName.getText() + "', '" + newDiscountAmount.getText() + "', '" + chosenUnit + "', '" + chosenStatus + "');";
+                stmt.executeUpdate(sqlINSERTStatement);
+
+                Cinema.refresh();
+                goToDiscounts();
+            }
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

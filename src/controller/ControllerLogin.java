@@ -276,11 +276,23 @@ public class ControllerLogin {
                     String s = rs.getString("Email");
                     if (s.equals(email)) {    //check email is not already in DB
                         emailOK = false;
+
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Problem");
+                        alert.setHeaderText("Cannot sign up");
+                        alert.setContentText("Email address already in the DB");
+                        alert.showAndWait();
                         break;
                     }
                 }
             }
             if (!emailOK) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Problem");
+                alert.setHeaderText("Cannot sign up");
+                alert.setContentText("Please enter a valid email address");
+                alert.showAndWait();
+
                 System.out.println("Email invalid or already registered");
             }
 

@@ -115,6 +115,15 @@ public class ModifyDiscountEmployeeController implements Initializable {
     }
 
     /**
+     * check if a string is alphanumeric or not
+     * @param s : String
+     * @return boolean
+     */
+    private boolean isAlphaNumeric(String s) {
+        return s != null && s.matches("^[a-zA-Z0-9]*$");
+    }
+
+    /**
      * apply changes to DB
      */
     @FXML
@@ -144,11 +153,21 @@ public class ModifyDiscountEmployeeController implements Initializable {
                 chosenStatus = "Inactive";
             }
 
-            String sqlUPDATEStatement = "UPDATE `Discounts` SET Name='" + name.getText() + "', Amount='" + amount.getText() + "', Unit='" + chosenUnit + "', Status='" + chosenStatus + "' WHERE Id=" + modifyingDiscount.getId();
-            stmt.executeUpdate(sqlUPDATEStatement);
+            // checks if the name contains non alphanumeric characters
+            if(!isAlphaNumeric(name.getText()) || !isAlphaNumeric(amount.getText())){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Problem");
+                alert.setHeaderText("Cannot register this new discount");
+                alert.setContentText("Please enter a valid (alphanumeric characters only) discount");
+                alert.showAndWait();
+            }else{
+                String sqlUPDATEStatement = "UPDATE `Discounts` SET Name='" + name.getText() + "', Amount='" + amount.getText() + "', Unit='" + chosenUnit + "', Status='" + chosenStatus + "' WHERE Id=" + modifyingDiscount.getId();
+                stmt.executeUpdate(sqlUPDATEStatement);
 
-            Cinema.refresh();
-            goToDiscounts();
+                Cinema.refresh();
+                goToDiscounts();
+            }
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
