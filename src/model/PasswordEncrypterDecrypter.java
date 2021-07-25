@@ -78,4 +78,26 @@ public class PasswordEncrypterDecrypter {
 
         return decryptedString;
     }
+
+    public static void test() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, InvalidAlgorithmParameterException, NoSuchPaddingException {
+        System.out.println(" ENCRYPTION ");
+        String input = "jarvis";
+
+        SecretKey key = PasswordEncrypterDecrypter.generateKey();
+        byte[] iv = PasswordEncrypterDecrypter.generateIv();
+        IvParameterSpec ivParameterSpec = PasswordEncrypterDecrypter.generateIvParameterSpec(iv);
+
+        System.out.println(" SAVE TO DB ");
+        String cipherPassword = PasswordEncrypterDecrypter.encrypt(input, key, ivParameterSpec);
+        String s = PasswordEncrypterDecrypter.secretKey2String(key);
+        String ivString = PasswordEncrypterDecrypter.array2String(iv);
+        System.out.println("password : " + cipherPassword + " , key : " + s + " , iv : " + ivString);
+
+        System.out.println(" DECRYPTION ");
+        byte[] iv2Array = PasswordEncrypterDecrypter.string2Array(ivString);
+        IvParameterSpec iv2 = new IvParameterSpec(iv2Array);
+        SecretKey key2 = PasswordEncrypterDecrypter.string2SecretKey(s);
+        String clearPassword = PasswordEncrypterDecrypter.decrypt(cipherPassword, key2, iv2);
+        System.out.println("password : " + clearPassword);
+    }
 }

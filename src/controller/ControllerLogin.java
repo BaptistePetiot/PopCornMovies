@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,19 +21,14 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 
 public class ControllerLogin {
-    //private Cinema cinema;
-
-    //private FXMLLoader loaderMember = new FXMLLoader(getClass().getResource("view/login.fxml"));
-    //private FXMLLoader loaderGuest = new FXMLLoader(getClass().getResource("view/guest.fxml"));
-    //private FXMLLoader loaderSignup = new FXMLLoader(getClass().getResource("view/signup.fxml"));
-    //private FXMLLoader loaderBaseCustomer = new FXMLLoader(getClass().getResource("view/base_customer.fxml"));
+    // class attributes
     private double x, y;
     private boolean isEmployee;
     private String date;
 
+    // Javafx elements
     @FXML
     Button buttonMember, buttonGuest, buttonSignup, buttonExit, buttonCustomer, buttonEmployee, buttonBack, buttonLogin, buttonContinueAsGuest;
     @FXML
@@ -51,38 +45,27 @@ public class ControllerLogin {
     private final String user = "root";
     private final String password = "";
 
-    public ControllerLogin() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, InvalidAlgorithmParameterException, NoSuchPaddingException {
-        // handle date
+    public ControllerLogin(){
+        // handle current date
         this.isEmployee = false;
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date now = new Date(System.currentTimeMillis());
         this.date = formatter.format(now);
 
-        /*
         // Encryption test
-        System.out.println(" ENCRYPTION ");
-        String input = "jarvis";
-
-        SecretKey key = PasswordEncrypterDecrypter.generateKey();
-        byte[] iv = PasswordEncrypterDecrypter.generateIv();
-        IvParameterSpec ivParameterSpec = PasswordEncrypterDecrypter.generateIvParameterSpec(iv);
-
-        System.out.println(" SAVE TO DB ");
-        String cipherPassword = PasswordEncrypterDecrypter.encrypt(input, key, ivParameterSpec);
-        String s = PasswordEncrypterDecrypter.secretKey2String(key);
-        String ivString = PasswordEncrypterDecrypter.array2String(iv);
-        System.out.println("password : " + cipherPassword + " , key : " + s + " , iv : " + ivString);
-
-        System.out.println(" DECRYPTION ");
-        byte[] iv2Array = PasswordEncrypterDecrypter.string2Array(ivString);
-        IvParameterSpec iv2 = new IvParameterSpec(iv2Array);
-        SecretKey key2 = PasswordEncrypterDecrypter.string2SecretKey(s);
-        String clearPassword = PasswordEncrypterDecrypter.decrypt(cipherPassword, key2, iv2);
-        System.out.println("password : " + clearPassword);
-        */
+        /*try{
+            PasswordEncrypterDecrypter.test();
+        }catch (Exception e){
+            e.printStackTrace();
+        }*/
 
     }
 
+    /***
+     * allows to use ENTER key to log in
+     * @param keyEvent
+     * @throws IOException
+     */
     @FXML
     public void handleEnterLogin(KeyEvent keyEvent) throws IOException {
         if (keyEvent.getCode() == KeyCode.ENTER) {
@@ -90,8 +73,22 @@ public class ControllerLogin {
         }
     }
 
+    /***
+     * allows to use ENTER key to sign up
+     * @param keyEvent
+     */
     @FXML
-    private void login() throws IOException {
+    public void handleEnterSignup(KeyEvent keyEvent)  {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            signup();
+        }
+    }
+
+    /***
+     * verifies that email and password are correct and if so logs in
+     */
+    @FXML
+    private void login() {
         // connect to DB
         Connection connection = null;
         boolean emailOK = false, passwordOK = false;
@@ -221,17 +218,7 @@ public class ControllerLogin {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             // add popup
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (InvalidAlgorithmParameterException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
+        } catch (NoSuchAlgorithmException | InvalidKeyException | InvalidAlgorithmParameterException | NoSuchPaddingException | BadPaddingException | IllegalBlockSizeException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -243,15 +230,11 @@ public class ControllerLogin {
         }
     }
 
+    /***
+     * check if email is not already in the DB and if not, allows the user to sign up
+     */
     @FXML
-    public void handleEnterSignup(KeyEvent keyEvent) throws BadPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, NoSuchPaddingException, InvalidKeyException {
-        if (keyEvent.getCode() == KeyCode.ENTER) {
-            signup();
-        }
-    }
-
-    @FXML
-    private void signup() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, InvalidAlgorithmParameterException, NoSuchPaddingException {
+    private void signup() {
         // connect to DB
         Connection connection = null;
         boolean emailOK = false;
@@ -300,7 +283,7 @@ public class ControllerLogin {
 
                 //encrypt
                 String cipherPassword = PasswordEncrypterDecrypter.encrypt(passwordSignup.getText(), key, ivParameterSpec);
-                // save cipherPassword + key + iv to DB
+                // save cipherPassword + key + iv to the DB
                 String keyPassword = PasswordEncrypterDecrypter.secretKey2String(key);
                 String ivString = PasswordEncrypterDecrypter.array2String(iv);
 
@@ -352,7 +335,6 @@ public class ControllerLogin {
 
         } catch (SQLException | IOException e) {
             System.out.println(e.getMessage());
-            // add popup
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -364,9 +346,11 @@ public class ControllerLogin {
             }
         }
 
-
     }
 
+    /***
+     * change border to frame customer
+     */
     @FXML
     private void changeToCustomer() {
         buttonEmployee.setStyle("-fx-background-color: #9C2B27; -fx-border-color: transparent; -fx-cursor: hand;");
@@ -374,6 +358,9 @@ public class ControllerLogin {
         this.isEmployee = false;
     }
 
+    /***
+     * change border to frame employee
+     */
     @FXML
     private void changeToEmployee() {
         buttonCustomer.setStyle("-fx-background-color: #9C2B27; -fx-border-color: transparent; -fx-cursor: hand;");
@@ -381,9 +368,13 @@ public class ControllerLogin {
         this.isEmployee = true;
     }
 
+    // NAVIGATION
+
+    /***
+     * function that loads the GUEST scene
+     */
     @FXML
-    protected void goToGuest() throws IOException {
-        //super.goToGuest();
+    protected void goToGuest() {
         System.out.println("GUEST");
         try {
             SceneManager.loadScene("../view/guest.fxml", 700, 400);
@@ -392,9 +383,11 @@ public class ControllerLogin {
         }
     }
 
+    /***
+     * function that loads the MEMBER scene
+     */
     @FXML
-    protected void goToMember() throws IOException {
-        //super.goToMember();
+    protected void goToMember() {
         System.out.println("MEMBER");
         try {
             SceneManager.loadScene("../view/login.fxml", 700, 400);
@@ -403,15 +396,19 @@ public class ControllerLogin {
         }
     }
 
+    /***
+     * function that goes back to the previous scene : MEMBER
+     */
     @FXML
-    private void goBackToMember() throws IOException {
-        //super.goToMember();
+    private void goBackToMember() {
         goToMember();
     }
 
+    /***
+     * function that loads the SIGNUP scene
+     */
     @FXML
-    protected void goToSignup() throws IOException {
-        //super.goToSignup();
+    protected void goToSignup() {
         System.out.println("SIGNUP");
         try {
             SceneManager.loadScene("../view/signup.fxml", 700, 400);
@@ -420,11 +417,10 @@ public class ControllerLogin {
         }
     }
 
+    /***
+     * function that loads the GUEST application and directly goes to the OVERVIEW scene
+     */
     @FXML
-    private void exit() {
-        System.exit(0);
-    }
-
     protected void goToCustomerApp() {
         System.out.println("GO TO CUSTOMER APP");
         System.out.println(Me.getId() + " / " + Me.getLastName() + " / " + Me.getFirstName());
@@ -436,6 +432,9 @@ public class ControllerLogin {
         }
     }
 
+    /***
+     * function that loads the EMPLOYEE application and directly goes to the OVERVIEW scene
+     */
     @FXML
     protected void goToEmployeeApp() {
         System.out.println("GO TO EMPLOYEE APP");
@@ -448,6 +447,9 @@ public class ControllerLogin {
         }
     }
 
+    /***
+     * function that loads the GUEST application and directly goes to the OVERVIEW scene
+     */
     @FXML
     public void continueAsGuest() {
         System.out.println("GO TO GUEST APP");
@@ -456,6 +458,14 @@ public class ControllerLogin {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /***
+     * exit the software
+     */
+    @FXML
+    private void exit() {
+        System.exit(0);
     }
 
 

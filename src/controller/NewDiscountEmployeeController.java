@@ -14,7 +14,6 @@ import model.Cinema;
 import model.Me;
 import model.SceneManager;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;

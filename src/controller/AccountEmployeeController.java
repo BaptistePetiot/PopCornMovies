@@ -25,7 +25,12 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 public class AccountEmployeeController implements Initializable {
+    // credentials
+    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
+    private final String user = "root";
+    private final String password = "";
 
+    // Javafx elements
     @FXML
     ImageView picture;
     @FXML
@@ -36,11 +41,6 @@ public class AccountEmployeeController implements Initializable {
     Pane pane;
     @FXML
     ToggleGroup categoryGroup, themeGroup;
-
-    // credentials
-    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
-    private final String user = "root";
-    private final String password = "";
 
     @FXML
     protected void addPicture() {

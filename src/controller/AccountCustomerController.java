@@ -2,7 +2,6 @@ package controller;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -15,7 +14,6 @@ import model.Me;
 import model.SceneManager;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -31,6 +29,8 @@ public class AccountCustomerController implements Initializable {
     private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
     private final String user = "root";
     private final String password = "";
+
+    // Javafx elements
     @FXML
     ImageView picture;
     @FXML
@@ -42,6 +42,10 @@ public class AccountCustomerController implements Initializable {
     @FXML
     ToggleGroup categoryGroup, themeGroup;
 
+    /**
+     * function that checks if the user already has a picture in the DB, if so changes it to the new selected one,
+     * otherwise insert the image into the DB
+     */
     @FXML
     protected void addPicture() {
         System.out.println("ADD PICTURE");
@@ -93,11 +97,14 @@ public class AccountCustomerController implements Initializable {
 
     }
 
-    private void loadPicture() throws Exception {
-        File img = new File("picture.jpg");
-        FileOutputStream ostreamImage = new FileOutputStream(img);
-
+    /***
+     * loads the user picture in the dedicated ImageView
+     */
+    private void loadPicture() {
         try {
+            File img = new File("picture.jpg");
+            FileOutputStream ostreamImage = new FileOutputStream(img);
+
             // create a connection to the database
             Connection connection = DriverManager.getConnection(url, user, password);
             // prepared statement
@@ -121,67 +128,23 @@ public class AccountCustomerController implements Initializable {
                         // set image
                         Image image = new Image(img.toURI().toString());
                         picture.setImage(image);
-
-                        istreamImage.close();
                     }
                 } finally {
                     rs.close();
                 }
             } finally {
+                ostreamImage.close();
                 ps.close();
             }
-        } finally {
-            ostreamImage.close();
-
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
-    public void goToOverview(ActionEvent actionEvent) {
-        System.out.println("OVERVIEW CUSTOMER");
-        try {
-            SceneManager.loadScene("../view/customer-overview.fxml", 1400, 800);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void goToMovies(ActionEvent actionEvent) {
-        System.out.println("MOVIES CUSTOMER");
-        try {
-            SceneManager.loadScene("../view/customer-movies.fxml", 1400, 800);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void goToPurchases(ActionEvent actionEvent) {
-        System.out.println("PURCHASES CUSTOMER");
-        try {
-            SceneManager.loadScene("../view/customer-purchases.fxml", 1400, 800);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void goToAccount(ActionEvent actionEvent) {
-        System.out.println("ACCOUNT CUSTOMER");
-        try {
-            SceneManager.loadScene("../view/customer-account.fxml", 1400, 800);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void signout() {
-        System.out.println("SIGN OUT");
-        try {
-            SceneManager.loadScene("../view/login.fxml", 700, 400);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void delete(ActionEvent actionEvent) {
+    /***
+     * displays an alert, if the user is sure of his or her choise, then deletes the account from the DB
+     */
+    public void delete() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete your account ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
         alert.showAndWait();
 
@@ -206,11 +169,94 @@ public class AccountCustomerController implements Initializable {
 
     }
 
+    // NAVIGATION
+
+    /***
+     * function that loads the OVERVIEW scene of CUSTOMER application
+     * scene that displays the 2 most attractive movies of the moment
+     * and the most interesting discount that is currently active
+     */
+    public void goToOverview() {
+        System.out.println("OVERVIEW CUSTOMER");
+        try {
+            SceneManager.loadScene("../view/customer-overview.fxml", 1400, 800);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * function that loads the MOVIES scene of CUSTOMER application
+     * displays the list of movies available depending on their genre
+     */
+    public void goToMovies() {
+        System.out.println("MOVIES CUSTOMER");
+        try {
+            SceneManager.loadScene("../view/customer-movies.fxml", 1400, 800);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * function that loads the PURCHASES scene of CUSTOMER application
+     * displays all purchases os the user in a scrollable area
+     */
+    public void goToPurchases() {
+        System.out.println("PURCHASES CUSTOMER");
+        try {
+            SceneManager.loadScene("../view/customer-purchases.fxml", 1400, 800);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * function that loads the ACCOUNT scene of CUSTOMER application
+     * displays the date of creation of the account
+     * lets the user select the appropriate category for the account (regular, senior or child)
+     * lets the user select the theme of his choice (light or dark)
+     * lets the user add a picture or change the current one
+     * lets the user delete the account
+     */
+    public void goToAccount() {
+        System.out.println("ACCOUNT CUSTOMER");
+        try {
+            SceneManager.loadScene("../view/customer-account.fxml", 1400, 800);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * function that signs the user out and loads the LOGIN scene
+     */
+    public void signout() {
+        System.out.println("SIGN OUT");
+        try {
+            SceneManager.loadScene("../view/login.fxml", 700, 400);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * exit the CUSTOMER application
+     */
     @FXML
     private void exit() {
         System.exit(0);
     }
 
+    /***
+     * first method called for initialization
+     * loads user picture
+     * sets chosen theme
+     * sets chosen category
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // load picture

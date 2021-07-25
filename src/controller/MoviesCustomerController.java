@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -31,7 +30,12 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class MoviesCustomerController implements Initializable {
+    // credentials
+    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
+    private final String user = "root";
+    private final String password = "";
 
+    // Javafx elements
     @FXML
     ImageView picture;
     @FXML
@@ -44,19 +48,18 @@ public class MoviesCustomerController implements Initializable {
     @FXML
     ScrollPane scrollPane;
 
+    // class attributes
     private int c, r;
     private HashMap<Pair<Integer, Integer>, Movie> allMoviesCoords, actionMoviesCoords, adventureMoviesCoords, fantasyMoviesCoords, documentaryMoviesCoords, scifiMoviesCoords, horrorMoviesCoords, animationMoviesCoords, thrillerMoviesCoords, comedyMoviesCoords, dramaMoviesCoords;
 
-    // credentials
-    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
-    private final String user = "root";
-    private final String password = "";
-
-    private void loadPicture() throws Exception {
-        File img = new File("picture.jpg");
-        FileOutputStream ostreamImage = new FileOutputStream(img);
-
+    /***
+     * loads the user picture in the dedicated ImageView
+     */
+    private void loadPicture() {
         try {
+            File img = new File("picture.jpg");
+            FileOutputStream ostreamImage = new FileOutputStream(img);
+
             // create a connection to the database
             Connection connection = DriverManager.getConnection(url, user, password);
             // prepared statement
@@ -85,14 +88,22 @@ public class MoviesCustomerController implements Initializable {
                     rs.close();
                 }
             } finally {
+                ostreamImage.close();
                 ps.close();
             }
-        } finally {
-            ostreamImage.close();
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
-    public void goToOverview(ActionEvent actionEvent) {
+    // NAVIGATION
+
+    /***
+     * function that loads the OVERVIEW scene of CUSTOMER application
+     * scene that displays the 2 most attractive movies of the moment
+     * and the most interesting discount that is currently active
+     */
+    public void goToOverview() {
         System.out.println("OVERVIEW CUSTOMER");
         try {
             SceneManager.loadScene("../view/customer-overview.fxml", 1400, 800);
@@ -101,7 +112,11 @@ public class MoviesCustomerController implements Initializable {
         }
     }
 
-    public void goToMovies(ActionEvent actionEvent) {
+    /***
+     * function that loads the MOVIES scene of CUSTOMER application
+     * displays the list of movies available depending on their genre
+     */
+    public void goToMovies() {
         System.out.println("MOVIES CUSTOMER");
         try {
             SceneManager.loadScene("../view/customer-movies.fxml", 1400, 800);
@@ -110,7 +125,25 @@ public class MoviesCustomerController implements Initializable {
         }
     }
 
-    public void goToPurchases(ActionEvent actionEvent) {
+    /***
+     * function that loads the MOVIE scene of CUSTOMER application
+     * displays all information about the specific movie selected
+     * @param m : Movie (the selected movie)
+     */
+    private void goToMovie(Movie m) {
+        Me.setLookingAtMovie(m);
+        try {
+            SceneManager.loadScene("../view/customer-movie.fxml", 1400, 800);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * function that loads the PURCHASES scene of CUSTOMER application
+     * displays all purchases os the user in a scrollable area
+     */
+    public void goToPurchases() {
         System.out.println("PURCHASES CUSTOMER");
         try {
             SceneManager.loadScene("../view/customer-purchases.fxml", 1400, 800);
@@ -119,7 +152,15 @@ public class MoviesCustomerController implements Initializable {
         }
     }
 
-    public void goToAccount(ActionEvent actionEvent) {
+    /***
+     * function that loads the ACCOUNT scene of CUSTOMER application
+     * displays the date of creation of the account
+     * lets the user select the appropriate category for the account (regular, senior or child)
+     * lets the user select the theme of his choice (light or dark)
+     * lets the user add a picture or change the current one
+     * lets the user delete the account
+     */
+    public void goToAccount() {
         System.out.println("ACCOUNT CUSTOMER");
         try {
             SceneManager.loadScene("../view/customer-account.fxml", 1400, 800);
@@ -128,7 +169,10 @@ public class MoviesCustomerController implements Initializable {
         }
     }
 
-    public void signout(ActionEvent actionEvent) {
+    /***
+     * function that signs the user out and loads the LOGIN scene
+     */
+    public void signout() {
         System.out.println("SIGN OUT");
         try {
             SceneManager.loadScene("../view/login.fxml", 700, 400);
@@ -137,11 +181,23 @@ public class MoviesCustomerController implements Initializable {
         }
     }
 
+    /***
+     * exit the CUSTOMER application
+     */
     @FXML
     private void exit() {
         System.exit(0);
     }
 
+    /***
+     * first method called for initialization
+     * loads user picture
+     * sets chosen theme
+     *
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // load picture
@@ -160,7 +216,7 @@ public class MoviesCustomerController implements Initializable {
             pane.getStylesheets().add("css/DarkTheme.css");
         }
 
-        //ids = new ArrayList<>();
+        // initializes all hashmaps
         allMoviesCoords = new HashMap<>();
         actionMoviesCoords = new HashMap<>();
         adventureMoviesCoords = new HashMap<>();
@@ -174,19 +230,13 @@ public class MoviesCustomerController implements Initializable {
         dramaMoviesCoords = new HashMap<>();
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
-        all();
+        all();  // displays all movies by default
     }
 
-    private void goToMovie(Movie m) {
-        Me.setLookingAtMovie(m);
-        try {
-            SceneManager.loadScene("../view/customer-movie.fxml", 1400, 800);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-
+    /***
+     * updates the column and the row given a certain index
+     * @param i : int (index)
+     */
     private void updateColumnAndRow(int i) {
         if ((i % 4) == 0 && i != 0) {
             r++;
@@ -196,6 +246,9 @@ public class MoviesCustomerController implements Initializable {
         }
     }
 
+    /***
+     * retrieves and displays all movies from the DB
+     */
     public void all() {
         c = 0;
         r = 0;
@@ -253,7 +306,10 @@ public class MoviesCustomerController implements Initializable {
         }
     }
 
-    public void action(ActionEvent actionEvent) {
+    /***
+     * retrieves and displays all ACTION movies from the DB
+     */
+    public void action() {
         c = 0;
         r = 0;
         Cinema.refresh();
@@ -263,14 +319,11 @@ public class MoviesCustomerController implements Initializable {
         ArrayList<Movie> actionMovies = Cinema.getMovies();
         actionMovies.removeIf(m -> !m.getGenre().equals("Action"));
 
-        // Clear nodes
-        //gridMovies.getChildren().clear();
-
         // create new grid
         GridPane gridMovies = new GridPane();
         gridMovies.setPrefHeight(1103.0);
         gridMovies.setPrefWidth(1071.0);
-        //gridMovies.getChildren().clear();   // Clear nodes
+
         // set constraints
         for (int i = 0; i < 4; i++) {
             ColumnConstraints column = new ColumnConstraints(267);
@@ -315,7 +368,10 @@ public class MoviesCustomerController implements Initializable {
         }
     }
 
-    public void adventure(ActionEvent actionEvent) {
+    /***
+     * retrieves and displays all ADVENTURE movies from the DB
+     */
+    public void adventure() {
         c = 0;
         r = 0;
         Cinema.refresh();
@@ -325,14 +381,11 @@ public class MoviesCustomerController implements Initializable {
         ArrayList<Movie> adventureyMovies = Cinema.getMovies();
         adventureyMovies.removeIf(m -> !m.getGenre().equals("Adventure"));
 
-        // Clear nodes
-        //gridMovies.getChildren().clear();
-
         // create new grid
         GridPane gridMovies = new GridPane();
         gridMovies.setPrefHeight(1103.0);
         gridMovies.setPrefWidth(1071.0);
-        //gridMovies.getChildren().clear();   // Clear nodes
+
         // set constraints
         for (int i = 0; i < 4; i++) {
             ColumnConstraints column = new ColumnConstraints(267);
@@ -377,7 +430,10 @@ public class MoviesCustomerController implements Initializable {
         }
     }
 
-    public void fantasy(ActionEvent actionEvent) {
+    /***
+     * retrieves and displays all FANTASY movies from the DB
+     */
+    public void fantasy() {
         c = 0;
         r = 0;
         // refresh available movies
@@ -389,14 +445,11 @@ public class MoviesCustomerController implements Initializable {
         ArrayList<Movie> fantasyMovies = Cinema.getMovies();
         fantasyMovies.removeIf(m -> !m.getGenre().equals("Fantasy"));
 
-        // Clear nodes
-        //gridMovies.getChildren().clear();
-
         // create new grid
         GridPane gridMovies = new GridPane();
         gridMovies.setPrefHeight(1103.0);
         gridMovies.setPrefWidth(1071.0);
-        //gridMovies.getChildren().clear();   // Clear nodes
+
         // set constraints
         for (int i = 0; i < 4; i++) {
             ColumnConstraints column = new ColumnConstraints(267);
@@ -443,7 +496,10 @@ public class MoviesCustomerController implements Initializable {
 
     }
 
-    public void documentary(ActionEvent actionEvent) {
+    /***
+     * retrieves and displays all DOCUMENTARY movies from the DB
+     */
+    public void documentary() {
         c = 0;
         r = 0;
         Cinema.refresh();
@@ -453,14 +509,11 @@ public class MoviesCustomerController implements Initializable {
         ArrayList<Movie> documentaryMovies = Cinema.getMovies();
         documentaryMovies.removeIf(m -> !m.getGenre().equals("Documentary"));
 
-        // Clear nodes
-        //gridMovies.getChildren().clear();
-
         // create new grid
         GridPane gridMovies = new GridPane();
         gridMovies.setPrefHeight(1103.0);
         gridMovies.setPrefWidth(1071.0);
-        //gridMovies.getChildren().clear();   // Clear nodes
+
         // set constraints
         for (int i = 0; i < 4; i++) {
             ColumnConstraints column = new ColumnConstraints(267);
@@ -505,7 +558,10 @@ public class MoviesCustomerController implements Initializable {
         }
     }
 
-    public void scifi(ActionEvent actionEvent) {
+    /***
+     * retrieves and displays all SCIENCE FICTION movies from the DB
+     */
+    public void scifi() {
         c = 0;
         r = 0;
         Cinema.refresh();
@@ -515,14 +571,11 @@ public class MoviesCustomerController implements Initializable {
         ArrayList<Movie> scifiMovies = Cinema.getMovies();
         scifiMovies.removeIf(m -> !m.getGenre().equals("Science Fiction"));
 
-        // Clear nodes
-        //gridMovies.getChildren().clear();
-
         // create new grid
         GridPane gridMovies = new GridPane();
         gridMovies.setPrefHeight(1103.0);
         gridMovies.setPrefWidth(1071.0);
-        //gridMovies.getChildren().clear();   // Clear nodes
+
         // set constraints
         for (int i = 0; i < 4; i++) {
             ColumnConstraints column = new ColumnConstraints(267);
@@ -567,7 +620,10 @@ public class MoviesCustomerController implements Initializable {
         }
     }
 
-    public void horror(ActionEvent actionEvent) {
+    /***
+     * retrieves and displays all HORROR movies from the DB
+     */
+    public void horror() {
         c = 0;
         r = 0;
         Cinema.refresh();
@@ -577,14 +633,11 @@ public class MoviesCustomerController implements Initializable {
         ArrayList<Movie> horrorMovies = Cinema.getMovies();
         horrorMovies.removeIf(m -> !m.getGenre().equals("Horror"));
 
-        // Clear nodes
-        //gridMovies.getChildren().clear();
-
         // create new grid
         GridPane gridMovies = new GridPane();
         gridMovies.setPrefHeight(1103.0);
         gridMovies.setPrefWidth(1071.0);
-        //gridMovies.getChildren().clear();   // Clear nodes
+
         // set constraints
         for (int i = 0; i < 4; i++) {
             ColumnConstraints column = new ColumnConstraints(267);
@@ -630,7 +683,10 @@ public class MoviesCustomerController implements Initializable {
 
     }
 
-    public void animation(ActionEvent actionEvent) {
+    /***
+     * retrieves and displays all ANIMATION movies from the DB
+     */
+    public void animation() {
         c = 0;
         r = 0;
         Cinema.refresh();
@@ -640,14 +696,11 @@ public class MoviesCustomerController implements Initializable {
         ArrayList<Movie> animationMovies = Cinema.getMovies();
         animationMovies.removeIf(m -> !m.getGenre().equals("Animation"));
 
-        // Clear nodes
-        //gridMovies.getChildren().clear();
-
         // create new grid
         GridPane gridMovies = new GridPane();
         gridMovies.setPrefHeight(1103.0);
         gridMovies.setPrefWidth(1071.0);
-        //gridMovies.getChildren().clear();   // Clear nodes
+
         // set constraints
         for (int i = 0; i < 4; i++) {
             ColumnConstraints column = new ColumnConstraints(267);
@@ -691,7 +744,10 @@ public class MoviesCustomerController implements Initializable {
         }
     }
 
-    public void thriller(ActionEvent actionEvent) {
+    /***
+     * retrieves and displays all THRILLER movies from the DB
+     */
+    public void thriller() {
         c = 0;
         r = 0;
         Cinema.refresh();
@@ -701,14 +757,11 @@ public class MoviesCustomerController implements Initializable {
         ArrayList<Movie> thrillerMovies = Cinema.getMovies();
         thrillerMovies.removeIf(m -> !m.getGenre().equals("Thriller"));
 
-        // Clear nodes
-        //gridMovies.getChildren().clear();
-
         // create new grid
         GridPane gridMovies = new GridPane();
         gridMovies.setPrefHeight(1103.0);
         gridMovies.setPrefWidth(1071.0);
-        //gridMovies.getChildren().clear();   // Clear nodes
+
         // set constraints
         for (int i = 0; i < 4; i++) {
             ColumnConstraints column = new ColumnConstraints(267);
@@ -753,7 +806,10 @@ public class MoviesCustomerController implements Initializable {
         }
     }
 
-    public void comedy(ActionEvent actionEvent) {
+    /***
+     * retrieves and displays all COMEDY movies from the DB
+     */
+    public void comedy() {
         c = 0;
         r = 0;
         Cinema.refresh();
@@ -763,14 +819,11 @@ public class MoviesCustomerController implements Initializable {
         ArrayList<Movie> comedyMovies = Cinema.getMovies();
         comedyMovies.removeIf(m -> !m.getGenre().equals("Comedy"));
 
-        // Clear nodes
-        //gridMovies.getChildren().clear();
-
         // create new grid
         GridPane gridMovies = new GridPane();
         gridMovies.setPrefHeight(1103.0);
         gridMovies.setPrefWidth(1071.0);
-        //gridMovies.getChildren().clear();   // Clear nodes
+
         // set constraints
         for (int i = 0; i < 4; i++) {
             ColumnConstraints column = new ColumnConstraints(267);
@@ -814,7 +867,10 @@ public class MoviesCustomerController implements Initializable {
         }
     }
 
-    public void drama(ActionEvent actionEvent) {
+    /***
+     * retrieves and displays all DRAMA movies from the DB
+     */
+    public void drama() {
         c = 0;
         r = 0;
         Cinema.refresh();
@@ -824,14 +880,11 @@ public class MoviesCustomerController implements Initializable {
         ArrayList<Movie> dramaMovies = Cinema.getMovies();
         dramaMovies.removeIf(m -> !m.getGenre().equals("Drama"));
 
-        // Clear nodes
-        //gridMovies.getChildren().clear();
-
         // create new grid
         GridPane gridMovies = new GridPane();
         gridMovies.setPrefHeight(1103.0);
         gridMovies.setPrefWidth(1071.0);
-        //gridMovies.getChildren().clear();   // Clear nodes
+
         // set constraints
         for (int i = 0; i < 4; i++) {
             ColumnConstraints column = new ColumnConstraints(267);

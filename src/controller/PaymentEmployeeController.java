@@ -1,19 +1,15 @@
 package controller;
 
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import model.Me;
 import model.SceneManager;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 

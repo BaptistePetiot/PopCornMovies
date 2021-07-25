@@ -13,9 +13,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import model.*;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.net.URL;
 import java.sql.*;
 import java.text.SimpleDateFormat;

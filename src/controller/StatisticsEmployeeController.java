@@ -3,17 +3,13 @@ package controller;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Side;
 import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import model.Me;
 import model.Month;
 import model.SceneManager;
@@ -23,9 +19,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Observable;
 import java.util.ResourceBundle;
 
 public class StatisticsEmployeeController implements Initializable {

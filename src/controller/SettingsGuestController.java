@@ -6,22 +6,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.stage.FileChooser;
-import main.PopCornMovie;
 import model.Me;
 import model.SceneManager;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.net.URL;
-import java.sql.*;
 import java.util.ResourceBundle;
 
 public class SettingsGuestController implements Initializable {
