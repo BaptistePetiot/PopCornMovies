@@ -142,7 +142,7 @@ public class AccountCustomerController implements Initializable {
     }
 
     /***
-     * displays an alert, if the user is sure of his or her choise, then deletes the account from the DB
+     * displays an alert, if the user is sure of his or her choice, then deletes the account from the DB
      */
     public void delete() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete your account ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
@@ -200,7 +200,8 @@ public class AccountCustomerController implements Initializable {
 
     /***
      * function that loads the PURCHASES scene of CUSTOMER application
-     * displays all purchases os the user in a scrollable area
+     * displays the total number of tickets bought, the number of tickets bought in the last 12 months and in the current month
+     * displays all purchases of the user in a scrollable area
      */
     public void goToPurchases() {
         System.out.println("PURCHASES CUSTOMER");

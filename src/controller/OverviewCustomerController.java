@@ -109,7 +109,8 @@ public class OverviewCustomerController implements Initializable {
 
     /***
      * function that loads the PURCHASES scene of CUSTOMER application
-     * displays all purchases os the user in a scrollable area
+     * displays the total number of tickets bought, the number of tickets bought in the last 12 months and in the current month
+     * displays all purchases of the user in a scrollable area
      */
     public void goToPurchases(ActionEvent actionEvent) {
         System.out.println("PURCHASES CUSTOMER");
