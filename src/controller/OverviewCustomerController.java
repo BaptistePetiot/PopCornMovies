@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -85,7 +84,7 @@ public class OverviewCustomerController implements Initializable {
      * scene that displays the 2 most attractive movies of the moment
      * and the most interesting discount that is currently active
      */
-    public void goToOverview(ActionEvent actionEvent) {
+    public void goToOverview() {
         System.out.println("OVERVIEW CUSTOMER");
         try {
             SceneManager.loadScene("../view/customer-overview.fxml", 1400, 800);
@@ -98,7 +97,7 @@ public class OverviewCustomerController implements Initializable {
      * function that loads the MOVIES scene of CUSTOMER application
      * displays the list of movies available depending on their genre
      */
-    public void goToMovies(ActionEvent actionEvent) {
+    public void goToMovies() {
         System.out.println("MOVIES CUSTOMER");
         try {
             SceneManager.loadScene("../view/customer-movies.fxml", 1400, 800);
@@ -112,7 +111,7 @@ public class OverviewCustomerController implements Initializable {
      * displays the total number of tickets bought, the number of tickets bought in the last 12 months and in the current month
      * displays all purchases of the user in a scrollable area
      */
-    public void goToPurchases(ActionEvent actionEvent) {
+    public void goToPurchases() {
         System.out.println("PURCHASES CUSTOMER");
         try {
             SceneManager.loadScene("../view/customer-purchases.fxml", 1400, 800);
@@ -131,7 +130,7 @@ public class OverviewCustomerController implements Initializable {
      *//***
      * function that signs the user out and loads the LOGIN scene
      */
-    public void goToAccount(ActionEvent actionEvent) {
+    public void goToAccount() {
         System.out.println("ACCOUNT CUSTOMER");
         try {
             SceneManager.loadScene("../view/customer-account.fxml", 1400, 800);
@@ -143,7 +142,7 @@ public class OverviewCustomerController implements Initializable {
     /***
      * function that signs the user out and loads the LOGIN scene
      */
-    public void signout(ActionEvent actionEvent) {
+    public void signout() {
         System.out.println("SIGN OUT");
         try {
             SceneManager.loadScene("../view/login.fxml", 700, 400);

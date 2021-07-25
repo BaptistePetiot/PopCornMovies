@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
@@ -17,18 +16,25 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class OverviewGuestController implements Initializable {
-
-    @FXML
-    ImageView movie1, movie2;
-    @FXML
-    Pane pane;
-
     // credentials
     private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
     private final String user = "root";
     private final String password = "";
 
-    public void goToOverview(ActionEvent actionEvent) {
+    // Javafx elements
+    @FXML
+    ImageView movie1, movie2;
+    @FXML
+    Pane pane;
+
+    // NAVIGATION
+
+    /***
+     * function that loads the OVERVIEW scene of GUEST application
+     * scene that displays the 2 most attractive movies of the moment
+     * and the most interesting discount that is currently active
+     */
+    public void goToOverview() {
         System.out.println("OVERVIEW GUEST");
         try {
             SceneManager.loadScene("../view/guest-overview.fxml", 1400, 800);
@@ -37,7 +43,11 @@ public class OverviewGuestController implements Initializable {
         }
     }
 
-    public void goToMovies(ActionEvent actionEvent) {
+    /***
+     * function that loads the MOVIES scene of GUEST application
+     * displays the list of movies available depending on their genre
+     */
+    public void goToMovies() {
         System.out.println("MOVIES GUEST");
         try {
             SceneManager.loadScene("../view/guest-movies.fxml", 1400, 800);
@@ -46,7 +56,11 @@ public class OverviewGuestController implements Initializable {
         }
     }
 
-    public void goToSettings(ActionEvent actionEvent) {
+    /***
+     * function that loads the SETTINGS scene of EMPLOYEE application
+     * lets the user select the theme of his choice (light or dark)
+     */
+    public void goToSettings() {
         System.out.println("SETTINGS GUEST");
         try {
             SceneManager.loadScene("../view/guest-settings.fxml", 1400, 800);
@@ -55,7 +69,10 @@ public class OverviewGuestController implements Initializable {
         }
     }
 
-    public void signout(ActionEvent actionEvent) {
+    /***
+     * function that signs the user out and loads the LOGIN scene
+     */
+    public void signout() {
         System.out.println("EXIT");
         try {
             SceneManager.loadScene("../view/login.fxml", 700, 400);
@@ -64,11 +81,23 @@ public class OverviewGuestController implements Initializable {
         }
     }
 
+    /***
+     * exit the GUEST application
+     */
     @FXML
     private void exit() {
         System.exit(0);
     }
 
+    /***
+     * first method called for initialization
+     * sets chosen theme
+     * displays 2 most seen movies
+     * displays the active discount with the higher amount
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // theme

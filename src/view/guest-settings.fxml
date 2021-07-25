@@ -104,7 +104,7 @@
                   <String fx:value="movies" />
                </styleClass>
             </Button>
-            <Button fx:id="buttonAccount" alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#goToAccount" prefHeight="73.0" prefWidth="313.0" style="-fx-cursor: hand;" text="Settings">
+            <Button fx:id="buttonAccount" alignment="BASELINE_LEFT" graphicTextGap="30.0" mnemonicParsing="false" onAction="#goToSettings" prefHeight="73.0" prefWidth="313.0" style="-fx-cursor: hand;" text="Settings">
                <graphic>
                   <ImageView fitHeight="55.0" fitWidth="53.0" pickOnBounds="true" preserveRatio="true" styleClass="account_logo">
                      <image>

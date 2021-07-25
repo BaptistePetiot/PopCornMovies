@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -20,6 +19,12 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MovieGuestController implements Initializable, Consts {
+    // credentials
+    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
+    private final String user = "root";
+    private final String password = "";
+
+    // Javafx elements
     @FXML
     ImageView ivMovie;
     @FXML
@@ -29,22 +34,26 @@ public class MovieGuestController implements Initializable, Consts {
     @FXML
     TextField tfNbrTickets;
 
+    // class attributes
     private int cost = 0;
     private String date;
     private int nbrTickets;
 
-    // credentials
-    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
-    private final String user = "root";
-    private final String password = "";
-
     public MovieGuestController() {
+        // handle current date
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date now = new Date(System.currentTimeMillis());
         this.date = formatter.format(now);
     }
 
-    public void goToOverview(ActionEvent actionEvent) {
+    // NAVIGATION
+
+    /***
+     * function that loads the OVERVIEW scene of GUEST application
+     * scene that displays the 2 most attractive movies of the moment
+     * and the most interesting discount that is currently active
+     */
+    public void goToOverview() {
         System.out.println("OVERVIEW GUEST");
         try {
             SceneManager.loadScene("../view/guest-overview.fxml", 1400, 800);
@@ -53,7 +62,11 @@ public class MovieGuestController implements Initializable, Consts {
         }
     }
 
-    public void goToMovies(ActionEvent actionEvent) {
+    /***
+     * function that loads the MOVIES scene of GUEST application
+     * displays the list of movies available depending on their genre
+     */
+    public void goToMovies() {
         System.out.println("MOVIES GUEST");
         try {
             SceneManager.loadScene("../view/guest-movies.fxml", 1400, 800);
@@ -62,7 +75,11 @@ public class MovieGuestController implements Initializable, Consts {
         }
     }
 
-    public void goToSettings(ActionEvent actionEvent) {
+    /***
+     * function that loads the SETTINGS scene of EMPLOYEE application
+     * lets the user select the theme of his choice (light or dark)
+     */
+    public void goToSettings() {
         System.out.println("SETTINGS GUEST");
         try {
             SceneManager.loadScene("../view/guest-settings.fxml", 1400, 800);
@@ -71,7 +88,10 @@ public class MovieGuestController implements Initializable, Consts {
         }
     }
 
-    public void signout(ActionEvent actionEvent) {
+    /***
+     * function that signs the user out and loads the LOGIN scene
+     */
+    public void signout() {
         System.out.println("EXIT");
         try {
             SceneManager.loadScene("../view/login.fxml", 700, 400);
@@ -80,7 +100,14 @@ public class MovieGuestController implements Initializable, Consts {
         }
     }
 
-    public void goToPayment(ActionEvent actionEvent) throws Exception {
+    /***
+     * function that verify that number of tickets and number of student discounts are not empty,
+     * computes the price and displays it if the user presses ENTER,
+     * registers the purchase,
+     * sends the tickets by email
+     * and loads the PAYMENT scene of GUEST application
+     */
+    public void goToPayment() throws Exception {
         if (tfNbrTickets.getText() == null || tfNbrTickets.getText().trim().isEmpty()) {
             System.out.println("The field is empty!");
         } else {
@@ -109,6 +136,9 @@ public class MovieGuestController implements Initializable, Consts {
         }
     }
 
+    /***
+     * insert the purchase into the DB
+     */
     private void registerPurchase() {
         // connect to DB
         Connection connection = null;
@@ -137,13 +167,20 @@ public class MovieGuestController implements Initializable, Consts {
         }
     }
 
-    // NO DISCOUNTS AS GUEST
+    /***
+     * computes the full cost based on the number of normal tickets and the number of student discounts
+     * NO DISCOUNTS AS GUEST
+     */
     private void computePrice() {
         nbrTickets = Integer.parseInt(tfNbrTickets.getText());
 
         cost = nbrTickets * Consts.NORMAL_PRICE;
     }
 
+    /***
+     * displays the computed price if the user presses ENTER right after having typed in the nbr of student discounts
+     * @param keyEvent
+     */
     public void displayPrice(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
             computePrice();
@@ -151,11 +188,22 @@ public class MovieGuestController implements Initializable, Consts {
         }
     }
 
+    /***
+     * exit the GUEST application
+     */
     @FXML
     private void exit() {
         System.exit(0);
     }
 
+    /***
+     * first method called for initialization
+     * sets chosen theme
+     * displays movie information according to the selected movie
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         price.setText("Press enter to see the computer price");
@@ -176,13 +224,8 @@ public class MovieGuestController implements Initializable, Consts {
         labelDirector.setText(m.getDirector());
         labelCast.setText(m.getCast());
         duration.setText(String.valueOf(m.getDuration()));
-        /*String[] sentences = m.getPlot().split(".");
-        StringBuilder plot = new StringBuilder();
-        for(String s : sentences){
-            plot.append(s).append("\n");
-        }
-        labelPlot.setText(plot.toString());
-        System.out.println(plot.toString());*/
+        labelPlot.setMaxWidth(695);
+        labelPlot.setWrapText(true);
         labelPlot.setText(m.getPlot());
 
         ivMovie.setImage(new Image(m.getImageURL()));

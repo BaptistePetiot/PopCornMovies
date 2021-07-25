@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class PaymentGuestController implements Initializable {
-
+    // Javafx elements
     @FXML
     ProgressBar pb;
     @FXML
@@ -24,6 +24,11 @@ public class PaymentGuestController implements Initializable {
     @FXML
     Button btn;
 
+    // NAVIGATION
+    /***
+     * function that loads the MOVIES scene of GUEST application
+     * displays the list of movies available depending on their genre
+     */
     @FXML
     private void goBackToMovies() {
         System.out.println("MOVIES GUEST");
@@ -34,6 +39,14 @@ public class PaymentGuestController implements Initializable {
         }
     }
 
+    /***
+     * first method called for initialization
+     * sets chosen theme
+     * hide final button and final text
+     * start the animation process
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // theme
@@ -48,10 +61,14 @@ public class PaymentGuestController implements Initializable {
         btn.setVisible(false);
         thx.setVisible(false);
 
-        //animate();
         startProcess();
     }
 
+    /***
+     * animates the loading bar
+     * simulates authorisation process from bank
+     * sets final button and final text to visible once animation has ended
+     */
     private void startProcess() {
 
         // Create a background Task
