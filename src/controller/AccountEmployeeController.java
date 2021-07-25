@@ -229,7 +229,7 @@ public class AccountEmployeeController implements Initializable {
     }
 
     /***
-     * function that loads the MOVIES scene of EMPLOYEE application
+     * function that loads the STATISTICS scene of EMPLOYEE application
      * displays 2 charts that summarize the statistics of the PopCorn Movies cinema
      * a line chart that shows the nbr of tickets bought during the last year (the label ticks ie the months are dynamically generated depending on the current month)
      * a pie chart that show the distribution of the genres of movies seen
@@ -287,12 +287,21 @@ public class AccountEmployeeController implements Initializable {
     }
 
     /***
-     * exit the CUSTOMER application
+     * exit the EMPLOYEE application
      */
     public void exit() {
         System.exit(0);
     }
 
+    /***
+     * first method called for initialization
+     * loads user picture
+     * sets chosen theme
+     * sets chosen category
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // load picture

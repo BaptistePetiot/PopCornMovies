@@ -23,7 +23,12 @@ import java.util.Calendar;
 import java.util.ResourceBundle;
 
 public class StatisticsEmployeeController implements Initializable {
+    // credentials
+    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
+    private final String user = "root";
+    private final String password = "";
 
+    // Javafx elements
     @FXML
     ImageView picture;
     @FXML
@@ -32,30 +37,26 @@ public class StatisticsEmployeeController implements Initializable {
     Pane pane;
     @FXML
     PieChart pieChart;
-    //@FXML LineChart lineChart;
 
-    // credentials
-    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
-    private final String user = "root";
-    private final String password = "";
-
+    // class attributes
     private Month month;
 
     public StatisticsEmployeeController() {
-        //SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd");
+        // handle current month
         Date now = new Date(System.currentTimeMillis());
-        //this.month = formatter.format(now);
-
         Calendar cal = Calendar.getInstance();
         cal.setTime(now);
         month = new Month(cal.get(Calendar.MONTH) + 1);
     }
 
-    private void loadPicture() throws Exception {
-        File img = new File("picture.jpg");
-        FileOutputStream ostreamImage = new FileOutputStream(img);
-
+    /***
+     * loads the user picture in the dedicated ImageView
+     */
+    private void loadPicture() {
         try {
+            File img = new File("picture.jpg");
+            FileOutputStream ostreamImage = new FileOutputStream(img);
+
             // create a connection to the database
             Connection connection = DriverManager.getConnection(url, user, password);
             // prepared statement
@@ -84,14 +85,22 @@ public class StatisticsEmployeeController implements Initializable {
                     rs.close();
                 }
             } finally {
+                ostreamImage.close();
                 ps.close();
             }
-        } finally {
-            ostreamImage.close();
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
-    public void goToOverview(ActionEvent actionEvent) {
+    // NAVIGATION
+
+    /***
+     * function that loads the OVERVIEW scene of EMPLOYEE application
+     * scene that displays the 2 most attractive movies of the moment
+     * and the most interesting discount that is currently active
+     */
+    public void goToOverview() {
         System.out.println("OVERVIEW EMPLOYEE");
         try {
             SceneManager.loadScene("../view/employee-overview.fxml", 1400, 800);
@@ -100,7 +109,12 @@ public class StatisticsEmployeeController implements Initializable {
         }
     }
 
-    public void goToMovies(ActionEvent actionEvent) {
+    /***
+     * function that loads the MOVIES scene of EMPLOYEE application
+     * displays the list of movies available depending on their genre
+     * add or remove a movie
+     */
+    public void goToMovies() {
         System.out.println("MOVIES EMPLOYEE");
         try {
             SceneManager.loadScene("../view/employee-movies.fxml", 1400, 800);
@@ -109,7 +123,11 @@ public class StatisticsEmployeeController implements Initializable {
         }
     }
 
-    public void goToDiscounts(ActionEvent actionEvent) {
+    /***
+     * function that loads the DISCOUNTS scene of EMPLOYEE application
+     * add, remove or modify a discount
+     */
+    public void goToDiscounts() {
         System.out.println("DISCOUNTS EMPLOYEE");
         try {
             SceneManager.loadScene("../view/employee-discounts.fxml", 1400, 800);
@@ -118,7 +136,12 @@ public class StatisticsEmployeeController implements Initializable {
         }
     }
 
-    public void goToRecords(ActionEvent actionEvent) {
+    /***
+     * function that loads the RECORDS scene of EMPLOYEE application
+     * displays the list of all purchases, 2 possibilities : for employees or customers
+     * sorts them dynamically depending on chosen criterium (email, title, nbr of tickets, date)
+     */
+    public void goToRecords() {
         System.out.println("RECORDS EMPLOYEE");
         try {
             SceneManager.loadScene("../view/employee-records.fxml", 1400, 800);
@@ -127,7 +150,13 @@ public class StatisticsEmployeeController implements Initializable {
         }
     }
 
-    public void goToStatistics(ActionEvent actionEvent) {
+    /***
+     * function that loads the STATISTICS scene of EMPLOYEE application
+     * displays 2 charts that summarize the statistics of the PopCorn Movies cinema
+     * a line chart that shows the nbr of tickets bought during the last year (the label ticks ie the months are dynamically generated depending on the current month)
+     * a pie chart that show the distribution of the genres of movies seen
+     */
+    public void goToStatistics() {
         System.out.println("STATISTICS EMPLOYEE");
         try {
             SceneManager.loadScene("../view/employee-statistics.fxml", 1400, 800);
@@ -136,7 +165,12 @@ public class StatisticsEmployeeController implements Initializable {
         }
     }
 
-    public void goToPurchases(ActionEvent actionEvent) {
+    /***
+     * function that loads the PURCHASES scene of EMPLOYEE application
+     * displays the total number of tickets bought, the number of tickets bought in the last 12 months and in the current month
+     * displays all purchases of the user in a scrollable area
+     */
+    public void goToPurchases() {
         System.out.println("PURCHASES EMPLOYEE");
         try {
             SceneManager.loadScene("../view/employee-purchases.fxml", 1400, 800);
@@ -145,7 +179,15 @@ public class StatisticsEmployeeController implements Initializable {
         }
     }
 
-    public void goToAccount(ActionEvent actionEvent) {
+    /***
+     * function that loads the ACCOUNT scene of EMPLOYEE application
+     * displays the date of creation of the account
+     * lets the user select the appropriate category for the account (regular, senior or child)
+     * lets the user select the theme of his choice (light or dark)
+     * lets the user add a picture or change the current one
+     * lets the user delete the account
+     */
+    public void goToAccount() {
         System.out.println("ACCOUNT EMPLOYEE");
         try {
             SceneManager.loadScene("../view/employee-account.fxml", 1400, 800);
@@ -154,7 +196,10 @@ public class StatisticsEmployeeController implements Initializable {
         }
     }
 
-    public void signout(ActionEvent actionEvent) {
+    /***
+     * function that signs the user out and loads the LOGIN scene
+     */
+    public void signout() {
         System.out.println("SIGN OUT");
         try {
             SceneManager.loadScene("../view/login.fxml", 700, 400);
@@ -163,10 +208,18 @@ public class StatisticsEmployeeController implements Initializable {
         }
     }
 
-    public void exit(ActionEvent actionEvent) {
+    /***
+     * exit the EMPLOYEE application
+     */
+    public void exit() {
         System.exit(0);
     }
 
+    /**
+     * apply predifined color sequence to pie pieces of the pie chart
+     * @param pieChartData
+     * @param pieColors
+     */
     private void applyCustomColorSequence(ObservableList<PieChart.Data> pieChartData, String... pieColors) {
         int i = 0;
         for (PieChart.Data data : pieChartData) {
@@ -175,6 +228,15 @@ public class StatisticsEmployeeController implements Initializable {
         }
     }
 
+    /***
+     * first method called for initialization
+     * loads user picture
+     * sets chosen theme
+     * displays 2 charts : one line chart with 2 functions and one pie chart
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // load picture

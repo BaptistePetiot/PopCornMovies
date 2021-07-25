@@ -25,14 +25,18 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class MoviesEmployeeController implements Initializable {
+    // credentials
+    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
+    private final String user = "root";
+    private final String password = "";
 
+    // Javafx elements
     @FXML
     ImageView picture;
     @FXML
     Label firstNameAndLastName;
     @FXML
     SplitMenuButton splitMenu;
-    //@FXML GridPane gridMovies;
     @FXML
     Pane pane;
     @FXML
@@ -40,20 +44,19 @@ public class MoviesEmployeeController implements Initializable {
     @FXML
     ScrollPane scrollPane;
 
-    // credentials
-    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
-    private final String user = "root";
-    private final String password = "";
-
+    // class attributes
     private int c, r;
     private HashMap<Pair<Integer, Integer>, Movie> allMoviesCoords, actionMoviesCoords, adventureMoviesCoords, fantasyMoviesCoords, documentaryMoviesCoords, scifiMoviesCoords, horrorMoviesCoords, animationMoviesCoords, thrillerMoviesCoords, comedyMoviesCoords, dramaMoviesCoords;
     private boolean minusSelected;
 
-    private void loadPicture() throws Exception {
-        File img = new File("picture.jpg");
-        FileOutputStream ostreamImage = new FileOutputStream(img);
-
+    /***
+     * loads the user picture in the dedicated ImageView
+     */
+    private void loadPicture() {
         try {
+            File img = new File("picture.jpg");
+            FileOutputStream ostreamImage = new FileOutputStream(img);
+
             // create a connection to the database
             Connection connection = DriverManager.getConnection(url, user, password);
             // prepared statement
@@ -82,13 +85,17 @@ public class MoviesEmployeeController implements Initializable {
                     rs.close();
                 }
             } finally {
+                ostreamImage.close();
                 ps.close();
             }
-        } finally {
-            ostreamImage.close();
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
+    /**
+     * allws to then click a movie to delete it
+     */
     @FXML
     public void selectMinus() {
         if (minusSelected) {
@@ -102,6 +109,11 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
+    /**
+     * removes the specified movie from the DB
+     * @param m : Movie (the movie to delete)
+     * @param option : String (the page to refresh)
+     */
     public void deleteMovie(Movie m, String option) {
 
         int idMovieDell = m.getId();
@@ -164,7 +176,10 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void plusMovie(ActionEvent actionEvent) {
+    /***
+     * function that loads the NEW MOVIE scene of EMPLOYEE application
+     */
+    public void plusMovie() {
         System.out.println("PLUS MOVIE");
         try {
             SceneManager.loadScene("../view/employee-new-movie.fxml", 1400, 800);
@@ -173,6 +188,9 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
+    /***
+     * function that loads the Movie scene of EMPLOYEE application
+     */
     private void goToMovie(Movie m) {
         Me.setLookingAtMovie(m);
         try {
@@ -182,7 +200,12 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void goToOverview(ActionEvent actionEvent) {
+    /***
+     * function that loads the OVERVIEW scene of EMPLOYEE application
+     * scene that displays the 2 most attractive movies of the moment
+     * and the most interesting discount that is currently active
+     */
+    public void goToOverview() {
         System.out.println("OVERVIEW EMPLOYEE");
         try {
             SceneManager.loadScene("../view/employee-overview.fxml", 1400, 800);
@@ -191,7 +214,12 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void goToMovies(ActionEvent actionEvent) {
+    /***
+     * function that loads the MOVIES scene of EMPLOYEE application
+     * displays the list of movies available depending on their genre
+     * add or remove a movie
+     */
+    public void goToMovies() {
         System.out.println("MOVIES EMPLOYEE");
         try {
             SceneManager.loadScene("../view/employee-movies.fxml", 1400, 800);
@@ -200,7 +228,11 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void goToDiscounts(ActionEvent actionEvent) {
+    /***
+     * function that loads the DISCOUNTS scene of EMPLOYEE application
+     * add, remove or modify a discount
+     */
+    public void goToDiscounts() {
         System.out.println("DISCOUNTS EMPLOYEE");
         try {
             SceneManager.loadScene("../view/employee-discounts.fxml", 1400, 800);
@@ -209,7 +241,12 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void goToRecords(ActionEvent actionEvent) {
+    /***
+     * function that loads the RECORDS scene of EMPLOYEE application
+     * displays the list of all purchases, 2 possibilities : for employees or customers
+     * sorts them dynamically depending on chosen criterium (email, title, nbr of tickets, date)
+     */
+    public void goToRecords() {
         System.out.println("RECORDS EMPLOYEE");
         try {
             SceneManager.loadScene("../view/employee-records.fxml", 1400, 800);
@@ -218,7 +255,13 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void goToStatistics(ActionEvent actionEvent) {
+    /***
+     * function that loads the STATISTICS scene of EMPLOYEE application
+     * displays 2 charts that summarize the statistics of the PopCorn Movies cinema
+     * a line chart that shows the nbr of tickets bought during the last year (the label ticks ie the months are dynamically generated depending on the current month)
+     * a pie chart that show the distribution of the genres of movies seen
+     */
+    public void goToStatistics() {
         System.out.println("STATISTICS EMPLOYEE");
         try {
             SceneManager.loadScene("../view/employee-statistics.fxml", 1400, 800);
@@ -227,7 +270,12 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void goToPurchases(ActionEvent actionEvent) {
+    /***
+     * function that loads the PURCHASES scene of EMPLOYEE application
+     * displays the total number of tickets bought, the number of tickets bought in the last 12 months and in the current month
+     * displays all purchases of the user in a scrollable area
+     */
+    public void goToPurchases() {
         System.out.println("PURCHASES EMPLOYEE");
         try {
             SceneManager.loadScene("../view/employee-purchases.fxml", 1400, 800);
@@ -236,7 +284,15 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void goToAccount(ActionEvent actionEvent) {
+    /***
+     * function that loads the ACCOUNT scene of EMPLOYEE application
+     * displays the date of creation of the account
+     * lets the user select the appropriate category for the account (regular, senior or child)
+     * lets the user select the theme of his choice (light or dark)
+     * lets the user add a picture or change the current one
+     * lets the user delete the account
+     */
+    public void goToAccount() {
         System.out.println("ACCOUNT EMPLOYEE");
         try {
             SceneManager.loadScene("../view/employee-account.fxml", 1400, 800);
@@ -245,7 +301,10 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void signout(ActionEvent actionEvent) {
+    /***
+     * function that signs the user out and loads the LOGIN scene
+     */
+    public void signout() {
         System.out.println("SIGN OUT");
         try {
             SceneManager.loadScene("../view/login.fxml", 700, 400);
@@ -254,10 +313,22 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
-    public void exit(ActionEvent actionEvent) {
+    /***
+     * exit the EMPLOYEE application
+     */
+    public void exit() {
         System.exit(0);
     }
 
+    /***
+     * first method called for initialization
+     * loads user picture
+     * sets chosen theme
+     * displays all movies
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //handle minus button
@@ -280,6 +351,7 @@ public class MoviesEmployeeController implements Initializable {
             pane.getStylesheets().add("css/DarkTheme.css");
         }
 
+        // initializes all the hashmaps
         allMoviesCoords = new HashMap<>();
         actionMoviesCoords = new HashMap<>();
         adventureMoviesCoords = new HashMap<>();
@@ -294,10 +366,13 @@ public class MoviesEmployeeController implements Initializable {
 
         firstNameAndLastName.setText(Me.getFirstName() + " " + Me.getLastName());
 
-        all();
+        all();  // displays all movies by default
     }
 
-
+    /***
+     * updates the column and the row given a certain index
+     * @param i : int (index)
+     */
     private void updateColumnAndRow(int i) {
         if ((i % 4) == 0 && i != 0) {
             r++;
@@ -307,6 +382,9 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
+    /***
+     * retrieves and displays all movies from the DB
+     */
     public void all() {
         c = 0;
         r = 0;
@@ -368,6 +446,9 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
+    /***
+     * retrieves and displays all ACTION movies from the DB
+     */
     public void action() {
         c = 0;
         r = 0;
@@ -430,6 +511,9 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
+    /***
+     * retrieves and displays all ADVENTURE movies from the DB
+     */
     public void adventure() {
         c = 0;
         r = 0;
@@ -492,6 +576,9 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
+    /***
+     * retrieves and displays all FANTASY movies from the DB
+     */
     public void fantasy() {
         c = 0;
         r = 0;
@@ -558,6 +645,9 @@ public class MoviesEmployeeController implements Initializable {
 
     }
 
+    /***
+     * retrieves and displays all DOCUMENTARY movies from the DB
+     */
     public void documentary() {
         c = 0;
         r = 0;
@@ -620,6 +710,9 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
+    /***
+     * retrieves and displays all SCIENCE FICTION movies from the DB
+     */
     public void scifi() {
         c = 0;
         r = 0;
@@ -682,6 +775,9 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
+    /***
+     * retrieves and displays all HORROR movies from the DB
+     */
     public void horror() {
         c = 0;
         r = 0;
@@ -745,6 +841,9 @@ public class MoviesEmployeeController implements Initializable {
 
     }
 
+    /***
+     * retrieves and displays all ANIMATION movies from the DB
+     */
     public void animation() {
         c = 0;
         r = 0;
@@ -806,6 +905,9 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
+    /***
+     * retrieves and displays all THRILLER movies from the DB
+     */
     public void thriller() {
         c = 0;
         r = 0;
@@ -868,6 +970,9 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
+    /***
+     * retrieves and displays all COMEDY movies from the DB
+     */
     public void comedy() {
         c = 0;
         r = 0;
@@ -929,6 +1034,9 @@ public class MoviesEmployeeController implements Initializable {
         }
     }
 
+    /***
+     * retrieves and displays all DRAMA movies from the DB
+     */
     public void drama() {
         c = 0;
         r = 0;

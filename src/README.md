@@ -16,7 +16,7 @@ Baptiste Petiot
     - comment encrypter et décrypter les passwords dans la bdd et en java
     
 ##### CRITERIA FOR NOTATION:
-    - 
+    - 100% commented
 
 ##### BONUSES:
     - hand drawn logo

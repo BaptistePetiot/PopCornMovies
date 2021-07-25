@@ -25,6 +25,12 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class DiscountsEmployeeController implements Initializable {
+    // credentials
+    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
+    private final String user = "root";
+    private final String password = "";
+
+    // Javafx elements
     @FXML
     ImageView picture;
     @FXML
@@ -36,20 +42,19 @@ public class DiscountsEmployeeController implements Initializable {
     @FXML
     Button minus, modify;
 
-    // credentials
-    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
-    private final String user = "root";
-    private final String password = "";
-
+    // class attributes
     private boolean minusSelected;
     private boolean modifySelected;
-    private HashMap<Integer, Discount> discounts;
+    //private HashMap<Integer, Discount> discounts;
 
-    private void loadPicture() throws Exception {
-        File img = new File("picture.jpg");
-        FileOutputStream ostreamImage = new FileOutputStream(img);
-
+    /***
+     * loads the user picture in the dedicated ImageView
+     */
+    private void loadPicture() {
         try {
+            File img = new File("picture.jpg");
+            FileOutputStream ostreamImage = new FileOutputStream(img);
+
             // create a connection to the database
             Connection connection = DriverManager.getConnection(url, user, password);
             // prepared statement
@@ -78,13 +83,17 @@ public class DiscountsEmployeeController implements Initializable {
                     rs.close();
                 }
             } finally {
+                ostreamImage.close();
                 ps.close();
             }
-        } finally {
-            ostreamImage.close();
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 
+    /***
+     * enables to then click a discount to delete it
+     */
     @FXML
     public void selectMinus() {
         if (minusSelected) {
@@ -101,6 +110,9 @@ public class DiscountsEmployeeController implements Initializable {
         }
     }
 
+    /**
+     * enables to then click a discount to modify it
+     */
     @FXML
     public void selectModify() {
         if (modifySelected) {
@@ -117,26 +129,10 @@ public class DiscountsEmployeeController implements Initializable {
         }
     }
 
-    @FXML
-    private void plusDiscount() {
-        System.out.println("NEW DISCOUNT");
-        try {
-            SceneManager.loadScene("../view/employee-new-discount.fxml", 1400, 800);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void modifyDiscount(Discount d) {
-        System.out.println("MODIFY DISCOUNT");
-        Me.setModifyingDiscount(d);
-        try {
-            SceneManager.loadScene("../view/employee-modify-discount.fxml", 1400, 800);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
+    /***
+     * displays an alert, if the user is sure of his or her choice, then deletes the discount from the DB
+     * and updates the scene
+     */
     public void deleteDiscount(Discount d) {
 
         int idDiscountDell = d.getId();
@@ -164,138 +160,9 @@ public class DiscountsEmployeeController implements Initializable {
         displayDiscounts();
     }
 
-
-    public void goToOverview(ActionEvent actionEvent) {
-        System.out.println("OVERVIEW EMPLOYEE");
-        try {
-            SceneManager.loadScene("../view/employee-overview.fxml", 1400, 800);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void goToMovies(ActionEvent actionEvent) {
-        System.out.println("MOVIES EMPLOYEE");
-        try {
-            SceneManager.loadScene("../view/employee-movies.fxml", 1400, 800);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void goToDiscounts(ActionEvent actionEvent) {
-        System.out.println("DISCOUNTS EMPLOYEE");
-        try {
-            SceneManager.loadScene("../view/employee-discounts.fxml", 1400, 800);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void goToRecords(ActionEvent actionEvent) {
-        System.out.println("RECORDS EMPLOYEE");
-        try {
-            SceneManager.loadScene("../view/employee-records.fxml", 1400, 800);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void goToStatistics(ActionEvent actionEvent) {
-        System.out.println("STATISTICS EMPLOYEE");
-        try {
-            SceneManager.loadScene("../view/employee-statistics.fxml", 1400, 800);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void goToPurchases(ActionEvent actionEvent) {
-        System.out.println("PURCHASES EMPLOYEE");
-        try {
-            SceneManager.loadScene("../view/employee-purchases.fxml", 1400, 800);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void goToAccount(ActionEvent actionEvent) {
-        System.out.println("ACCOUNT EMPLOYEE");
-        try {
-            SceneManager.loadScene("../view/employee-account.fxml", 1400, 800);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void signout(ActionEvent actionEvent) {
-        System.out.println("SIGN OUT");
-        try {
-            SceneManager.loadScene("../view/login.fxml", 700, 400);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void displayDiscounts_old() {
-        // Retrieve discounts from DB
-        // connect to DB
-        Connection connection = null;
-
-        try {
-            // create a connection to the database
-            connection = DriverManager.getConnection(url, user, password);
-
-            // statement
-            Statement stmt = connection.createStatement();
-            ResultSet rs;
-            pnItems.getChildren().clear();
-
-            rs = stmt.executeQuery("SELECT Name, Amount, Unit, Status FROM `Discounts`");
-            while (rs.next()) {
-                String name = rs.getString("Name");
-                String amount = rs.getString("Amount");
-                String unit = rs.getString("Unit");
-                String status = rs.getString("Status");
-
-                GridPane gp = new GridPane();
-                ColumnConstraints cc1 = new ColumnConstraints(425);
-                ColumnConstraints cc2 = new ColumnConstraints(160);
-                ColumnConstraints cc3 = new ColumnConstraints(130);
-                ColumnConstraints cc4 = new ColumnConstraints(100);
-                //ColumnConstraints cc5 = new ColumnConstraints(100);
-
-                //gp.getColumnConstraints().addAll(cc1, cc2, cc3, cc4, cc5);
-                gp.getColumnConstraints().addAll(cc1, cc2, cc3, cc4);
-
-                Label discountName = new Label(name);
-                discountName.setFont(new Font(25));
-                gp.add(discountName, 0, 0);
-
-                Label discountAmount = new Label(amount);
-                discountAmount.setFont(new Font(25));
-                gp.add(discountAmount, 1, 0);
-
-                Label discountUnit = new Label(unit);
-                discountUnit.setFont(new Font(25));
-                gp.add(discountUnit, 2, 0);
-
-                Label discountStatus = new Label(status);
-                discountStatus.setFont(new Font(25));
-                gp.add(discountStatus, 3, 0);
-
-                /*RadioButton selection = new RadioButton("");
-                selection.setFont(new Font(25));
-                gp.add(selection,4,0);*/
-
-                pnItems.getChildren().add(gp);
-
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
+    /**
+     * function that displays all the discounts in a scrollable area
+     */
     private void displayDiscounts() {
         pnItems.getChildren().clear();
 
@@ -324,7 +191,6 @@ public class DiscountsEmployeeController implements Initializable {
             String status = d.getStatus();
 
             // make each row clickable
-
 
             gp.getStyleClass().add("buttonDiscount");
             gp.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -361,10 +227,163 @@ public class DiscountsEmployeeController implements Initializable {
 
     }
 
-    public void exit(ActionEvent actionEvent) {
+    /**
+     * function that loads the NEW DISCOUNT scene of EMPLOYEE application
+     */
+    @FXML
+    private void plusDiscount() {
+        System.out.println("NEW DISCOUNT");
+        try {
+            SceneManager.loadScene("../view/employee-new-discount.fxml", 1400, 800);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * function that loads the MODIFY DISCOUNT scene of EMPLOYEE application
+     */
+    private void modifyDiscount(Discount d) {
+        System.out.println("MODIFY DISCOUNT");
+        Me.setModifyingDiscount(d);
+        try {
+            SceneManager.loadScene("../view/employee-modify-discount.fxml", 1400, 800);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // NAVIGATION
+
+    /***
+     * function that loads the OVERVIEW scene of EMPLOYEE application
+     * scene that displays the 2 most attractive movies of the moment
+     * and the most interesting discount that is currently active
+     */
+    public void goToOverview() {
+        System.out.println("OVERVIEW EMPLOYEE");
+        try {
+            SceneManager.loadScene("../view/employee-overview.fxml", 1400, 800);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * function that loads the MOVIES scene of EMPLOYEE application
+     * displays the list of movies available depending on their genre
+     * add or remove a movie
+     */
+    public void goToMovies() {
+        System.out.println("MOVIES EMPLOYEE");
+        try {
+            SceneManager.loadScene("../view/employee-movies.fxml", 1400, 800);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * function that loads the DISCOUNTS scene of EMPLOYEE application
+     * add, remove or modify a discount
+     */
+    public void goToDiscounts() {
+        System.out.println("DISCOUNTS EMPLOYEE");
+        try {
+            SceneManager.loadScene("../view/employee-discounts.fxml", 1400, 800);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * function that loads the RECORDS scene of EMPLOYEE application
+     * displays the list of all purchases, 2 possibilities : for employees or customers
+     * sorts them dynamically depending on chosen criterium (email, title, nbr of tickets, date)
+     */
+    public void goToRecords() {
+        System.out.println("RECORDS EMPLOYEE");
+        try {
+            SceneManager.loadScene("../view/employee-records.fxml", 1400, 800);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * function that loads the STATISTICS scene of EMPLOYEE application
+     * displays 2 charts that summarize the statistics of the PopCorn Movies cinema
+     * a line chart that shows the nbr of tickets bought during the last year (the label ticks ie the months are dynamically generated depending on the current month)
+     * a pie chart that show the distribution of the genres of movies seen
+     */
+    public void goToStatistics() {
+        System.out.println("STATISTICS EMPLOYEE");
+        try {
+            SceneManager.loadScene("../view/employee-statistics.fxml", 1400, 800);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * function that loads the PURCHASES scene of EMPLOYEE application
+     * displays the total number of tickets bought, the number of tickets bought in the last 12 months and in the current month
+     * displays all purchases of the user in a scrollable area
+     */
+    public void goToPurchases() {
+        System.out.println("PURCHASES EMPLOYEE");
+        try {
+            SceneManager.loadScene("../view/employee-purchases.fxml", 1400, 800);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * function that loads the ACCOUNT scene of EMPLOYEE application
+     * displays the date of creation of the account
+     * lets the user select the appropriate category for the account (regular, senior or child)
+     * lets the user select the theme of his choice (light or dark)
+     * lets the user add a picture or change the current one
+     * lets the user delete the account
+     */
+    public void goToAccount() {
+        System.out.println("ACCOUNT EMPLOYEE");
+        try {
+            SceneManager.loadScene("../view/employee-account.fxml", 1400, 800);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * function that signs the user out and loads the LOGIN scene
+     */
+    public void signout() {
+        System.out.println("SIGN OUT");
+        try {
+            SceneManager.loadScene("../view/login.fxml", 700, 400);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /***
+     * exit the CUSTOMER application
+     */
+    public void exit() {
         System.exit(0);
     }
 
+    /***
+     * first method called for initialization
+     * loads user picture
+     * sets chosen theme
+     * displays the discounts
+     *
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         minusSelected = false;

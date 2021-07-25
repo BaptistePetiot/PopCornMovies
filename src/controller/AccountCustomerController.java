@@ -143,6 +143,7 @@ public class AccountCustomerController implements Initializable {
 
     /***
      * displays an alert, if the user is sure of his or her choice, then deletes the account from the DB
+     * and updates the scene
      */
     public void delete() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete your account ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
