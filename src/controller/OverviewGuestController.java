@@ -99,8 +99,8 @@ public class OverviewGuestController implements Initializable {
      * displays 2 most seen movies
      * displays the active discount with the higher amount
      *
-     * @param location
-     * @param resources
+     * @param location : URL
+     * @param resources : ResourceBundle
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

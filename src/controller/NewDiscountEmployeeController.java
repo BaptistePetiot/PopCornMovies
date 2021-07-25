@@ -270,8 +270,8 @@ public class NewDiscountEmployeeController implements Initializable {
      * loads user picture
      * sets chosen theme
      *
-     * @param location
-     * @param resources
+     * @param location : URL
+     * @param resources : ResourceBundle
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

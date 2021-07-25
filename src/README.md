@@ -66,6 +66,7 @@ July 26th : Oral Presentation
         delete account : "DELETE FROM logins WHERE Id = " + Me.getId()
     - comments in the code : 100% commented + JavaDoc generated
 
+    - a DB with at least 6 rows in each table
     - OOP principles (inheritance, classes, interface, static classes, etc.)
     - MVC (in seperated packages)
     - Data Access module is our Cinema class --> it knows every customer, every employee, every discount and every movie

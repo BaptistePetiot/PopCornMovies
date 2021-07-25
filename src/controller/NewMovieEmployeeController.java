@@ -264,8 +264,8 @@ public class NewMovieEmployeeController implements Initializable {
      * sets chosen theme
      * sets chosen category
      *
-     * @param location
-     * @param resources
+     * @param location : URL
+     * @param resources : ResourceBundle
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

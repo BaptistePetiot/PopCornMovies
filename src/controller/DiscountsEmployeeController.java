@@ -135,6 +135,7 @@ public class DiscountsEmployeeController implements Initializable {
     /***
      * displays an alert, if the user is sure of his or her choice, then deletes the discount from the DB
      * and updates the scene
+     * @param d : Discount
      */
     public void deleteDiscount(Discount d) {
 
@@ -384,8 +385,8 @@ public class DiscountsEmployeeController implements Initializable {
      * sets chosen theme
      * displays the discounts
      *
-     * @param location
-     * @param resources
+     * @param location : URL
+     * @param resources : ResourceBundle
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

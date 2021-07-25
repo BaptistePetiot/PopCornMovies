@@ -178,8 +178,8 @@ public class PurchasesCustomerController implements Initializable {
      * sets chosen theme
      * retrieves and displays purchases from DB
      *
-     * @param location
-     * @param resources
+     * @param location : URL
+     * @param resources : ResourceBundle
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

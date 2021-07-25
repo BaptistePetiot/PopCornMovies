@@ -25,7 +25,7 @@ public class PasswordEncrypterDecrypter {
     /**
      * generate a key for the AES algorithm
      * @return key : SecretKey
-     * @throws NoSuchAlgorithmException
+     * @throws NoSuchAlgorithmException : no such thing algorithm exception
      */
     public static SecretKey generateKey() throws NoSuchAlgorithmException {
         KeyGenerator kg = KeyGenerator.getInstance("AES");
@@ -100,13 +100,13 @@ public class PasswordEncrypterDecrypter {
      * @param input : String
      * @param key : SecretKey
      * @param iv : IvParameterSpec
-     * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidAlgorithmParameterException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
+     * @return String
+     * @throws NoSuchAlgorithmException : no such algorithm exception
+     * @throws IllegalBlockSizeException : illegal blocksize exception
+     * @throws InvalidKeyException : invalid key exception
+     * @throws BadPaddingException : bad padding exception
+     * @throws InvalidAlgorithmParameterException : invalid algorithm parameter exception
+     * @throws NoSuchPaddingException : no such padding exception
      */
     public static String encrypt(String input, SecretKey key, IvParameterSpec iv) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, InvalidKeyException,
@@ -126,13 +126,13 @@ public class PasswordEncrypterDecrypter {
      * @param input : String
      * @param key : SecretKey
      * @param iv : IvParameterSpec
-     * @return
-     * @throws NoSuchPaddingException
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidAlgorithmParameterException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws IllegalBlockSizeException
+     * @return String
+     * @throws NoSuchAlgorithmException : no such algorithm exception
+     * @throws IllegalBlockSizeException : illegal blocksize exception
+     * @throws InvalidKeyException : invalid key exception
+     * @throws BadPaddingException : bad padding exception
+     * @throws InvalidAlgorithmParameterException : invalid algorithm parameter exception
+     * @throws NoSuchPaddingException : no such padding exception
      */
     public static String decrypt(String input, SecretKey key, IvParameterSpec iv) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, InvalidKeyException,
@@ -149,12 +149,12 @@ public class PasswordEncrypterDecrypter {
 
     /**
      * Test all the methods of the class
-     * @throws NoSuchAlgorithmException
-     * @throws IllegalBlockSizeException
-     * @throws InvalidKeyException
-     * @throws BadPaddingException
-     * @throws InvalidAlgorithmParameterException
-     * @throws NoSuchPaddingException
+     * @throws NoSuchAlgorithmException : no such algorithm exception
+     * @throws IllegalBlockSizeException : illegal blocksize exception
+     * @throws InvalidKeyException : invalid key exception
+     * @throws BadPaddingException : bad padding exception
+     * @throws InvalidAlgorithmParameterException : invalid algorithm parameter exception
+     * @throws NoSuchPaddingException : no such padding exception
      */
     public static void test() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, InvalidAlgorithmParameterException, NoSuchPaddingException {
         System.out.println(" ENCRYPTION ");

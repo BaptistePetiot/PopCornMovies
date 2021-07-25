@@ -57,8 +57,8 @@ public class ControllerLogin {
 
     /***
      * allows to use ENTER key to log in
-     * @param keyEvent
-     * @throws IOException
+     * @param keyEvent : KeyEvent
+     * @throws IOException : input output exception
      */
     @FXML
     public void handleEnterLogin(KeyEvent keyEvent) throws IOException {
@@ -69,7 +69,7 @@ public class ControllerLogin {
 
     /***
      * allows to use ENTER key to sign up
-     * @param keyEvent
+     * @param keyEvent : KeyEvent
      */
     @FXML
     public void handleEnterSignup(KeyEvent keyEvent)  {

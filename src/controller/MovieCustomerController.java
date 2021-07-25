@@ -290,7 +290,7 @@ public class MovieCustomerController implements Initializable, Consts {
 
     /***
      * displays the computed price if the user presses ENTER right after having typed in the nbr of student discounts
-     * @param keyEvent
+     * @param keyEvent : KeyEvent
      */
     public void displayPrice(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
@@ -313,8 +313,8 @@ public class MovieCustomerController implements Initializable, Consts {
      * sets chosen theme
      * displays movie information according to the selected movie
      *
-     * @param location
-     * @param resources
+     * @param location : URL
+     * @param resources : ResourceBundle
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

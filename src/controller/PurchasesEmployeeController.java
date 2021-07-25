@@ -224,8 +224,8 @@ public class PurchasesEmployeeController implements Initializable {
      * sets chosen theme
      * retrieves and displays the purchases from the DB
      *
-     * @param location
-     * @param resources
+     * @param location : URL
+     * @param resources : ResourceBundle
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

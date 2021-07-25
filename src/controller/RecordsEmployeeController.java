@@ -393,8 +393,8 @@ public class RecordsEmployeeController implements Initializable {
      * sets chosen theme
      * displays the records
      *
-     * @param location
-     * @param resources
+     * @param location : URL
+     * @param resources : ResourceBundle
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

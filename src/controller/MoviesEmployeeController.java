@@ -329,8 +329,8 @@ public class MoviesEmployeeController implements Initializable {
      * sets chosen theme
      * displays all movies
      *
-     * @param location
-     * @param resources
+     * @param location : URL
+     * @param resources : ResourceBundle
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

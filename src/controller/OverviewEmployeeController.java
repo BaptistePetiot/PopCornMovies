@@ -210,8 +210,8 @@ public class OverviewEmployeeController implements Initializable {
      * displays the 2 most seen movies
      * displays the discount with the higher amount
      *
-     * @param location
-     * @param resources
+     * @param location : URL
+     * @param resources : ResourceBundle
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

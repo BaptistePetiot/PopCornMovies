@@ -170,8 +170,8 @@ public class OverviewCustomerController implements Initializable {
      * retrieves and displays the 2 most seen movies
      * retrieves and displays the active discount that has the highest amount
      *
-     * @param location
-     * @param resources
+     * @param location : URL
+     * @param resources : ResourceBundle
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

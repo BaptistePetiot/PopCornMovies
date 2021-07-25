@@ -293,8 +293,8 @@ public class ModifyDiscountEmployeeController implements Initializable {
      * sets chosen theme
      * fill in discount fields with previous data
      *
-     * @param location
-     * @param resources
+     * @param location : URL
+     * @param resources : ResourceBundle
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

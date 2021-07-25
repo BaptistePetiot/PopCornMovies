@@ -20,7 +20,7 @@ public class SceneManager {
      * @param sceneName : String
      * @param width : int
      * @param height : int
-     * @throws IOException
+     * @throws IOException : input output exception
      */
     public static void loadScene(String sceneName, int width, int height) throws IOException {
 

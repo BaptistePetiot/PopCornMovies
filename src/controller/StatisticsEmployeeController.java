@@ -237,8 +237,8 @@ public class StatisticsEmployeeController implements Initializable {
      * sets chosen theme
      * displays 2 charts : one line chart with 2 functions and one pie chart
      *
-     * @param location
-     * @param resources
+     * @param location : URL
+     * @param resources : ResourceBundle
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {

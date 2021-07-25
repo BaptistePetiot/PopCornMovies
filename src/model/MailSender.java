@@ -16,7 +16,7 @@ public class MailSender {
      * @param userEmail : String
      * @param firstName : String
      * @param isEmployee : String
-     * @throws Exception
+     * @throws Exception : exception
      */
     public static void sendMail(String userEmail, String firstName, boolean isEmployee) throws Exception {
         Properties properties = new Properties();
@@ -81,7 +81,7 @@ public class MailSender {
      * @param firstName : String
      * @param title : String
      * @param nbrTickets : int
-     * @throws Exception
+     * @throws Exception : exception
      */
     public static void sendTickets(String userEmail, String firstName, String title, int nbrTickets) throws Exception {
         Properties properties = new Properties();

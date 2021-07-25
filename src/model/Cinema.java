@@ -117,7 +117,7 @@ public class Cinema {
 
     /**
      * get the list of the customers
-     * @return customers : ArrayList<Customer>
+     * @return customers : ArrayList
      */
     public static ArrayList<Customer> getCustomers() {
         return customers;
@@ -125,7 +125,7 @@ public class Cinema {
 
     /**
      * get the list of the employees
-     * @return employees : ArrayList<Employee>
+     * @return employees : ArrayList
      */
     public static ArrayList<Employee> getEmployees() {
         return employees;
@@ -133,7 +133,7 @@ public class Cinema {
 
     /**
      * get the list of the movies
-     * @return movies : ArrayList<Movie>
+     * @return movies : ArrayList
      */
     public static ArrayList<Movie> getMovies() {
         return movies;
@@ -141,7 +141,7 @@ public class Cinema {
 
     /**
      * get the list of the discounts
-     * @return discounts : ArrayList<Discount>
+     * @return discounts : ArrayList
      */
     public static ArrayList<Discount> getDiscounts() {
         return discounts;

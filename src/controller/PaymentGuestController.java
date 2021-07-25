@@ -48,8 +48,8 @@ public class PaymentGuestController implements Initializable {
      * sets chosen theme
      * hide final button and final text
      * start the animation process
-     * @param location
-     * @param resources
+     * @param location : URL
+     * @param resources : ResourceBundle
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
