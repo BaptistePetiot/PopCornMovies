@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the MOVIE scene of the GUEST application
+ * @author Baptiste Petiot
  */
 public class MovieGuestController implements Initializable, Consts {
     // credentials

@@ -17,6 +17,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the OVERVIEW scene of the GUEST application
+ * @author Baptiste Petiot
  */
 public class OverviewGuestController implements Initializable {
     // credentials

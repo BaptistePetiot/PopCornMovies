@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the RECORDS scene of the EMPLOYEE application
+ * @author Baptiste Petiot
  */
 public class RecordsEmployeeController implements Initializable {
     // credentials

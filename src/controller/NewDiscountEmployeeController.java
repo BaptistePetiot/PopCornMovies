@@ -22,6 +22,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the NEW DISCOUNT scene of the EMPLOYEE application
+ * @author Baptiste Petiot
  */
 public class NewDiscountEmployeeController implements Initializable {
     // credentials

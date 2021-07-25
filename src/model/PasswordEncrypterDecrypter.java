@@ -10,10 +10,23 @@ import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Base64;
 
+/**
+ * Class that allows to encrypt and decrypt a password using the AES algorithm (and PKCS5 Padding)
+ * the password is then a cipher, with a key and an initial vector
+ * they are all stored as Strings into the DB
+ * The class also contains method to reverse the operation and generate iv and key from strings,
+ * To then decrypt a cipher
+ * @author Baptiste Petiot
+ */
 public class PasswordEncrypterDecrypter {
     private static final String algorithm = "AES/CBC/PKCS5Padding";
     private static final int n = 128;
 
+    /**
+     * generate a key for the AES algorithm
+     * @return key : SecretKey
+     * @throws NoSuchAlgorithmException
+     */
     public static SecretKey generateKey() throws NoSuchAlgorithmException {
         KeyGenerator kg = KeyGenerator.getInstance("AES");
         kg.init(n);
@@ -21,19 +34,39 @@ public class PasswordEncrypterDecrypter {
         return key;
     }
 
+    /**
+     * transforms a secret key into a string
+     * @param key : String
+     * @return String
+     */
     public static String secretKey2String(SecretKey key) {
         return Base64.getEncoder().encodeToString(key.getEncoded());
     }
 
+    /**
+     * transforms a stringified secret key into the original secret key
+     * @param key : String
+     * @return SecretKey
+     */
     public static SecretKey string2SecretKey(String key) {
         byte[] decodedKey = Base64.getDecoder().decode(key);
         return new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
     }
 
+    /**
+     * transforms an iv byte array into a String
+     * @param array : byte[]
+     * @return String
+     */
     public static String array2String(byte[] array) {
         return Arrays.toString(array);
     }
 
+    /**
+     * transforms an iv byte array stringified back into the original byte array
+     * @param s : String
+     * @return byte[]
+     */
     public static byte[] string2Array(String s) {
         String[] strings = s.replace("[", "").replace("]", "").split(", ");
         byte[] result = new byte[strings.length];
@@ -43,16 +76,38 @@ public class PasswordEncrypterDecrypter {
         return result;
     }
 
+    /**
+     * Generates an Initial vector of length 16
+     * @return iv : byte[]
+     */
     public static byte[] generateIv() {
         byte[] iv = new byte[16];
         return iv;
     }
 
+    /**
+     * Generate a random ivParameterSpec based on a previously generated iv byte array
+     * @param iv : byte[]
+     * @return IvParameterSpec
+     */
     public static IvParameterSpec generateIvParameterSpec(byte[] iv) {
         new SecureRandom().nextBytes(iv);
         return new IvParameterSpec(iv);
     }
 
+    /**
+     * Encrypt an input with a specified key and input vector
+     * @param input : String
+     * @param key : SecretKey
+     * @param iv : IvParameterSpec
+     * @return
+     * @throws NoSuchPaddingException
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidAlgorithmParameterException
+     * @throws InvalidKeyException
+     * @throws BadPaddingException
+     * @throws IllegalBlockSizeException
+     */
     public static String encrypt(String input, SecretKey key, IvParameterSpec iv) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException {
@@ -66,6 +121,19 @@ public class PasswordEncrypterDecrypter {
         return encryptedString;
     }
 
+    /**
+     * decrypt a cipher input given the appropriate key and input vector
+     * @param input : String
+     * @param key : SecretKey
+     * @param iv : IvParameterSpec
+     * @return
+     * @throws NoSuchPaddingException
+     * @throws NoSuchAlgorithmException
+     * @throws InvalidAlgorithmParameterException
+     * @throws InvalidKeyException
+     * @throws BadPaddingException
+     * @throws IllegalBlockSizeException
+     */
     public static String decrypt(String input, SecretKey key, IvParameterSpec iv) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException {
@@ -79,6 +147,15 @@ public class PasswordEncrypterDecrypter {
         return decryptedString;
     }
 
+    /**
+     * Test all the methods of the class
+     * @throws NoSuchAlgorithmException
+     * @throws IllegalBlockSizeException
+     * @throws InvalidKeyException
+     * @throws BadPaddingException
+     * @throws InvalidAlgorithmParameterException
+     * @throws NoSuchPaddingException
+     */
     public static void test() throws NoSuchAlgorithmException, IllegalBlockSizeException, InvalidKeyException, BadPaddingException, InvalidAlgorithmParameterException, NoSuchPaddingException {
         System.out.println(" ENCRYPTION ");
         String input = "jarvis";

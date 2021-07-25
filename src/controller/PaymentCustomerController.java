@@ -15,6 +15,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the PAYMENT scene of the CUSTOMER application
+ * @author Baptiste Petiot
  */
 public class PaymentCustomerController implements Initializable {
     // Javafx elements

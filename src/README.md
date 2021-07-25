@@ -34,7 +34,7 @@ July 26th : Oral Presentation
 
     - additional resources
         In the deliverable you will also find our ppt presentation, the JavaDoc folder that contains a helpful documentation of our project,
-        a popcornmovie sql text file that allows to generate our DB simply by importing this file into PhpMyAdmin, the DB design diagram, the UML and the E-R diagram.
+        a popcornmovie sql text file that allows to generate our DB simply by importing this file into PhpMyAdmin, the DB design diagram, the UML and the E-R diagram and a hand drawn wireframe.
 
 ### Naming conventions
     We followed a Camel Case convention in our java code.

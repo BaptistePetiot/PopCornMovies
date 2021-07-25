@@ -2,11 +2,19 @@ package model;
 
 import java.util.HashMap;
 
+/**
+ * class Month that computes, stores and gives access to all the month in the past year (12 months)
+ * @author Baptiste Petiot
+ */
 public class Month {
     private int month;
     private int m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11;
     private HashMap<Integer, String> map2letters;
 
+    /**
+     * Month constructor
+     * @param month : int
+     */
     public Month(int month) {
         this.month = month;
 
@@ -92,14 +100,27 @@ public class Month {
 
     }
 
+    /**
+     * allows to get the current month as a String
+     * @return month : String
+     */
     public String current() {
         return String.valueOf(month);
     }
 
+    /**
+     * allows to transform the number of the month to the 3-letters words associated to it
+     * @return month : String
+     */
     public String current2letters() {
         return map2letters.get(month);
     }
 
+    /**
+     * allows to get any of the 11 previous month
+     * @param i : int
+     * @return month at index i : String
+     */
     public String previous(int i) {
         switch (i) {
             case 1:
@@ -128,6 +149,11 @@ public class Month {
         return null;
     }
 
+    /**
+     * allows to transform the number of the month to the 3-letters words associated to it
+     * @param i : int
+     * @return month at index i : String
+     */
     public String previous2letters(int i) {
         switch (i) {
             case 1:

@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 /**
  * Controller of the LOGIN scene
  * Handles sign ups and logins for employee, customers and guests
+ * @author Baptiste Petiot
  */
 public class ControllerLogin {
     // class attributes

@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the MOVIE scene of the EMPLOYEE application
+ * @author Baptiste Petiot
  */
 public class MovieEmployeeController implements Initializable {
     // credentials

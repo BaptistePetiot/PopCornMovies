@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the MODIFY DISCOUNT scene of the EMPLOYEE application
+ * @author Baptiste Petiot
  */
 public class ModifyDiscountEmployeeController implements Initializable {
     // credentials

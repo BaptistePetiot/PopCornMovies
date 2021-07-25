@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the NEW MOVIE scene of the EMPLOYEE application
+ * @author Baptiste Petiot
  */
 public class NewMovieEmployeeController implements Initializable {
     // credentials

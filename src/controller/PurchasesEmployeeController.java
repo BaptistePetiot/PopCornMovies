@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the PURCHASES scene of the EMPLOYEE application
+ * @author Baptiste Petiot
  */
 public class PurchasesEmployeeController implements Initializable {
     // credentials

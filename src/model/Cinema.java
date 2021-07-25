@@ -3,6 +3,10 @@ package model;
 import java.sql.*;
 import java.util.ArrayList;
 
+/**
+ * Cinema static class that knows every information in the DB about the cinema : movies, employees, customers and discounts
+ * @author Baptiste Petiot
+ */
 public class Cinema {
     // credentials
     private static final String url = "jdbc:mysql://localhost:3306/popcornmovie";
@@ -18,6 +22,9 @@ public class Cinema {
         refresh();
     }
 
+    /**
+     * updates all the known movies, employees, customers and discounts from the DB
+     */
     public static void refresh() {
         // initialize all array lists empty
         movies = new ArrayList<>();
@@ -108,18 +115,34 @@ public class Cinema {
         }
     }
 
+    /**
+     * get the list of the customers
+     * @return customers : ArrayList<Customer>
+     */
     public static ArrayList<Customer> getCustomers() {
         return customers;
     }
 
+    /**
+     * get the list of the employees
+     * @return employees : ArrayList<Employee>
+     */
     public static ArrayList<Employee> getEmployees() {
         return employees;
     }
 
+    /**
+     * get the list of the movies
+     * @return movies : ArrayList<Movie>
+     */
     public static ArrayList<Movie> getMovies() {
         return movies;
     }
 
+    /**
+     * get the list of the discounts
+     * @return discounts : ArrayList<Discount>
+     */
     public static ArrayList<Discount> getDiscounts() {
         return discounts;
     }

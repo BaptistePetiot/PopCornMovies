@@ -25,6 +25,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the ACCOUNT scene of the CUSTOMER application
+ * @author Baptiste Petiot
  */
 public class AccountCustomerController implements Initializable {
 

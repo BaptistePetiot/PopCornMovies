@@ -25,6 +25,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the DISCOUNT scene of the EMPLOYEE application
+ * @author Baptiste Petiot
  */
 public class DiscountsEmployeeController implements Initializable {
     // credentials

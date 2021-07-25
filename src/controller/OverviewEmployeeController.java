@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the OVERVIEW scene of the EMPLOYEE application
+ * @author Baptiste Petiot
  */
 public class OverviewEmployeeController implements Initializable {
     // credentials

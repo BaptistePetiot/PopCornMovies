@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the STATISTICS scene of the EMPLOYEE application
+ * @author Baptiste Petiot
  */
 public class StatisticsEmployeeController implements Initializable {
     // credentials

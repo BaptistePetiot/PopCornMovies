@@ -20,6 +20,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the PURCHASES scene of the CUSTOMER application
+ * @author Baptiste Petiot
  */
 public class PurchasesCustomerController implements Initializable {
     // credentials

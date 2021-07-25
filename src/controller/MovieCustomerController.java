@@ -21,6 +21,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the MOVIE scene of the CUSTOMER application
+ * @author Baptiste Petiot
  */
 public class MovieCustomerController implements Initializable, Consts {
     // credentials

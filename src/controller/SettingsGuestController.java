@@ -14,6 +14,7 @@ import java.util.ResourceBundle;
 
 /**
  * Controller of the SETTINGS scene of the GUEST application
+ * @author Baptiste Petiot
  */
 public class SettingsGuestController implements Initializable {
     // Javafx elements
