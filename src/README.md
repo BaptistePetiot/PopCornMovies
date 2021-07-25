@@ -5,7 +5,7 @@ Marie SIMON,
 Baptiste Petiot
 
 #### Deadlines
-June 21st : DataBase design + GUI
+June 21st : DataBase design + GUI + first UML
 
 July 25th : project deliverable deadline
 
@@ -44,7 +44,7 @@ July 26th : Oral Presentation
     We named all of our controllers based on the example : [Name of the view][type of user]Controller.java
     
 ### CRITERIA FOR NOTATION:
-    - home window allowing the user to connect to the DB by entering EMAIL and PASSWORD
+    - we have a : home window allowing the user to connect to the DB by entering EMAIL and PASSWORD
     - reliability of our system : every major action (db connection and encryption) is handled in a try catch block
     - relevance of the information displayed : we've tried to display information on our GUI in a clear way and to sort it for more
         conviniency ("RECORDS" by email, title, nbr of tickets or date & 2 options : by customers or by employees)
