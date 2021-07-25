@@ -88,8 +88,6 @@ public class AccountEmployeeController implements Initializable {
                 ps.executeUpdate();
             }
 
-            img.delete();   // TODO: does not seem to work
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

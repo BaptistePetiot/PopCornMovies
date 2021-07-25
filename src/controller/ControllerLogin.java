@@ -1,10 +1,7 @@
 package controller;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -56,14 +53,6 @@ public class ControllerLogin {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date now = new Date(System.currentTimeMillis());
         this.date = formatter.format(now);
-
-        // Encryption test
-        /*try{
-            PasswordEncrypterDecrypter.test();
-        }catch (Exception e){
-            e.printStackTrace();
-        }*/
-
     }
 
     /***
@@ -221,16 +210,42 @@ public class ControllerLogin {
             }
 
         } catch (SQLException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Problem");
+            alert.setHeaderText("Cannot perform the sql request");
+            alert.setContentText("Please warn the developers that they might have made a mistake with their request.");
+            alert.showAndWait();
+
             System.out.println(e.getMessage());
-            // add popup
+
         } catch (NoSuchAlgorithmException | InvalidKeyException | InvalidAlgorithmParameterException | NoSuchPaddingException | BadPaddingException | IllegalBlockSizeException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Problem");
+            alert.setHeaderText("Problem with encryption");
+            alert.setContentText("Please check there aren't any issue with the chosen algorithm, the generated key, the padding or the block size.");
+            alert.showAndWait();
+
+            e.printStackTrace();
+        } catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Problem");
+            alert.setHeaderText("Cannot log in");
+            alert.setContentText("Please be sure that you have typed in your correct credentials.");
+            alert.showAndWait();
+
             e.printStackTrace();
         } finally {
             try {
                 if (connection != null)
                     connection.close();
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+            } catch (SQLException e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Problem");
+                alert.setHeaderText("Cannot connect to the DB");
+                alert.setContentText("Please check that the DB is up and running, restart the services if needed");
+                alert.showAndWait();
+
+                System.out.println(e.getMessage());
             }
         }
     }
@@ -339,15 +354,33 @@ public class ControllerLogin {
             }
 
         } catch (SQLException | IOException e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Problem");
+            alert.setHeaderText("Cannot perform the sql request");
+            alert.setContentText("Please warn the developers that they might have made a mistake.");
+            alert.showAndWait();
+
             System.out.println(e.getMessage());
         } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Problem");
+            alert.setHeaderText("Cannot signup");
+            alert.setContentText("Please be sure that you are not already in our DB and that your email is a real one.");
+            alert.showAndWait();
+
             e.printStackTrace();
         } finally {
             try {
                 if (connection != null)
                     connection.close();
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+            } catch (SQLException e) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Problem");
+                alert.setHeaderText("Cannot connect to the DB");
+                alert.setContentText("Please check that the DB is up and running, restart the services if needed");
+                alert.showAndWait();
+
+                System.out.println(e.getMessage());
             }
         }
 

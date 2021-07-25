@@ -2,12 +2,9 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import model.Cinema;
 import model.Me;
@@ -133,6 +130,15 @@ public class NewDiscountEmployeeController implements Initializable {
             goToDiscounts();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+        catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Problem");
+            alert.setHeaderText("Cannot add this new discount");
+            alert.setContentText("Please be sure that you have typed in correct values in each field.");
+            alert.showAndWait();
+
+            e.printStackTrace();
         }
     }
 

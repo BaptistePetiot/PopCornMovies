@@ -2,6 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -216,22 +217,36 @@ public class MovieEmployeeController implements Initializable {
      * sends the tickets by email
      * and loads the PAYMENT scene of EMPLOYEE application
      */
-    public void goToPayment() throws Exception {
-        if (tfNbrStudentDiscounts.getText() == null || tfNbrStudentDiscounts.getText().trim().isEmpty() || tfNbrTickets.getText() == null || tfNbrTickets.getText().trim().isEmpty()) {
-            System.out.println("Some field is empty!");
-        } else {
-            computePrice();
-            registerPurchase();
-            // send tickets by email
-            MailSender.sendTickets(Me.getEmail(), Me.getFirstName(), Me.getLookingAtMovie().getTitle(), nbrTickets);
+    public void goToPayment() {
+        try {
+            if(Integer.parseInt(tfNbrStudentDiscounts.getText()) > Integer.parseInt(tfNbrTickets.getText())){
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Problem");
+                alert.setHeaderText("Cannot currently buy the tickets");
+                alert.setContentText("The second field has a strictly higher value than the first!");
+                alert.showAndWait();
+            }else{
+                computePrice();
+                registerPurchase();
 
-            System.out.println("PAYMENT CUSTOMER");
-            try {
+                // send tickets by email
+                MailSender.sendTickets(Me.getEmail(), Me.getFirstName(), Me.getLookingAtMovie().getTitle(), nbrTickets);
+
+                System.out.println("PAYMENT CUSTOMER");
+
                 SceneManager.loadScene("../view/employee-payment.fxml", 959, 262);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
             }
+        } catch (Exception e) {
+            System.out.println("The field is empty!");
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Problem");
+            alert.setHeaderText("Cannot currently buy the tickets");
+            alert.setContentText("Please check that both fields are not empty and that what you typed in are actual numbers.");
+            alert.showAndWait();
+
+            System.out.println(e.getMessage());
         }
+
     }
 
     /***

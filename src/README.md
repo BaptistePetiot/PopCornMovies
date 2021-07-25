@@ -33,8 +33,8 @@ July 26th : Oral Presentation
         - sql.txt : a reminder of the commands used to generate our Data Base
 
     - additional resources
-        In the deliverable you will also find our ppt presentation, the JavaDoc folder that contains a helpful documentation of our project,
-        a popcornmovie sql text file that allows to generate our DB simply by importing this file into PhpMyAdmin, the DB design diagram, the UML and the E-R diagram and a hand drawn wireframe.
+        In the deliverable you will also find our ppt presentation, the JavaDoc folder that contains a helpful documentation of our project, a UML of the controllers (list), 
+        a popcornmovie sql text file that allows to generate our DB simply by importing this file into PhpMyAdmin, the DB design diagram, the UML (Model) and the E-R diagram and a hand drawn wireframe.
 
 ### Naming conventions
     We followed a Camel Case convention in our java code.
@@ -75,7 +75,7 @@ July 26th : Oral Presentation
     - hand drawn logo
     - 2 themes
     - payment progress bar animation
-    - profile picture saved to DB (adding and modifying)
+    - profile picture saved to DB (adding and changing)
     - email (signup for customer and employee + for tickets at each purchase)
     - charts
         - months bellow the line chart (x ticks) are dynamically generated depending on today's date

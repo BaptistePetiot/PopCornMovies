@@ -2,6 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
@@ -111,33 +112,38 @@ public class MovieGuestController implements Initializable, Consts {
      * sends the tickets by email
      * and loads the PAYMENT scene of GUEST application
      */
-    public void goToPayment() throws Exception {
-        if (tfNbrTickets.getText() == null || tfNbrTickets.getText().trim().isEmpty()) {
-            System.out.println("The field is empty!");
-        } else {
-            computePrice();
-            registerPurchase();
+    public void goToPayment() {
+            try{
+                computePrice();
+                registerPurchase();
 
-            // send tickets by email
-            TextInputDialog dialog = new TextInputDialog();
-            dialog.setTitle("Email");
-            dialog.setHeaderText("Enter your email to receive your tickets, don't worry it won't be stored in the database.");
-            dialog.setContentText("Email:");
-            Optional<String> result = dialog.showAndWait();
+                // send tickets by email
+                TextInputDialog dialog = new TextInputDialog();
+                dialog.setTitle("Email");
+                dialog.setHeaderText("Enter your email to receive your tickets, don't worry it won't be stored in the database.");
+                dialog.setContentText("Email:");
+                Optional<String> result = dialog.showAndWait();
 
-            result.ifPresent(email -> {
-                Me.setEmail(email);
-            });
+                result.ifPresent(email -> {
+                    Me.setEmail(email);
+                });
 
-            MailSender.sendTickets(Me.getEmail(), Me.getFirstName(), Me.getLookingAtMovie().getTitle(), nbrTickets);
+                MailSender.sendTickets(Me.getEmail(), Me.getFirstName(), Me.getLookingAtMovie().getTitle(), nbrTickets);
 
-            System.out.println("PAYMENT GUEST");
-            try {
+                System.out.println("PAYMENT GUEST");
                 SceneManager.loadScene("../view/guest-payment.fxml", 959, 262);
-            } catch (Exception e) {
+            }
+             catch (Exception e) {
+                 System.out.println("The field is empty!");
+                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                 alert.setTitle("Problem");
+                 alert.setHeaderText("Cannot currently buy the tickets");
+                 alert.setContentText("Please check that the field is not empty and that what you typed in is an actual number.");
+                 alert.showAndWait();
+
                 System.out.println(e.getMessage());
             }
-        }
+
     }
 
     /***

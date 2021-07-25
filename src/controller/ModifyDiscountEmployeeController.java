@@ -2,10 +2,7 @@ package controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -154,6 +151,15 @@ public class ModifyDiscountEmployeeController implements Initializable {
             goToDiscounts();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
+        }
+        catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Problem");
+            alert.setHeaderText("Cannot add this new movie");
+            alert.setContentText("Please be sure that you have typed in correct values in each field.");
+            alert.showAndWait();
+
+            e.printStackTrace();
         }
     }
 
