@@ -22,6 +22,10 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 
+/**
+ * Controller of the LOGIN scene
+ * Handles sign ups and logins for employee, customers and guests
+ */
 public class ControllerLogin {
     // class attributes
     private double x, y;

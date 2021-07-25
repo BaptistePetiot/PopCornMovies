@@ -19,6 +19,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Controller of the OVERVIEW scene of the CUSTOMER application
+ */
 public class OverviewCustomerController implements Initializable {
     // credentials
     private final String url = "jdbc:mysql://localhost:3306/popcornmovie";

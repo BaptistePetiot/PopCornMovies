@@ -18,6 +18,9 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
+/**
+ * Controller of the NEW MOVIE scene of the EMPLOYEE application
+ */
 public class NewMovieEmployeeController implements Initializable {
     // credentials
     private final String url = "jdbc:mysql://localhost:3306/popcornmovie";

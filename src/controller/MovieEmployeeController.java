@@ -19,6 +19,9 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
+/**
+ * Controller of the MOVIE scene of the EMPLOYEE application
+ */
 public class MovieEmployeeController implements Initializable {
     // credentials
     private final String url = "jdbc:mysql://localhost:3306/popcornmovie";

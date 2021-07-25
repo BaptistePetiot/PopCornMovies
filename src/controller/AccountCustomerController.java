@@ -23,6 +23,9 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
+/**
+ * Controller of the ACCOUNT scene of the CUSTOMER application
+ */
 public class AccountCustomerController implements Initializable {
 
     // credentials

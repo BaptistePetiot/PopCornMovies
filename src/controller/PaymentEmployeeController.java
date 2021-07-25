@@ -13,6 +13,9 @@ import model.SceneManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller of the PAYMENT scene of the EMPLOYEE application
+ */
 public class PaymentEmployeeController implements Initializable {
     //Javafx elements
     @FXML

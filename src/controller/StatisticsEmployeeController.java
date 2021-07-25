@@ -21,6 +21,9 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
+/**
+ * Controller of the STATISTICS scene of the EMPLOYEE application
+ */
 public class StatisticsEmployeeController implements Initializable {
     // credentials
     private final String url = "jdbc:mysql://localhost:3306/popcornmovie";

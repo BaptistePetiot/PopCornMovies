@@ -18,6 +18,9 @@ import java.text.SimpleDateFormat;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Controller of the MOVIE scene of the GUEST application
+ */
 public class MovieGuestController implements Initializable, Consts {
     // credentials
     private final String url = "jdbc:mysql://localhost:3306/popcornmovie";

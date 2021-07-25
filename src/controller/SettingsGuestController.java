@@ -12,6 +12,9 @@ import model.SceneManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller of the SETTINGS scene of the GUEST application
+ */
 public class SettingsGuestController implements Initializable {
     // Javafx elements
     @FXML

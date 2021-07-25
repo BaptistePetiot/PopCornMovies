@@ -15,6 +15,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Controller of the OVERVIEW scene of the GUEST application
+ */
 public class OverviewGuestController implements Initializable {
     // credentials
     private final String url = "jdbc:mysql://localhost:3306/popcornmovie";

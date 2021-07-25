@@ -21,6 +21,9 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
+/**
+ * Controller of the MODIFY DISCOUNT scene of the EMPLOYEE application
+ */
 public class ModifyDiscountEmployeeController implements Initializable {
     // credentials
     private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
