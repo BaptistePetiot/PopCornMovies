@@ -28,21 +28,4 @@ public class SceneManager {
             PopCornMovie.getStage().setY(event.getScreenY() - PopCornMovie.getY());
         });
     }
-/*
-    public static void loadRightArea(Pane rightArea, String sceneName) throws IOException {
-        rightArea.getChildren().removeAll();
-        Node node = (Node) FXMLLoader.load(PopCornMovie.class.getResource(sceneName));
-        rightArea.getChildren().add(node);
-    }
-
-    public static void loadPurchase(VBox pnItems, String sceneName) throws IOException {
-        Node[] nodes = new Node[10];
-        for(int i = 0; i < nodes.length; i++){
-            pnItems.getChildren().removeAll();
-            nodes[i] = (Node) FXMLLoader.load(PopCornMovie.class.getResource(sceneName));
-            pnItems.getChildren().add(nodes[i]);
-        }
-    }
-
- */
 }

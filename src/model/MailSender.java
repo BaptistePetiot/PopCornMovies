@@ -7,7 +7,7 @@ import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
 public class MailSender {
-    public static void sendMail(String userEmail, String firstName, boolean isEmployee) throws Exception{
+    public static void sendMail(String userEmail, String firstName, boolean isEmployee) throws Exception {
         Properties properties = new Properties();
 
         properties.put("mail.smtp.auth", "true");
@@ -31,22 +31,22 @@ public class MailSender {
         System.out.println("mail sent successfully to " + userEmail);
     }
 
-    private static Message prepareMessage(Session session, String myEmail, String userEmail, String firstName, boolean isEmployee){
-        try{
+    private static Message prepareMessage(Session session, String myEmail, String userEmail, String firstName, boolean isEmployee) {
+        try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
             message.setSubject("Welcome to PopCorn Movies!");
 
-            if(isEmployee){
+            if (isEmployee) {
                 message.setText("Dear " + firstName + ",\n Welcome to our team, we hope you'll enjoy working with us, we certainly will!\n We're impatient to meet you in person!\n See you soon, \n The PopCorn Movies team");
-            }else{
+            } else {
                 message.setText("Dear " + firstName + ",\n Thank you for singing up!\nThe whole PopCorn Movies teams genuinely wants to welcome you on our app!\n Go ahead and explore it, we're impatient to see you in person in our cinema.\n Best regards,\n The PopCorn Movies team");
             }
 
             return message;
 
-        }catch(AddressException e){
+        } catch (AddressException e) {
             System.out.println(e.getMessage());
         } catch (MessagingException e) {
             e.printStackTrace();
@@ -55,7 +55,7 @@ public class MailSender {
         return null;
     }
 
-    public static void sendTickets(String userEmail, String firstName, String title, int nbrTickets) throws Exception{
+    public static void sendTickets(String userEmail, String firstName, String title, int nbrTickets) throws Exception {
         Properties properties = new Properties();
 
         properties.put("mail.smtp.auth", "true");
@@ -73,28 +73,28 @@ public class MailSender {
             }
         });
 
-        Message message = prepareTickets(session, myEmail, userEmail, firstName,title, nbrTickets);
+        Message message = prepareTickets(session, myEmail, userEmail, firstName, title, nbrTickets);
 
         Transport.send(message);
         System.out.println("tickets sent successfully to " + userEmail);
     }
 
-    private static Message prepareTickets(Session session, String myEmail, String userEmail, String firstName, String title, int nbrTickets){
-        try{
+    private static Message prepareTickets(Session session, String myEmail, String userEmail, String firstName, String title, int nbrTickets) {
+        try {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(userEmail));
             message.setSubject("Your tickets");
 
-            if(firstName != null){
+            if (firstName != null) {
                 message.setText("Dear " + firstName + ",\n Please find attached your " + nbrTickets + " tickets to see : " + title + "\n See you soon, \n The PopCorn Movies team");
-            }else{
+            } else {
                 message.setText("Dear Guest,\n Please find attached your " + nbrTickets + " tickets to see : " + title + "\n See you soon, \n The PopCorn Movies team");
             }
 
             return message;
 
-        }catch(AddressException e){
+        } catch (AddressException e) {
             System.out.println(e.getMessage());
         } catch (MessagingException e) {
             e.printStackTrace();

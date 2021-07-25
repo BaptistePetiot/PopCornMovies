@@ -29,10 +29,14 @@ import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 public class PurchasesCustomerController implements Initializable {
-    @FXML ImageView picture;
-    @FXML Label firstNameAndLastName, thisMonth, thisYear, totalTickets;
-    @FXML Pane pane;
-    @FXML VBox pnItems;
+    @FXML
+    ImageView picture;
+    @FXML
+    Label firstNameAndLastName, thisMonth, thisYear, totalTickets;
+    @FXML
+    Pane pane;
+    @FXML
+    VBox pnItems;
 
     private int total, year, month;
     private String date;
@@ -48,28 +52,28 @@ public class PurchasesCustomerController implements Initializable {
         this.date = formatter.format(now);
     }
 
-    private void loadPicture() throws Exception{
+    private void loadPicture() throws Exception {
         File img = new File("picture.jpg");
         FileOutputStream ostreamImage = new FileOutputStream(img);
 
-        try{
+        try {
             // create a connection to the database
             Connection connection = DriverManager.getConnection(url, user, password);
             // prepared statement
             PreparedStatement ps = connection.prepareStatement("SELECT picture FROM pictures WHERE IdLogins=?");
 
-            try{
-                ps.setInt(1,Me.getId());
+            try {
+                ps.setInt(1, Me.getId());
                 ResultSet rs = ps.executeQuery();
 
-                try{
-                    if(rs.next()){
+                try {
+                    if (rs.next()) {
                         InputStream istreamImage = rs.getBinaryStream("picture");
 
                         byte[] buffer = new byte[1024];
                         int length = 0;
 
-                        while((length = istreamImage.read(buffer)) != -1){
+                        while ((length = istreamImage.read(buffer)) != -1) {
                             ostreamImage.write(buffer, 0, length);  // save image locally
                         }
 
@@ -77,16 +81,13 @@ public class PurchasesCustomerController implements Initializable {
                         Image image = new Image(img.toURI().toString());
                         picture.setImage(image);
                     }
-                }
-                finally{
+                } finally {
                     rs.close();
                 }
-            }
-            finally{
+            } finally {
                 ps.close();
             }
-        }
-        finally{
+        } finally {
             ostreamImage.close();
         }
     }
@@ -216,23 +217,23 @@ public class PurchasesCustomerController implements Initializable {
 
                 Label purchaseTitle = new Label(title);
                 purchaseTitle.setFont(new Font(25));
-                gp.add(purchaseTitle,0,0);
+                gp.add(purchaseTitle, 0, 0);
 
                 Label purchaseGenre = new Label(genre);
                 purchaseGenre.setFont(new Font(25));
-                gp.add(purchaseGenre,1,0);
+                gp.add(purchaseGenre, 1, 0);
 
                 Label purchaseDirector = new Label(director);
                 purchaseDirector.setFont(new Font(25));
-                gp.add(purchaseDirector,2,0);
+                gp.add(purchaseDirector, 2, 0);
 
                 Label purchasePrice = new Label(Integer.toString(price));
                 purchasePrice.setFont(new Font(25));
-                gp.add(purchasePrice,3,0);
+                gp.add(purchasePrice, 3, 0);
 
                 Label purchaseDate = new Label(cinemaDate);
                 purchaseDate.setFont(new Font(25));
-                gp.add(purchaseDate,4,0);
+                gp.add(purchaseDate, 4, 0);
 
                 pnItems.getChildren().add(gp);
 

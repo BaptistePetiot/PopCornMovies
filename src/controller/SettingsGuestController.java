@@ -25,69 +25,72 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 public class SettingsGuestController implements Initializable {
-    @FXML RadioButton light, dark;
-    @FXML Pane pane;
-    @FXML ToggleGroup themeGroup;
+    @FXML
+    RadioButton light, dark;
+    @FXML
+    Pane pane;
+    @FXML
+    ToggleGroup themeGroup;
 
     public void goToOverview(ActionEvent actionEvent) {
         System.out.println("OVERVIEW GUEST");
-        try{
-            SceneManager.loadScene("../view/guest-overview.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/guest-overview.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToMovies(ActionEvent actionEvent) {
         System.out.println("MOVIES GUEST");
-        try{
-            SceneManager.loadScene("../view/guest-movies.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/guest-movies.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToPurchases(ActionEvent actionEvent) {
         System.out.println("PURCHASES GUEST");
-        try{
-            SceneManager.loadScene("../view/guest-purchases.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/guest-purchases.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToAccount(ActionEvent actionEvent) {
         System.out.println("SETTINGS GUEST");
-        try{
-            SceneManager.loadScene("../view/guest-settings.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/guest-settings.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void signout() {
         System.out.println("EXIT");
-        try{
-            SceneManager.loadScene("../view/login.fxml", 700,400);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/login.fxml", 700, 400);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     @FXML
-    private void exit(){
+    private void exit() {
         System.exit(0);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // theme
-        if(Me.getTheme() == 0){
+        if (Me.getTheme() == 0) {
             pane.getStylesheets().remove("css/DarkTheme.css");
             pane.getStylesheets().add("css/LightTheme.css");
 
             light.setSelected(true);
-        }else if(Me.getTheme() == 1){
+        } else if (Me.getTheme() == 1) {
             pane.getStylesheets().remove("css/LightTheme.css");
             pane.getStylesheets().add("css/DarkTheme.css");
 
@@ -105,26 +108,26 @@ public class SettingsGuestController implements Initializable {
                 RadioButton btn = (RadioButton) themeGroup.getSelectedToggle();
                 System.out.println(btn.getText());
 
-                    switch (btn.getText()) {
-                        case ("Light"):
-                            // update theme choice in Me for current connection
-                            Me.setTheme(0);
+                switch (btn.getText()) {
+                    case ("Light"):
+                        // update theme choice in Me for current connection
+                        Me.setTheme(0);
 
-                            pane.getStylesheets().remove("css/DarkTheme.css");
-                            pane.getStylesheets().add("css/LightTheme.css");
-                            break;
+                        pane.getStylesheets().remove("css/DarkTheme.css");
+                        pane.getStylesheets().add("css/LightTheme.css");
+                        break;
 
-                        case ("Dark"):
-                            // update theme choice in Me for current connection
-                            Me.setTheme(1);
+                    case ("Dark"):
+                        // update theme choice in Me for current connection
+                        Me.setTheme(1);
 
-                            pane.getStylesheets().remove("css/LightTheme.css");
-                            pane.getStylesheets().add("css/DarkTheme.css");
-                            break;
-
-                    }
+                        pane.getStylesheets().remove("css/LightTheme.css");
+                        pane.getStylesheets().add("css/DarkTheme.css");
+                        break;
 
                 }
+
+            }
 
         });
 

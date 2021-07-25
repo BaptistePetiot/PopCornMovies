@@ -10,7 +10,7 @@ public class Movie {
     private String plot;
     private String imageURL;
 
-    public Movie(int id, int duration, String title, String genre, String director, String cast, String plot, String imageURL){
+    public Movie(int id, int duration, String title, String genre, String director, String cast, String plot, String imageURL) {
         this.id = id;
         this.duration = duration;
         this.title = title;
@@ -21,9 +21,13 @@ public class Movie {
         this.imageURL = imageURL;
     }
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
-    public int getDuration() { return duration; }
+    public int getDuration() {
+        return duration;
+    }
 
     public String getTitle() {
         return title;

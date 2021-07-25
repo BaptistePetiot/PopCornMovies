@@ -24,41 +24,46 @@ import java.util.ResourceBundle;
 
 public class RecordsEmployeeController implements Initializable {
 
-    @FXML Label firstNameAndLastName;
-    @FXML ImageView picture;
-    @FXML Pane pane;
-    @FXML VBox pnItems;
-    @FXML Button buttonCustomers, buttonEmployees;
+    @FXML
+    Label firstNameAndLastName;
+    @FXML
+    ImageView picture;
+    @FXML
+    Pane pane;
+    @FXML
+    VBox pnItems;
+    @FXML
+    Button buttonCustomers, buttonEmployees;
 
     // credentials
-    private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
-    private final String user      = "root";
-    private final String password  = "";
+    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
+    private final String user = "root";
+    private final String password = "";
 
     private boolean customersSelected, orderByEmail, orderByTitle, orderByNbrTickets, orderByDate;
 
-    private void loadPicture() throws Exception{
+    private void loadPicture() throws Exception {
         File img = new File("picture.jpg");
         FileOutputStream ostreamImage = new FileOutputStream(img);
 
-        try{
+        try {
             // create a connection to the database
             Connection connection = DriverManager.getConnection(url, user, password);
             // prepared statement
             PreparedStatement ps = connection.prepareStatement("SELECT picture FROM pictures WHERE IdLogins=?");
 
-            try{
-                ps.setInt(1,Me.getId());
+            try {
+                ps.setInt(1, Me.getId());
                 ResultSet rs = ps.executeQuery();
 
-                try{
-                    if(rs.next()){
+                try {
+                    if (rs.next()) {
                         InputStream istreamImage = rs.getBinaryStream("picture");
 
                         byte[] buffer = new byte[1024];
                         int length = 0;
 
-                        while((length = istreamImage.read(buffer)) != -1){
+                        while ((length = istreamImage.read(buffer)) != -1) {
                             ostreamImage.write(buffer, 0, length);  // save image locally
                         }
 
@@ -66,88 +71,85 @@ public class RecordsEmployeeController implements Initializable {
                         Image image = new Image(img.toURI().toString());
                         picture.setImage(image);
                     }
-                }
-                finally{
+                } finally {
                     rs.close();
                 }
-            }
-            finally{
+            } finally {
                 ps.close();
             }
-        }
-        finally{
+        } finally {
             ostreamImage.close();
         }
     }
 
     public void goToOverview(ActionEvent actionEvent) {
         System.out.println("OVERVIEW EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-overview.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-overview.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToMovies(ActionEvent actionEvent) {
         System.out.println("MOVIES EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-movies.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-movies.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToDiscounts(ActionEvent actionEvent) {
         System.out.println("DISCOUNTS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-discounts.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-discounts.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToRecords(ActionEvent actionEvent) {
         System.out.println("RECORDS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-records.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-records.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToStatistics(ActionEvent actionEvent) {
         System.out.println("STATISTICS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-statistics.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-statistics.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToPurchases(ActionEvent actionEvent) {
         System.out.println("PURCHASES EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-purchases.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-purchases.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToAccount(ActionEvent actionEvent) {
         System.out.println("ACCOUNT EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-account.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-account.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void signout(ActionEvent actionEvent) {
         System.out.println("SIGN OUT");
-        try{
-            SceneManager.loadScene("../view/login.fxml", 700,400);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/login.fxml", 700, 400);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -200,7 +202,7 @@ public class RecordsEmployeeController implements Initializable {
         showRecords();
     }
 
-    private void showRecords(){
+    private void showRecords() {
         // Retrieve records from DB
 
         // connect to DB
@@ -217,31 +219,31 @@ public class RecordsEmployeeController implements Initializable {
             // retrieve records
             pnItems.getChildren().clear();
 
-            if(customersSelected){
-                if(orderByEmail){
+            if (customersSelected) {
+                if (orderByEmail) {
                     System.out.println("Customers : order by email addresses");
                     rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, c.LastName, c.FirstName FROM `Purchases` as p,`Logins` as l, `Customers` as c WHERE p.IdLogins = l.Id AND l.Id = c.IdLogins ORDER BY l.Email");
-                }else if(orderByTitle){
+                } else if (orderByTitle) {
                     System.out.println("Customers : order by movie titles");
                     rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, c.LastName, c.FirstName FROM `Purchases` as p,`Logins` as l, `Customers` as c WHERE p.IdLogins = l.Id AND l.Id = c.IdLogins ORDER BY p.Title");
-                }else if(orderByNbrTickets){
+                } else if (orderByNbrTickets) {
                     System.out.println("Customers : order by nbr of tickets");
                     rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, c.LastName, c.FirstName FROM `Purchases` as p,`Logins` as l, `Customers` as c WHERE p.IdLogins = l.Id AND l.Id = c.IdLogins ORDER BY p.NbrTickets");
-                }else if(orderByDate){
+                } else if (orderByDate) {
                     System.out.println("Customers : order by date");
                     rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, c.LastName, c.FirstName FROM `Purchases` as p,`Logins` as l, `Customers` as c WHERE p.IdLogins = l.Id AND l.Id = c.IdLogins ORDER BY p.Date");
                 }
-            }else{
-                if(orderByEmail){
+            } else {
+                if (orderByEmail) {
                     System.out.println("Employees : order by email addresses");
                     rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, e.LastName, e.FirstName FROM `Purchases` as p,`Logins` as l, `Employees` as e WHERE p.IdLogins = l.Id AND l.Id = e.IdLogins ORDER BY l.Email");
-                }else if(orderByTitle){
+                } else if (orderByTitle) {
                     System.out.println("Employees : order by movie titles");
                     rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, e.LastName, e.FirstName FROM `Purchases` as p,`Logins` as l, `Employees` as e WHERE p.IdLogins = l.Id AND l.Id = e.IdLogins ORDER BY p.Title");
-                }else if(orderByNbrTickets){
+                } else if (orderByNbrTickets) {
                     System.out.println("Employees : order by nbr of tickets");
                     rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, e.LastName, e.FirstName FROM `Purchases` as p,`Logins` as l, `Employees` as e WHERE p.IdLogins = l.Id AND l.Id = e.IdLogins ORDER BY p.NbrTickets");
-                }else if(orderByDate){
+                } else if (orderByDate) {
                     System.out.println("Employees : order by date");
                     rs = stmt.executeQuery("SELECT p.Date, p.NbrTickets, p.Title, l.Email, e.LastName, e.FirstName FROM `Purchases` as p,`Logins` as l, `Employees` as e WHERE p.IdLogins = l.Id AND l.Id = e.IdLogins ORDER BY p.Date");
                 }
@@ -267,27 +269,27 @@ public class RecordsEmployeeController implements Initializable {
 
                 Label recordFirstName = new Label(firstName);
                 recordFirstName.setFont(new Font(25));
-                gp.add(recordFirstName,0,0);
+                gp.add(recordFirstName, 0, 0);
 
                 Label recordLastName = new Label(lastName);
                 recordLastName.setFont(new Font(25));
-                gp.add(recordLastName,1,0);
+                gp.add(recordLastName, 1, 0);
 
                 Label recordEmail = new Label(email);
                 recordEmail.setFont(new Font(25));
-                gp.add(recordEmail,2,0);
+                gp.add(recordEmail, 2, 0);
 
                 Label recordTitle = new Label(title);
                 recordTitle.setFont(new Font(25));
-                gp.add(recordTitle,3,0);
+                gp.add(recordTitle, 3, 0);
 
                 Label recordNbrTickets = new Label(String.valueOf(nbrT));
                 recordNbrTickets.setFont(new Font(25));
-                gp.add(recordNbrTickets,4,0);
+                gp.add(recordNbrTickets, 4, 0);
 
                 Label recordDate = new Label(cinemaDate);
                 recordDate.setFont(new Font(25));
-                gp.add(recordDate,5,0);
+                gp.add(recordDate, 5, 0);
 
                 pnItems.getChildren().add(gp);
 
@@ -297,7 +299,9 @@ public class RecordsEmployeeController implements Initializable {
         }
     }
 
-    public void exit(ActionEvent actionEvent) { System.exit(0); }
+    public void exit(ActionEvent actionEvent) {
+        System.exit(0);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -317,10 +321,10 @@ public class RecordsEmployeeController implements Initializable {
         }
 
         // theme
-        if(Me.getTheme() == 0){
+        if (Me.getTheme() == 0) {
             pane.getStylesheets().remove("css/DarkTheme.css");
             pane.getStylesheets().add("css/LightTheme.css");
-        }else if(Me.getTheme() == 1){
+        } else if (Me.getTheme() == 1) {
             pane.getStylesheets().remove("css/LightTheme.css");
             pane.getStylesheets().add("css/DarkTheme.css");
         }

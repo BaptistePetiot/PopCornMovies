@@ -14,27 +14,27 @@ public class PasswordEncrypterDecrypter {
     private static final String algorithm = "AES/CBC/PKCS5Padding";
     private static final int n = 128;
 
-    public static SecretKey generateKey() throws NoSuchAlgorithmException{
+    public static SecretKey generateKey() throws NoSuchAlgorithmException {
         KeyGenerator kg = KeyGenerator.getInstance("AES");
         kg.init(n);
         SecretKey key = kg.generateKey();
         return key;
     }
 
-    public static String secretKey2String(SecretKey key){
+    public static String secretKey2String(SecretKey key) {
         return Base64.getEncoder().encodeToString(key.getEncoded());
     }
 
-    public static SecretKey string2SecretKey(String key){
+    public static SecretKey string2SecretKey(String key) {
         byte[] decodedKey = Base64.getDecoder().decode(key);
         return new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
     }
 
-    public static String array2String(byte[] array){
+    public static String array2String(byte[] array) {
         return Arrays.toString(array);
     }
 
-    public static byte[] string2Array(String s){
+    public static byte[] string2Array(String s) {
         String[] strings = s.replace("[", "").replace("]", "").split(", ");
         byte[] result = new byte[strings.length];
         for (int i = 0; i < result.length; i++) {
@@ -48,7 +48,7 @@ public class PasswordEncrypterDecrypter {
         return iv;
     }
 
-    public static IvParameterSpec generateIvParameterSpec(byte[] iv){
+    public static IvParameterSpec generateIvParameterSpec(byte[] iv) {
         new SecureRandom().nextBytes(iv);
         return new IvParameterSpec(iv);
     }
@@ -68,7 +68,7 @@ public class PasswordEncrypterDecrypter {
 
     public static String decrypt(String input, SecretKey key, IvParameterSpec iv) throws NoSuchPaddingException, NoSuchAlgorithmException,
             InvalidAlgorithmParameterException, InvalidKeyException,
-            BadPaddingException, IllegalBlockSizeException{
+            BadPaddingException, IllegalBlockSizeException {
 
         Cipher cipher = Cipher.getInstance(algorithm);
         cipher.init(Cipher.DECRYPT_MODE, key, iv);

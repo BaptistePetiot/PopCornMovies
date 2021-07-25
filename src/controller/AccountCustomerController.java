@@ -27,20 +27,24 @@ import java.util.ResourceBundle;
 
 public class AccountCustomerController implements Initializable {
 
-    @FXML ImageView picture;
-    @FXML Label firstNameAndLastName;
-    @FXML RadioButton regular, child, senior, light, dark;
-    @FXML Pane pane;
-    @FXML ToggleGroup categoryGroup, themeGroup;
-
     // credentials
-    private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
-    private final String user      = "root";
-    private final String password  = "";
+    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
+    private final String user = "root";
+    private final String password = "";
+    @FXML
+    ImageView picture;
+    @FXML
+    Label firstNameAndLastName;
+    @FXML
+    RadioButton regular, child, senior, light, dark;
+    @FXML
+    Pane pane;
+    @FXML
+    ToggleGroup categoryGroup, themeGroup;
 
     @FXML
-    protected void addPicture(){
-        System.out.println("ADD PICTURE" );
+    protected void addPicture() {
+        System.out.println("ADD PICTURE");
         // DIALOG TO CHOOSE PICTURE
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save");
@@ -48,7 +52,7 @@ public class AccountCustomerController implements Initializable {
         File file = fileChooser.showOpenDialog(PopCornMovie.getStage());
 
         // SAVE PICTURE
-        try{
+        try {
             BufferedImage bImage = ImageIO.read(file);
             File img = new File("picture.jpg");
             ImageIO.write(bImage, "jpg", img);
@@ -61,14 +65,14 @@ public class AccountCustomerController implements Initializable {
             // CHECK IF THE USER ALREADY HAS A PROFILE IMAGE
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT picture FROM Pictures WHERE IdLogins = " + Me.getId());
-            if(rs.next()){
+            if (rs.next()) {
                 System.out.println("already has an image");
                 // change image
                 PreparedStatement ps = connection.prepareStatement("UPDATE `Pictures` SET picture=? WHERE IdLogins=?;");
                 ps.setBlob(1, is);
                 ps.setInt(2, Me.getId());
                 ps.executeUpdate();
-            }else{
+            } else {
                 System.out.println("no image yet");
                 // add new image
                 PreparedStatement ps = connection.prepareStatement("INSERT INTO `Pictures` (`IdLogins`, `picture`) VALUES (?,?);");
@@ -77,105 +81,102 @@ public class AccountCustomerController implements Initializable {
                 ps.executeUpdate();
             }
 
-            img.delete();   // TODO: does not seem to work
-
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-        try{
+        try {
             loadPicture();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
     }
 
-    private void loadPicture() throws Exception{
+    private void loadPicture() throws Exception {
         File img = new File("picture.jpg");
         FileOutputStream ostreamImage = new FileOutputStream(img);
 
-        try{
+        try {
             // create a connection to the database
             Connection connection = DriverManager.getConnection(url, user, password);
             // prepared statement
             PreparedStatement ps = connection.prepareStatement("SELECT picture FROM pictures WHERE IdLogins=?");
 
-            try{
-                ps.setInt(1,Me.getId());
+            try {
+                ps.setInt(1, Me.getId());
                 ResultSet rs = ps.executeQuery();
 
-                try{
-                    if(rs.next()){
+                try {
+                    if (rs.next()) {
                         InputStream istreamImage = rs.getBinaryStream("picture");
 
                         byte[] buffer = new byte[1024];
                         int length = 0;
 
-                        while((length = istreamImage.read(buffer)) != -1){
+                        while ((length = istreamImage.read(buffer)) != -1) {
                             ostreamImage.write(buffer, 0, length);  // save image locally
                         }
 
                         // set image
                         Image image = new Image(img.toURI().toString());
                         picture.setImage(image);
-                        img.delete();   // TODO: does not seem to work
+
+                        istreamImage.close();
                     }
-                }
-                finally{
+                } finally {
                     rs.close();
                 }
-            }
-            finally{
+            } finally {
                 ps.close();
             }
-        }
-        finally{
+        } finally {
             ostreamImage.close();
+
         }
     }
 
     public void goToOverview(ActionEvent actionEvent) {
         System.out.println("OVERVIEW CUSTOMER");
-        try{
-            SceneManager.loadScene("../view/customer-overview.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/customer-overview.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToMovies(ActionEvent actionEvent) {
         System.out.println("MOVIES CUSTOMER");
-        try{
-            SceneManager.loadScene("../view/customer-movies.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/customer-movies.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToPurchases(ActionEvent actionEvent) {
         System.out.println("PURCHASES CUSTOMER");
-        try{
-            SceneManager.loadScene("../view/customer-purchases.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/customer-purchases.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToAccount(ActionEvent actionEvent) {
         System.out.println("ACCOUNT CUSTOMER");
-        try{
-            SceneManager.loadScene("../view/customer-account.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/customer-account.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void signout() {
         System.out.println("SIGN OUT");
-        try{
-            SceneManager.loadScene("../view/login.fxml", 700,400);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/login.fxml", 700, 400);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -198,7 +199,7 @@ public class AccountCustomerController implements Initializable {
                 stmt.executeUpdate("DELETE FROM logins WHERE Id = " + Me.getId());
                 signout();
 
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -206,7 +207,7 @@ public class AccountCustomerController implements Initializable {
     }
 
     @FXML
-    private void exit(){
+    private void exit() {
         System.exit(0);
     }
 
@@ -220,12 +221,12 @@ public class AccountCustomerController implements Initializable {
         }
 
         // theme
-        if(Me.getTheme() == 0){
+        if (Me.getTheme() == 0) {
             pane.getStylesheets().remove("css/DarkTheme.css");
             pane.getStylesheets().add("css/LightTheme.css");
 
             light.setSelected(true);
-        }else if(Me.getTheme() == 1){
+        } else if (Me.getTheme() == 1) {
             pane.getStylesheets().remove("css/LightTheme.css");
             pane.getStylesheets().add("css/DarkTheme.css");
 
@@ -233,11 +234,11 @@ public class AccountCustomerController implements Initializable {
         }
 
         // category
-        if(Me.getCategory() == 0){
+        if (Me.getCategory() == 0) {
             regular.setSelected(true);
-        }else if(Me.getCategory() == 1){
+        } else if (Me.getCategory() == 1) {
             senior.setSelected(true);
-        }else if(Me.getCategory() == 2){
+        } else if (Me.getCategory() == 2) {
             child.setSelected(true);
         }
 
@@ -287,7 +288,7 @@ public class AccountCustomerController implements Initializable {
                             break;
                     }
 
-                }catch (SQLException e){
+                } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
             }
@@ -336,7 +337,7 @@ public class AccountCustomerController implements Initializable {
 
                     }
 
-                }catch (SQLException e){
+                } catch (SQLException e) {
                     System.out.println(e.getMessage());
                 }
             }

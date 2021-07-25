@@ -26,20 +26,25 @@ import java.util.ResourceBundle;
 
 public class AccountEmployeeController implements Initializable {
 
-    @FXML ImageView picture;
-    @FXML Label firstNameAndLastName;
-    @FXML RadioButton regular, child, senior, light, dark;
-    @FXML Pane pane;
-    @FXML ToggleGroup categoryGroup, themeGroup;
+    @FXML
+    ImageView picture;
+    @FXML
+    Label firstNameAndLastName;
+    @FXML
+    RadioButton regular, child, senior, light, dark;
+    @FXML
+    Pane pane;
+    @FXML
+    ToggleGroup categoryGroup, themeGroup;
 
     // credentials
-    private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
-    private final String user      = "root";
-    private final String password  = "";
+    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
+    private final String user = "root";
+    private final String password = "";
 
     @FXML
-    protected void addPicture(){
-        System.out.println("ADD PICTURE" );
+    protected void addPicture() {
+        System.out.println("ADD PICTURE");
         // DIALOG TO CHOOSE PICTURE
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save");
@@ -47,7 +52,7 @@ public class AccountEmployeeController implements Initializable {
         File file = fileChooser.showOpenDialog(PopCornMovie.getStage());
 
         // SAVE PICTURE
-        try{
+        try {
             BufferedImage bImage = ImageIO.read(file);
             File img = new File("picture.jpg");
             ImageIO.write(bImage, "jpg", img);
@@ -60,14 +65,14 @@ public class AccountEmployeeController implements Initializable {
             // CHECK IF THE USER ALREADY HAS A PROFILE IMAGE
             Statement stmt = connection.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT picture FROM Pictures WHERE IdLogins = " + Me.getId());
-            if(rs.next()){
+            if (rs.next()) {
                 System.out.println("already has an image");
                 // change image
                 PreparedStatement ps = connection.prepareStatement("UPDATE `Pictures` SET picture=? WHERE IdLogins=?;");
                 ps.setBlob(1, is);
                 ps.setInt(2, Me.getId());
                 ps.executeUpdate();
-            }else{
+            } else {
                 System.out.println("no image yet");
                 // add new image
                 PreparedStatement ps = connection.prepareStatement("INSERT INTO `Pictures` (`IdLogins`, `picture`) VALUES (?,?);");
@@ -78,40 +83,40 @@ public class AccountEmployeeController implements Initializable {
 
             img.delete();   // TODO: does not seem to work
 
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
-        try{
+        try {
             loadPicture();
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
     }
 
-    private void loadPicture() throws Exception{
+    private void loadPicture() throws Exception {
         File img = new File("picture.jpg");
         FileOutputStream ostreamImage = new FileOutputStream(img);
 
-        try{
+        try {
             // create a connection to the database
             Connection connection = DriverManager.getConnection(url, user, password);
             // prepared statement
             PreparedStatement ps = connection.prepareStatement("SELECT picture FROM pictures WHERE IdLogins=?");
 
-            try{
-                ps.setInt(1,Me.getId());
+            try {
+                ps.setInt(1, Me.getId());
                 ResultSet rs = ps.executeQuery();
 
-                try{
-                    if(rs.next()){
+                try {
+                    if (rs.next()) {
                         InputStream istreamImage = rs.getBinaryStream("picture");
 
                         byte[] buffer = new byte[1024];
                         int length = 0;
 
-                        while((length = istreamImage.read(buffer)) != -1){
+                        while ((length = istreamImage.read(buffer)) != -1) {
                             ostreamImage.write(buffer, 0, length);  // save image locally
                         }
 
@@ -120,88 +125,85 @@ public class AccountEmployeeController implements Initializable {
                         picture.setImage(image);
                         img.delete();   // TODO: does not seem to work
                     }
-                }
-                finally{
+                } finally {
                     rs.close();
                 }
-            }
-            finally{
+            } finally {
                 ps.close();
             }
-        }
-        finally{
+        } finally {
             ostreamImage.close();
         }
     }
 
     public void goToOverview(ActionEvent actionEvent) {
         System.out.println("OVERVIEW EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-overview.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-overview.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToMovies(ActionEvent actionEvent) {
         System.out.println("MOVIES EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-movies.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-movies.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToDiscounts(ActionEvent actionEvent) {
         System.out.println("DISCOUNTS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-discounts.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-discounts.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToRecords(ActionEvent actionEvent) {
         System.out.println("RECORDS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-records.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-records.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToStatistics(ActionEvent actionEvent) {
         System.out.println("STATISTICS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-statistics.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-statistics.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToPurchases(ActionEvent actionEvent) {
         System.out.println("PURCHASES EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-purchases.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-purchases.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToAccount(ActionEvent actionEvent) {
         System.out.println("ACCOUNT EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-account.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-account.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void signout() {
         System.out.println("SIGN OUT");
-        try{
-            SceneManager.loadScene("../view/login.fxml", 700,400);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/login.fxml", 700, 400);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -224,7 +226,7 @@ public class AccountEmployeeController implements Initializable {
                 stmt.executeUpdate("DELETE FROM logins WHERE Id = " + Me.getId());
                 signout();
 
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         }

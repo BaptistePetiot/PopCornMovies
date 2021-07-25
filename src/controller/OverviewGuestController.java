@@ -22,68 +22,70 @@ import java.util.ResourceBundle;
 
 public class OverviewGuestController implements Initializable {
 
-    @FXML ImageView movie1, movie2;
-    @FXML Pane pane;
+    @FXML
+    ImageView movie1, movie2;
+    @FXML
+    Pane pane;
 
     // credentials
-    private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
-    private final String user      = "root";
-    private final String password  = "";
+    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
+    private final String user = "root";
+    private final String password = "";
 
     public void goToOverview(ActionEvent actionEvent) {
         System.out.println("OVERVIEW GUEST");
-        try{
-            SceneManager.loadScene("../view/guest-overview.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/guest-overview.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToMovies(ActionEvent actionEvent) {
         System.out.println("MOVIES GUEST");
-        try{
-            SceneManager.loadScene("../view/guest-movies.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/guest-movies.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToSettings(ActionEvent actionEvent) {
         System.out.println("SETTINGS GUEST");
-        try{
-            SceneManager.loadScene("../view/guest-settings.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/guest-settings.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void signout(ActionEvent actionEvent) {
         System.out.println("EXIT");
-        try{
-            SceneManager.loadScene("../view/login.fxml", 700,400);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/login.fxml", 700, 400);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     @FXML
-    private void exit(){
+    private void exit() {
         System.exit(0);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // theme
-        if(Me.getTheme() == 0){
+        if (Me.getTheme() == 0) {
             pane.getStylesheets().remove("css/DarkTheme.css");
             pane.getStylesheets().add("css/LightTheme.css");
-        }else if(Me.getTheme() == 1){
+        } else if (Me.getTheme() == 1) {
             pane.getStylesheets().remove("css/LightTheme.css");
             pane.getStylesheets().add("css/DarkTheme.css");
         }
 
         // 2 MOST SEEN MOVIES
-        try{
+        try {
             // create a connection to the database
             Connection connection = DriverManager.getConnection(url, user, password);
             // statement
@@ -94,10 +96,10 @@ public class OverviewGuestController implements Initializable {
             // SELECT * FROM `purchases` ORDER BY Title
             int id1 = 0, id2 = 0;
             int j = 0;
-            while(rs.next()){
-                if(j == 0){
+            while (rs.next()) {
+                if (j == 0) {
                     id1 = rs.getInt("IdMovies");
-                }else if(j == 1){
+                } else if (j == 1) {
                     id2 = rs.getInt("IdMovies");
                 }
                 j++;
@@ -105,17 +107,17 @@ public class OverviewGuestController implements Initializable {
 
             Cinema.refresh();
             ArrayList<Movie> movies = Cinema.getMovies();
-            for(Movie m : movies){
-                if(m.getId() == id1){
+            for (Movie m : movies) {
+                if (m.getId() == id1) {
                     Image im = new Image(m.getImageURL());
                     movie1.setImage(im);
-                }else if(m.getId() == id2){
+                } else if (m.getId() == id2) {
                     Image im = new Image(m.getImageURL());
                     movie2.setImage(im);
                 }
             }
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }

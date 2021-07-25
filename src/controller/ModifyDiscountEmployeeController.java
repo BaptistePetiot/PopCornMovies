@@ -23,42 +23,48 @@ import java.sql.*;
 import java.util.ResourceBundle;
 
 public class ModifyDiscountEmployeeController implements Initializable {
-    @FXML ImageView picture;
-    @FXML Label firstNameAndLastName;
-    @FXML Pane pane;
-    @FXML TextField name, amount;
-    @FXML ToggleGroup unitGroup, statusGroup;
-    @FXML RadioButton percent, livreStearling, active, inactive;
+    @FXML
+    ImageView picture;
+    @FXML
+    Label firstNameAndLastName;
+    @FXML
+    Pane pane;
+    @FXML
+    TextField name, amount;
+    @FXML
+    ToggleGroup unitGroup, statusGroup;
+    @FXML
+    RadioButton percent, livreStearling, active, inactive;
 
     // credentials
-    private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
-    private final String user      = "root";
-    private final String password  = "";
+    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
+    private final String user = "root";
+    private final String password = "";
 
     Discount modifyingDiscount;
 
-    private void loadPicture() throws Exception{
+    private void loadPicture() throws Exception {
         File img = new File("picture.jpg");
         FileOutputStream ostreamImage = new FileOutputStream(img);
 
-        try{
+        try {
             // create a connection to the database
             Connection connection = DriverManager.getConnection(url, user, password);
             // prepared statement
             PreparedStatement ps = connection.prepareStatement("SELECT picture FROM pictures WHERE IdLogins=?");
 
-            try{
+            try {
                 ps.setInt(1, Me.getId());
                 ResultSet rs = ps.executeQuery();
 
-                try{
-                    if(rs.next()){
+                try {
+                    if (rs.next()) {
                         InputStream istreamImage = rs.getBinaryStream("picture");
 
                         byte[] buffer = new byte[1024];
                         int length = 0;
 
-                        while((length = istreamImage.read(buffer)) != -1){
+                        while ((length = istreamImage.read(buffer)) != -1) {
                             ostreamImage.write(buffer, 0, length);  // save image locally
                         }
 
@@ -66,43 +72,41 @@ public class ModifyDiscountEmployeeController implements Initializable {
                         Image image = new Image(img.toURI().toString());
                         picture.setImage(image);
                     }
-                }
-                finally{
+                } finally {
                     rs.close();
                 }
-            }
-            finally{
+            } finally {
                 ps.close();
             }
-        }
-        finally{
+        } finally {
             ostreamImage.close();
         }
     }
 
-    private void fillInDiscount(){
+    private void fillInDiscount() {
         System.out.println("fill in discount");
         name.setText(modifyingDiscount.getName());
         amount.setText(String.valueOf(modifyingDiscount.getAmount()));
 
-        if(modifyingDiscount.getUnit() == '%'){
+        if (modifyingDiscount.getUnit() == '%') {
             percent.setSelected(true);
             livreStearling.setSelected(false);
-        }else{
+        } else {
             livreStearling.setSelected(true);
             percent.setSelected(false);
         }
 
-        if(modifyingDiscount.getStatus().equals("Active")){
+        if (modifyingDiscount.getStatus().equals("Active")) {
             active.setSelected(true);
             inactive.setSelected(false);
-        }else{
+        } else {
             inactive.setSelected(true);
             active.setSelected(false);
         }
     }
 
-    @FXML private void modifyDiscount(){
+    @FXML
+    private void modifyDiscount() {
         System.out.println("modify discount");
 
         try {
@@ -112,23 +116,23 @@ public class ModifyDiscountEmployeeController implements Initializable {
             connection = DriverManager.getConnection(url, user, password);
 
             // statement
-            Statement stmt=connection.createStatement();
+            Statement stmt = connection.createStatement();
 
             String chosenUnit = "";
             if (percent.isSelected()) {
                 chosenUnit = "%";
-            } else if (livreStearling.isSelected()){
+            } else if (livreStearling.isSelected()) {
                 chosenUnit = "£";
             }
 
             String chosenStatus = "";
-            if(active.isSelected()){
+            if (active.isSelected()) {
                 chosenStatus = "Active";
-            }else if(inactive.isSelected()){
+            } else if (inactive.isSelected()) {
                 chosenStatus = "Inactive";
             }
 
-            String sqlUPDATEStatement = "UPDATE `Discounts` SET Name='"  + name.getText() + "', Amount='" + amount.getText() + "', Unit='" + chosenUnit + "', Status='" + chosenStatus + "' WHERE Id=" + modifyingDiscount.getId();
+            String sqlUPDATEStatement = "UPDATE `Discounts` SET Name='" + name.getText() + "', Amount='" + amount.getText() + "', Unit='" + chosenUnit + "', Status='" + chosenStatus + "' WHERE Id=" + modifyingDiscount.getId();
             stmt.executeUpdate(sqlUPDATEStatement);
 
             Cinema.refresh();
@@ -140,77 +144,79 @@ public class ModifyDiscountEmployeeController implements Initializable {
 
     public void goToOverview(ActionEvent actionEvent) {
         System.out.println("OVERVIEW EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-overview.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-overview.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToMovies(ActionEvent actionEvent) {
         System.out.println("MOVIES EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-movies.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-movies.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToDiscounts() {
         System.out.println("DISCOUNTS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-discounts.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-discounts.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToRecords(ActionEvent actionEvent) {
         System.out.println("RECORDS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-records.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-records.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToStatistics(ActionEvent actionEvent) {
         System.out.println("STATISTICS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-statistics.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-statistics.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToPurchases(ActionEvent actionEvent) {
         System.out.println("PURCHASES EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-purchases.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-purchases.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToAccount(ActionEvent actionEvent) {
         System.out.println("ACCOUNT EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-account.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-account.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void signout(ActionEvent actionEvent) {
         System.out.println("SIGN OUT");
-        try{
-            SceneManager.loadScene("../view/login.fxml", 700,400);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/login.fxml", 700, 400);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void exit(ActionEvent actionEvent) { System.exit(0); }
+    public void exit(ActionEvent actionEvent) {
+        System.exit(0);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -224,10 +230,10 @@ public class ModifyDiscountEmployeeController implements Initializable {
         }
 
         // theme
-        if(Me.getTheme() == 0){
+        if (Me.getTheme() == 0) {
             pane.getStylesheets().remove("css/DarkTheme.css");
             pane.getStylesheets().add("css/LightTheme.css");
-        }else if(Me.getTheme() == 1){
+        } else if (Me.getTheme() == 1) {
             pane.getStylesheets().remove("css/LightTheme.css");
             pane.getStylesheets().add("css/DarkTheme.css");
         }

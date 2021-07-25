@@ -26,43 +26,48 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class DiscountsEmployeeController implements Initializable {
-    @FXML ImageView picture;
-    @FXML Label firstNameAndLastName;
-    @FXML Pane pane;
-    @FXML VBox pnItems;
-    @FXML Button minus, modify;
+    @FXML
+    ImageView picture;
+    @FXML
+    Label firstNameAndLastName;
+    @FXML
+    Pane pane;
+    @FXML
+    VBox pnItems;
+    @FXML
+    Button minus, modify;
 
     // credentials
-    private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
-    private final String user      = "root";
-    private final String password  = "";
+    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
+    private final String user = "root";
+    private final String password = "";
 
     private boolean minusSelected;
     private boolean modifySelected;
     private HashMap<Integer, Discount> discounts;
 
-    private void loadPicture() throws Exception{
+    private void loadPicture() throws Exception {
         File img = new File("picture.jpg");
         FileOutputStream ostreamImage = new FileOutputStream(img);
 
-        try{
+        try {
             // create a connection to the database
             Connection connection = DriverManager.getConnection(url, user, password);
             // prepared statement
             PreparedStatement ps = connection.prepareStatement("SELECT picture FROM pictures WHERE IdLogins=?");
 
-            try{
-                ps.setInt(1,Me.getId());
+            try {
+                ps.setInt(1, Me.getId());
                 ResultSet rs = ps.executeQuery();
 
-                try{
-                    if(rs.next()){
+                try {
+                    if (rs.next()) {
                         InputStream istreamImage = rs.getBinaryStream("picture");
 
                         byte[] buffer = new byte[1024];
                         int length = 0;
 
-                        while((length = istreamImage.read(buffer)) != -1){
+                        while ((length = istreamImage.read(buffer)) != -1) {
                             ostreamImage.write(buffer, 0, length);  // save image locally
                         }
 
@@ -70,22 +75,20 @@ public class DiscountsEmployeeController implements Initializable {
                         Image image = new Image(img.toURI().toString());
                         picture.setImage(image);
                     }
-                }
-                finally{
+                } finally {
                     rs.close();
                 }
-            }
-            finally{
+            } finally {
                 ps.close();
             }
-        }
-        finally{
+        } finally {
             ostreamImage.close();
         }
     }
 
-    @FXML public void selectMinus() {
-        if(minusSelected){
+    @FXML
+    public void selectMinus() {
+        if (minusSelected) {
             minusSelected = false;
             minus.getStyleClass().remove("minusSelected");
             minus.getStyleClass().add("minusNotSelected");
@@ -99,12 +102,13 @@ public class DiscountsEmployeeController implements Initializable {
         }
     }
 
-    @FXML public void selectModify(){
-        if(modifySelected){
+    @FXML
+    public void selectModify() {
+        if (modifySelected) {
             modifySelected = false;
             modify.getStyleClass().remove("modifySelected");
             modify.getStyleClass().add("modifyNotSelected");
-        }else{
+        } else {
             modifySelected = true;
             minusSelected = false;
             modify.getStyleClass().remove("modifyNotSelected");
@@ -115,26 +119,26 @@ public class DiscountsEmployeeController implements Initializable {
     }
 
     @FXML
-    private void plusDiscount(){
+    private void plusDiscount() {
         System.out.println("NEW DISCOUNT");
-        try{
-            SceneManager.loadScene("../view/employee-new-discount.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-new-discount.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private void modifyDiscount(Discount d){
+    private void modifyDiscount(Discount d) {
         System.out.println("MODIFY DISCOUNT");
         Me.setModifyingDiscount(d);
-        try{
-            SceneManager.loadScene("../view/employee-modify-discount.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-modify-discount.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void deleteDiscount(Discount d){
+    public void deleteDiscount(Discount d) {
 
         int idDiscountDell = d.getId();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this discount ?", ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
@@ -153,7 +157,7 @@ public class DiscountsEmployeeController implements Initializable {
                 // delete movie
                 stmt.executeUpdate("DELETE FROM Discounts WHERE Id = " + idDiscountDell);
 
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
         }
@@ -164,77 +168,77 @@ public class DiscountsEmployeeController implements Initializable {
 
     public void goToOverview(ActionEvent actionEvent) {
         System.out.println("OVERVIEW EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-overview.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-overview.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToMovies(ActionEvent actionEvent) {
         System.out.println("MOVIES EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-movies.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-movies.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToDiscounts(ActionEvent actionEvent) {
         System.out.println("DISCOUNTS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-discounts.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-discounts.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToRecords(ActionEvent actionEvent) {
         System.out.println("RECORDS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-records.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-records.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToStatistics(ActionEvent actionEvent) {
         System.out.println("STATISTICS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-statistics.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-statistics.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToPurchases(ActionEvent actionEvent) {
         System.out.println("PURCHASES EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-purchases.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-purchases.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToAccount(ActionEvent actionEvent) {
         System.out.println("ACCOUNT EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-account.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-account.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void signout(ActionEvent actionEvent) {
         System.out.println("SIGN OUT");
-        try{
-            SceneManager.loadScene("../view/login.fxml", 700,400);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/login.fxml", 700, 400);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private void displayDiscounts_old(){
+    private void displayDiscounts_old() {
         // Retrieve discounts from DB
         // connect to DB
         Connection connection = null;
@@ -267,19 +271,19 @@ public class DiscountsEmployeeController implements Initializable {
 
                 Label discountName = new Label(name);
                 discountName.setFont(new Font(25));
-                gp.add(discountName,0,0);
+                gp.add(discountName, 0, 0);
 
                 Label discountAmount = new Label(amount);
                 discountAmount.setFont(new Font(25));
-                gp.add(discountAmount,1,0);
+                gp.add(discountAmount, 1, 0);
 
                 Label discountUnit = new Label(unit);
                 discountUnit.setFont(new Font(25));
-                gp.add(discountUnit,2,0);
+                gp.add(discountUnit, 2, 0);
 
                 Label discountStatus = new Label(status);
                 discountStatus.setFont(new Font(25));
-                gp.add(discountStatus,3,0);
+                gp.add(discountStatus, 3, 0);
 
                 /*RadioButton selection = new RadioButton("");
                 selection.setFont(new Font(25));
@@ -293,17 +297,17 @@ public class DiscountsEmployeeController implements Initializable {
         }
     }
 
-    private void displayDiscounts(){
+    private void displayDiscounts() {
         pnItems.getChildren().clear();
 
         ArrayList<Discount> discounts = Cinema.getDiscounts();
 
-        for(Discount d : discounts){
+        for (Discount d : discounts) {
             System.out.println(d.getName());
         }
 
         GridPane gp;
-        for(int i = 0; i < discounts.size(); i++){
+        for (int i = 0; i < discounts.size(); i++) {
             gp = new GridPane();
             // set constraints
             ColumnConstraints cc1 = new ColumnConstraints(425);
@@ -328,9 +332,9 @@ public class DiscountsEmployeeController implements Initializable {
                 @Override
                 public void handle(MouseEvent event) {
                     System.out.println(name + " : clicked");
-                    if(minusSelected){
+                    if (minusSelected) {
                         deleteDiscount(d);
-                    }else if(modifySelected){
+                    } else if (modifySelected) {
                         modifyDiscount(d);
                     }
                 }
@@ -339,26 +343,28 @@ public class DiscountsEmployeeController implements Initializable {
             // display data
             Label discountName = new Label(name);
             discountName.setFont(new Font(25));
-            gp.add(discountName,0,0);
+            gp.add(discountName, 0, 0);
 
             Label discountAmount = new Label(amount);
             discountAmount.setFont(new Font(25));
-            gp.add(discountAmount,1,0);
+            gp.add(discountAmount, 1, 0);
 
             Label discountUnit = new Label(unit);
             discountUnit.setFont(new Font(25));
-            gp.add(discountUnit,2,0);
+            gp.add(discountUnit, 2, 0);
 
             Label discountStatus = new Label(status);
             discountStatus.setFont(new Font(25));
-            gp.add(discountStatus,3,0);
+            gp.add(discountStatus, 3, 0);
 
             pnItems.getChildren().add(gp);
         }
 
     }
 
-    public void exit(ActionEvent actionEvent) { System.exit(0); }
+    public void exit(ActionEvent actionEvent) {
+        System.exit(0);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -372,10 +378,10 @@ public class DiscountsEmployeeController implements Initializable {
         }
 
         // theme
-        if(Me.getTheme() == 0){
+        if (Me.getTheme() == 0) {
             pane.getStylesheets().remove("css/DarkTheme.css");
             pane.getStylesheets().add("css/LightTheme.css");
-        }else if(Me.getTheme() == 1){
+        } else if (Me.getTheme() == 1) {
             pane.getStylesheets().remove("css/LightTheme.css");
             pane.getStylesheets().add("css/DarkTheme.css");
         }

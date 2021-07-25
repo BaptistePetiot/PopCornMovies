@@ -21,17 +21,19 @@ public class PaymentEmployeeController implements Initializable {
 
     @FXML
     ProgressBar pb;
-    @FXML Label label, thx;
-    @FXML Pane pane;
+    @FXML
+    Label label, thx;
+    @FXML
+    Pane pane;
     @FXML
     Button btn;
 
     @FXML
-    private void goBackToMovies(){
+    private void goBackToMovies() {
         System.out.println("MOVIES EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-movies.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-movies.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -39,10 +41,10 @@ public class PaymentEmployeeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // theme
-        if(Me.getTheme() == 0){
+        if (Me.getTheme() == 0) {
             pane.getStylesheets().remove("css/DarkTheme.css");
             pane.getStylesheets().add("css/LightTheme.css");
-        }else if(Me.getTheme() == 1){
+        } else if (Me.getTheme() == 1) {
             pane.getStylesheets().remove("css/LightTheme.css");
             pane.getStylesheets().add("css/DarkTheme.css");
         }

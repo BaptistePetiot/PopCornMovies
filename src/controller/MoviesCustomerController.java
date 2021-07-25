@@ -32,43 +32,48 @@ import java.util.ResourceBundle;
 
 public class MoviesCustomerController implements Initializable {
 
-    @FXML ImageView picture;
-    @FXML Label firstNameAndLastName;
-    @FXML SplitMenuButton splitMenu;
+    @FXML
+    ImageView picture;
+    @FXML
+    Label firstNameAndLastName;
+    @FXML
+    SplitMenuButton splitMenu;
     //@FXML GridPane gridMovies;
-    @FXML Pane pane;
-    @FXML ScrollPane scrollPane;
+    @FXML
+    Pane pane;
+    @FXML
+    ScrollPane scrollPane;
 
     private int c, r;
-    private HashMap<Pair<Integer,Integer>, Movie> allMoviesCoords, actionMoviesCoords, adventureMoviesCoords, fantasyMoviesCoords, documentaryMoviesCoords, scifiMoviesCoords, horrorMoviesCoords, animationMoviesCoords, thrillerMoviesCoords, comedyMoviesCoords, dramaMoviesCoords;
+    private HashMap<Pair<Integer, Integer>, Movie> allMoviesCoords, actionMoviesCoords, adventureMoviesCoords, fantasyMoviesCoords, documentaryMoviesCoords, scifiMoviesCoords, horrorMoviesCoords, animationMoviesCoords, thrillerMoviesCoords, comedyMoviesCoords, dramaMoviesCoords;
 
     // credentials
-    private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
-    private final String user      = "root";
-    private final String password  = "";
+    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
+    private final String user = "root";
+    private final String password = "";
 
-    private void loadPicture() throws Exception{
+    private void loadPicture() throws Exception {
         File img = new File("picture.jpg");
         FileOutputStream ostreamImage = new FileOutputStream(img);
 
-        try{
+        try {
             // create a connection to the database
             Connection connection = DriverManager.getConnection(url, user, password);
             // prepared statement
             PreparedStatement ps = connection.prepareStatement("SELECT picture FROM pictures WHERE IdLogins=?");
 
-            try{
-                ps.setInt(1,Me.getId());
+            try {
+                ps.setInt(1, Me.getId());
                 ResultSet rs = ps.executeQuery();
 
-                try{
-                    if(rs.next()){
+                try {
+                    if (rs.next()) {
                         InputStream istreamImage = rs.getBinaryStream("picture");
 
                         byte[] buffer = new byte[1024];
                         int length = 0;
 
-                        while((length = istreamImage.read(buffer)) != -1){
+                        while ((length = istreamImage.read(buffer)) != -1) {
                             ostreamImage.write(buffer, 0, length);  // save image locally
                         }
 
@@ -76,67 +81,64 @@ public class MoviesCustomerController implements Initializable {
                         Image image = new Image(img.toURI().toString());
                         picture.setImage(image);
                     }
-                }
-                finally{
+                } finally {
                     rs.close();
                 }
-            }
-            finally{
+            } finally {
                 ps.close();
             }
-        }
-        finally{
+        } finally {
             ostreamImage.close();
         }
     }
 
     public void goToOverview(ActionEvent actionEvent) {
         System.out.println("OVERVIEW CUSTOMER");
-        try{
-            SceneManager.loadScene("../view/customer-overview.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/customer-overview.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToMovies(ActionEvent actionEvent) {
         System.out.println("MOVIES CUSTOMER");
-        try{
-            SceneManager.loadScene("../view/customer-movies.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/customer-movies.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToPurchases(ActionEvent actionEvent) {
         System.out.println("PURCHASES CUSTOMER");
-        try{
-            SceneManager.loadScene("../view/customer-purchases.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/customer-purchases.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToAccount(ActionEvent actionEvent) {
         System.out.println("ACCOUNT CUSTOMER");
-        try{
-            SceneManager.loadScene("../view/customer-account.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/customer-account.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void signout(ActionEvent actionEvent) {
         System.out.println("SIGN OUT");
-        try{
-            SceneManager.loadScene("../view/login.fxml", 700,400);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/login.fxml", 700, 400);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     @FXML
-    private void exit(){
+    private void exit() {
         System.exit(0);
     }
 
@@ -150,10 +152,10 @@ public class MoviesCustomerController implements Initializable {
         }
 
         // theme
-        if(Me.getTheme() == 0){
+        if (Me.getTheme() == 0) {
             pane.getStylesheets().remove("css/DarkTheme.css");
             pane.getStylesheets().add("css/LightTheme.css");
-        }else if(Me.getTheme() == 1){
+        } else if (Me.getTheme() == 1) {
             pane.getStylesheets().remove("css/LightTheme.css");
             pane.getStylesheets().add("css/DarkTheme.css");
         }
@@ -175,27 +177,28 @@ public class MoviesCustomerController implements Initializable {
         all();
     }
 
-    private void goToMovie(Movie m){
+    private void goToMovie(Movie m) {
         Me.setLookingAtMovie(m);
-        try{
-            SceneManager.loadScene("../view/customer-movie.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/customer-movie.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
 
     private void updateColumnAndRow(int i) {
-        if((i % 4) == 0 && i != 0){
+        if ((i % 4) == 0 && i != 0) {
             r++;
-            c=0;
-        }else{
+            c = 0;
+        } else {
             c++;
         }
     }
 
     public void all() {
-        c = 0; r = 0;
+        c = 0;
+        r = 0;
         Cinema.refresh();
 
         splitMenu.setText("All");
@@ -215,11 +218,11 @@ public class MoviesCustomerController implements Initializable {
         // add to scroll pane
         scrollPane.setContent(gridMovies);
 
-        for(Movie m : allMovies){
+        for (Movie m : allMovies) {
             System.out.println(m.getTitle());
         }
 
-        for(int i = 0; i < allMovies.size(); i++){
+        for (int i = 0; i < allMovies.size(); i++) {
             Movie m = allMovies.get(i);
 
             Button btn = new Button();
@@ -227,8 +230,8 @@ public class MoviesCustomerController implements Initializable {
             btn.setOnAction(event -> {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
-                System.out.println(allMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(allMoviesCoords.get(new Pair<>(x,y)));
+                System.out.println(allMoviesCoords.get(new Pair<>(x, y)).getTitle());
+                goToMovie(allMoviesCoords.get(new Pair<>(x, y)));
             });
 
             ImageView iv = new ImageView();
@@ -242,8 +245,8 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridMovies.add(btn, c, r,1,1);
-            allMoviesCoords.put(new Pair<>(c,r), m);
+            gridMovies.add(btn, c, r, 1, 1);
+            allMoviesCoords.put(new Pair<>(c, r), m);
 
             updateColumnAndRow(i);
 
@@ -251,7 +254,8 @@ public class MoviesCustomerController implements Initializable {
     }
 
     public void action(ActionEvent actionEvent) {
-        c = 0; r = 0;
+        c = 0;
+        r = 0;
         Cinema.refresh();
 
         splitMenu.setText("Action");
@@ -276,11 +280,11 @@ public class MoviesCustomerController implements Initializable {
         // add to scroll pane
         scrollPane.setContent(gridMovies);
 
-        for(Movie m : actionMovies){
+        for (Movie m : actionMovies) {
             System.out.println(m.getTitle());
         }
 
-        for(int i = 0; i < actionMovies.size(); i++){
+        for (int i = 0; i < actionMovies.size(); i++) {
             Movie m = actionMovies.get(i);
 
             Button btn = new Button();
@@ -288,8 +292,8 @@ public class MoviesCustomerController implements Initializable {
             btn.setOnAction(event -> {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
-                System.out.println(actionMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(actionMoviesCoords.get(new Pair<>(x,y)));
+                System.out.println(actionMoviesCoords.get(new Pair<>(x, y)).getTitle());
+                goToMovie(actionMoviesCoords.get(new Pair<>(x, y)));
             });
 
             ImageView iv = new ImageView();
@@ -303,8 +307,8 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridMovies.add(btn, c, r,1,1);
-            actionMoviesCoords.put(new Pair<>(c,r), m);
+            gridMovies.add(btn, c, r, 1, 1);
+            actionMoviesCoords.put(new Pair<>(c, r), m);
 
             updateColumnAndRow(i);
 
@@ -312,7 +316,8 @@ public class MoviesCustomerController implements Initializable {
     }
 
     public void adventure(ActionEvent actionEvent) {
-        c = 0; r = 0;
+        c = 0;
+        r = 0;
         Cinema.refresh();
 
         splitMenu.setText("Adventure");
@@ -337,11 +342,11 @@ public class MoviesCustomerController implements Initializable {
         // add to scroll pane
         scrollPane.setContent(gridMovies);
 
-        for(Movie m : adventureyMovies){
+        for (Movie m : adventureyMovies) {
             System.out.println(m.getTitle());
         }
 
-        for(int i = 0; i < adventureyMovies.size(); i++){
+        for (int i = 0; i < adventureyMovies.size(); i++) {
             Movie m = adventureyMovies.get(i);
 
             Button btn = new Button();
@@ -349,8 +354,8 @@ public class MoviesCustomerController implements Initializable {
             btn.setOnAction(event -> {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
-                System.out.println(adventureMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(adventureMoviesCoords.get(new Pair<>(x,y)));
+                System.out.println(adventureMoviesCoords.get(new Pair<>(x, y)).getTitle());
+                goToMovie(adventureMoviesCoords.get(new Pair<>(x, y)));
             });
 
             ImageView iv = new ImageView();
@@ -364,8 +369,8 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridMovies.add(btn, c, r,1,1);
-            adventureMoviesCoords.put(new Pair<>(c,r), m);
+            gridMovies.add(btn, c, r, 1, 1);
+            adventureMoviesCoords.put(new Pair<>(c, r), m);
 
             updateColumnAndRow(i);
 
@@ -373,7 +378,8 @@ public class MoviesCustomerController implements Initializable {
     }
 
     public void fantasy(ActionEvent actionEvent) {
-        c = 0; r = 0;
+        c = 0;
+        r = 0;
         // refresh available movies
         Cinema.refresh();
 
@@ -400,11 +406,11 @@ public class MoviesCustomerController implements Initializable {
         // add to scroll pane
         scrollPane.setContent(gridMovies);
 
-        for(Movie m : fantasyMovies){
+        for (Movie m : fantasyMovies) {
             System.out.println(m.getTitle());
         }
 
-        for(int i = 0; i < fantasyMovies.size(); i++){
+        for (int i = 0; i < fantasyMovies.size(); i++) {
             Movie m = fantasyMovies.get(i);
 
             Button btn = new Button();
@@ -412,8 +418,8 @@ public class MoviesCustomerController implements Initializable {
             btn.setOnAction(event -> {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
-                System.out.println(fantasyMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(fantasyMoviesCoords.get(new Pair<>(x,y)));
+                System.out.println(fantasyMoviesCoords.get(new Pair<>(x, y)).getTitle());
+                goToMovie(fantasyMoviesCoords.get(new Pair<>(x, y)));
             });
 
             ImageView iv = new ImageView();
@@ -427,8 +433,8 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridMovies.add(btn, c, r,1,1);
-            fantasyMoviesCoords.put(new Pair<>(c,r), m);
+            gridMovies.add(btn, c, r, 1, 1);
+            fantasyMoviesCoords.put(new Pair<>(c, r), m);
 
             updateColumnAndRow(i);
 
@@ -438,7 +444,8 @@ public class MoviesCustomerController implements Initializable {
     }
 
     public void documentary(ActionEvent actionEvent) {
-        c = 0; r = 0;
+        c = 0;
+        r = 0;
         Cinema.refresh();
 
         splitMenu.setText("Documentary");
@@ -463,11 +470,11 @@ public class MoviesCustomerController implements Initializable {
         // add to scroll pane
         scrollPane.setContent(gridMovies);
 
-        for(Movie m : documentaryMovies){
+        for (Movie m : documentaryMovies) {
             System.out.println(m.getTitle());
         }
 
-        for(int i = 0; i < documentaryMovies.size(); i++){
+        for (int i = 0; i < documentaryMovies.size(); i++) {
             Movie m = documentaryMovies.get(i);
 
             Button btn = new Button();
@@ -475,8 +482,8 @@ public class MoviesCustomerController implements Initializable {
             btn.setOnAction(event -> {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
-                System.out.println(documentaryMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(documentaryMoviesCoords.get(new Pair<>(x,y)));
+                System.out.println(documentaryMoviesCoords.get(new Pair<>(x, y)).getTitle());
+                goToMovie(documentaryMoviesCoords.get(new Pair<>(x, y)));
             });
 
             ImageView iv = new ImageView();
@@ -490,8 +497,8 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridMovies.add(btn, c, r,1,1);
-            documentaryMoviesCoords.put(new Pair<>(c,r), m);
+            gridMovies.add(btn, c, r, 1, 1);
+            documentaryMoviesCoords.put(new Pair<>(c, r), m);
 
             updateColumnAndRow(i);
 
@@ -499,7 +506,8 @@ public class MoviesCustomerController implements Initializable {
     }
 
     public void scifi(ActionEvent actionEvent) {
-        c = 0; r = 0;
+        c = 0;
+        r = 0;
         Cinema.refresh();
 
         splitMenu.setText("Science Fiction");
@@ -524,11 +532,11 @@ public class MoviesCustomerController implements Initializable {
         // add to scroll pane
         scrollPane.setContent(gridMovies);
 
-            for(Movie m : scifiMovies){
+        for (Movie m : scifiMovies) {
             System.out.println(m.getTitle());
         }
 
-        for(int i = 0; i < scifiMovies.size(); i++){
+        for (int i = 0; i < scifiMovies.size(); i++) {
             Movie m = scifiMovies.get(i);
 
             Button btn = new Button();
@@ -536,8 +544,8 @@ public class MoviesCustomerController implements Initializable {
             btn.setOnAction(event -> {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
-                System.out.println(scifiMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(scifiMoviesCoords.get(new Pair<>(x,y)));
+                System.out.println(scifiMoviesCoords.get(new Pair<>(x, y)).getTitle());
+                goToMovie(scifiMoviesCoords.get(new Pair<>(x, y)));
             });
 
             ImageView iv = new ImageView();
@@ -551,8 +559,8 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridMovies.add(btn, c, r,1,1);
-            scifiMoviesCoords.put(new Pair<>(c,r), m);
+            gridMovies.add(btn, c, r, 1, 1);
+            scifiMoviesCoords.put(new Pair<>(c, r), m);
 
             updateColumnAndRow(i);
 
@@ -560,7 +568,8 @@ public class MoviesCustomerController implements Initializable {
     }
 
     public void horror(ActionEvent actionEvent) {
-        c = 0; r = 0;
+        c = 0;
+        r = 0;
         Cinema.refresh();
 
         splitMenu.setText("Horror");
@@ -585,11 +594,11 @@ public class MoviesCustomerController implements Initializable {
         // add to scroll pane
         scrollPane.setContent(gridMovies);
 
-        for(Movie m : horrorMovies){
+        for (Movie m : horrorMovies) {
             System.out.println(m.getTitle());
         }
 
-        for(int i = 0; i < horrorMovies.size(); i++){
+        for (int i = 0; i < horrorMovies.size(); i++) {
             Movie m = horrorMovies.get(i);
 
             Button btn = new Button();
@@ -597,8 +606,8 @@ public class MoviesCustomerController implements Initializable {
             btn.setOnAction(event -> {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
-                System.out.println(horrorMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(horrorMoviesCoords.get(new Pair<>(x,y)));
+                System.out.println(horrorMoviesCoords.get(new Pair<>(x, y)).getTitle());
+                goToMovie(horrorMoviesCoords.get(new Pair<>(x, y)));
             });
 
             ImageView iv = new ImageView();
@@ -612,8 +621,8 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridMovies.add(btn, c, r,1,1);
-            horrorMoviesCoords.put(new Pair<>(c,r), m);
+            gridMovies.add(btn, c, r, 1, 1);
+            horrorMoviesCoords.put(new Pair<>(c, r), m);
 
             updateColumnAndRow(i);
 
@@ -622,7 +631,8 @@ public class MoviesCustomerController implements Initializable {
     }
 
     public void animation(ActionEvent actionEvent) {
-        c = 0; r = 0;
+        c = 0;
+        r = 0;
         Cinema.refresh();
 
         splitMenu.setText("Animation");
@@ -647,11 +657,11 @@ public class MoviesCustomerController implements Initializable {
         // add to scroll pane
         scrollPane.setContent(gridMovies);
 
-        for(Movie m : animationMovies){
+        for (Movie m : animationMovies) {
             System.out.println(m.getTitle());
         }
 
-        for(int i = 0; i < animationMovies.size(); i++){
+        for (int i = 0; i < animationMovies.size(); i++) {
             Movie m = animationMovies.get(i);
 
             Button btn = new Button();
@@ -659,8 +669,8 @@ public class MoviesCustomerController implements Initializable {
             btn.setOnAction(event -> {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
-                System.out.println(animationMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(animationMoviesCoords.get(new Pair<>(x,y)));
+                System.out.println(animationMoviesCoords.get(new Pair<>(x, y)).getTitle());
+                goToMovie(animationMoviesCoords.get(new Pair<>(x, y)));
             });
 
             ImageView iv = new ImageView();
@@ -674,15 +684,16 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridMovies.add(btn, c, r,1,1);
-            animationMoviesCoords.put(new Pair<>(c,r), m);
+            gridMovies.add(btn, c, r, 1, 1);
+            animationMoviesCoords.put(new Pair<>(c, r), m);
 
             updateColumnAndRow(i);
         }
     }
 
     public void thriller(ActionEvent actionEvent) {
-        c = 0; r = 0;
+        c = 0;
+        r = 0;
         Cinema.refresh();
 
         splitMenu.setText("Thriller");
@@ -707,11 +718,11 @@ public class MoviesCustomerController implements Initializable {
         // add to scroll pane
         scrollPane.setContent(gridMovies);
 
-        for(Movie m : thrillerMovies){
+        for (Movie m : thrillerMovies) {
             System.out.println(m.getTitle());
         }
 
-        for(int i = 0; i < thrillerMovies.size(); i++){
+        for (int i = 0; i < thrillerMovies.size(); i++) {
             Movie m = thrillerMovies.get(i);
 
             Button btn = new Button();
@@ -719,8 +730,8 @@ public class MoviesCustomerController implements Initializable {
             btn.setOnAction(event -> {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
-                System.out.println(thrillerMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(thrillerMoviesCoords.get(new Pair<>(x,y)));
+                System.out.println(thrillerMoviesCoords.get(new Pair<>(x, y)).getTitle());
+                goToMovie(thrillerMoviesCoords.get(new Pair<>(x, y)));
             });
 
             ImageView iv = new ImageView();
@@ -734,8 +745,8 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridMovies.add(btn, c, r,1,1);
-            thrillerMoviesCoords.put(new Pair<>(c,r), m);
+            gridMovies.add(btn, c, r, 1, 1);
+            thrillerMoviesCoords.put(new Pair<>(c, r), m);
 
             updateColumnAndRow(i);
 
@@ -743,7 +754,8 @@ public class MoviesCustomerController implements Initializable {
     }
 
     public void comedy(ActionEvent actionEvent) {
-        c = 0; r = 0;
+        c = 0;
+        r = 0;
         Cinema.refresh();
 
         splitMenu.setText("Comedy");
@@ -768,11 +780,11 @@ public class MoviesCustomerController implements Initializable {
         // add to scroll pane
         scrollPane.setContent(gridMovies);
 
-        for(Movie m : comedyMovies){
+        for (Movie m : comedyMovies) {
             System.out.println(m.getTitle());
         }
 
-        for(int i = 0; i < comedyMovies.size(); i++){
+        for (int i = 0; i < comedyMovies.size(); i++) {
             Movie m = comedyMovies.get(i);
 
             Button btn = new Button();
@@ -780,8 +792,8 @@ public class MoviesCustomerController implements Initializable {
             btn.setOnAction(event -> {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
-                System.out.println(comedyMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(comedyMoviesCoords.get(new Pair<>(x,y)));
+                System.out.println(comedyMoviesCoords.get(new Pair<>(x, y)).getTitle());
+                goToMovie(comedyMoviesCoords.get(new Pair<>(x, y)));
             });
 
             ImageView iv = new ImageView();
@@ -795,15 +807,16 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridMovies.add(btn, c, r,1,1);
-            comedyMoviesCoords.put(new Pair<>(c,r), m);
+            gridMovies.add(btn, c, r, 1, 1);
+            comedyMoviesCoords.put(new Pair<>(c, r), m);
 
             updateColumnAndRow(i);
         }
     }
 
     public void drama(ActionEvent actionEvent) {
-        c = 0; r = 0;
+        c = 0;
+        r = 0;
         Cinema.refresh();
 
         splitMenu.setText("Drama");
@@ -828,11 +841,11 @@ public class MoviesCustomerController implements Initializable {
         // add to scroll pane
         scrollPane.setContent(gridMovies);
 
-        for(Movie m : dramaMovies){
+        for (Movie m : dramaMovies) {
             System.out.println(m.getTitle());
         }
 
-        for(int i = 0; i < dramaMovies.size(); i++){
+        for (int i = 0; i < dramaMovies.size(); i++) {
             Movie m = dramaMovies.get(i);
 
             Button btn = new Button();
@@ -840,8 +853,8 @@ public class MoviesCustomerController implements Initializable {
             btn.setOnAction(event -> {
                 int x = GridPane.getColumnIndex(btn);
                 int y = GridPane.getRowIndex(btn);
-                System.out.println(dramaMoviesCoords.get(new Pair<>(x,y)).getTitle());
-                goToMovie(dramaMoviesCoords.get(new Pair<>(x,y)));
+                System.out.println(dramaMoviesCoords.get(new Pair<>(x, y)).getTitle());
+                goToMovie(dramaMoviesCoords.get(new Pair<>(x, y)));
             });
 
             ImageView iv = new ImageView();
@@ -855,8 +868,8 @@ public class MoviesCustomerController implements Initializable {
 
             btn.setGraphic(iv);
 
-            gridMovies.add(btn, c, r,1,1);
-            dramaMoviesCoords.put(new Pair<>(c,r), m);
+            gridMovies.add(btn, c, r, 1, 1);
+            dramaMoviesCoords.put(new Pair<>(c, r), m);
 
             updateColumnAndRow(i);
         }

@@ -1,8 +1,8 @@
 package model;
 
-public class Customer extends User{
+public class Customer extends User {
 
-    public Customer(int id, String email, String hashPassword, String key, String lastName, String firstName, String dateOfCreation){
+    public Customer(int id, String email, String hashPassword, String key, String lastName, String firstName, String dateOfCreation) {
         this.id = id;
         this.email = email;
         this.hashPassword = hashPassword;
@@ -13,8 +13,16 @@ public class Customer extends User{
     }
 
 
-    public String getLastName(){ return lastName; }
-    public String getFirstName(){ return firstName; }
-    public int getId(){ return id; }
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public int getId() {
+        return id;
+    }
 
 }

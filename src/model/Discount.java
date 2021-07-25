@@ -1,6 +1,6 @@
 package model;
 
-public class Discount{
+public class Discount {
     private int id;
     private String name;
     private int amount;
@@ -8,7 +8,7 @@ public class Discount{
     private String status;
     private boolean isActive;
 
-    public Discount(int id, String name, int amount, char unit, String status){
+    public Discount(int id, String name, int amount, char unit, String status) {
         this.id = id;
         this.name = name;
         this.amount = amount;
@@ -23,11 +23,19 @@ public class Discount{
         return this.id;
     }
 
-    public String getName() { return this.name; }
+    public String getName() {
+        return this.name;
+    }
 
-    public int getAmount() { return this.amount; }
+    public int getAmount() {
+        return this.amount;
+    }
 
-    public char getUnit() { return this.unit; }
+    public char getUnit() {
+        return this.unit;
+    }
 
-    public String getStatus() { return this.status; }
+    public String getStatus() {
+        return this.status;
+    }
 }

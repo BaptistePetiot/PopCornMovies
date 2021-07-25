@@ -5,20 +5,20 @@ import java.util.ArrayList;
 
 public class Cinema {
     // credentials
-    private static final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
-    private static final String user      = "root";
-    private static final String password  = "";
+    private static final String url = "jdbc:mysql://localhost:3306/popcornmovie";
+    private static final String user = "root";
+    private static final String password = "";
 
     private static ArrayList<Movie> movies;
     private static ArrayList<Employee> employees;
     private static ArrayList<Customer> customers;
     private static ArrayList<Discount> discounts;
 
-    public Cinema(){
+    public Cinema() {
         refresh();
     }
 
-    public static void refresh(){
+    public static void refresh() {
         // initialize all array lists empty
         movies = new ArrayList<>();
         employees = new ArrayList<>();
@@ -28,17 +28,17 @@ public class Cinema {
         // connect to DB
         Connection connection = null;
 
-        try{
+        try {
             // create a connection to the database
             connection = DriverManager.getConnection(url, user, password);
 
             // statement
-            Statement stmt=connection.createStatement();
+            Statement stmt = connection.createStatement();
             ResultSet rs;
 
             // fill movies
             rs = stmt.executeQuery("SELECT * FROM `Movies`");
-            while(rs.next()){
+            while (rs.next()) {
                 int id = rs.getInt("Id");
                 int duration = rs.getInt("Duration");
                 String title = rs.getString("Title");
@@ -56,7 +56,7 @@ public class Cinema {
             rs = stmt.executeQuery("SELECT * FROM `Customers`,`Logins` WHERE Customers.IdLogins = Logins.Id");
             int id;
             String lastName, firstName, dateOfCreation, email, hashPassword, key;
-            while(rs.next()){
+            while (rs.next()) {
                 id = rs.getInt("Id");
                 email = rs.getString("Email");
                 hashPassword = rs.getString("HashPassword");
@@ -71,7 +71,7 @@ public class Cinema {
 
             // fill employees
             rs = stmt.executeQuery("SELECT * FROM `Employees`,`Logins` WHERE Employees.IdLogins = Logins.Id");
-            while(rs.next()){
+            while (rs.next()) {
                 id = rs.getInt("Id");
                 email = rs.getString("Email");
                 hashPassword = rs.getString("HashPassword");
@@ -86,7 +86,7 @@ public class Cinema {
 
             // fill discounts
             rs = stmt.executeQuery("SELECT * FROM `Discounts`");
-            while(rs.next()){
+            while (rs.next()) {
                 id = rs.getInt("Id");
                 String name = rs.getString("Name");
                 int amount = rs.getInt("Amount");
@@ -96,23 +96,31 @@ public class Cinema {
                 discounts.add(new Discount(id, name, amount, unit, status));
             }
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }finally {
-            try{
-                if(connection != null)
+        } finally {
+            try {
+                if (connection != null)
                     connection.close();
-            }catch(SQLException ex){
+            } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
         }
     }
 
-    public static ArrayList<Customer> getCustomers() { return customers; }
+    public static ArrayList<Customer> getCustomers() {
+        return customers;
+    }
 
-    public static ArrayList<Employee> getEmployees() { return employees; }
+    public static ArrayList<Employee> getEmployees() {
+        return employees;
+    }
 
-    public static ArrayList<Movie> getMovies() { return movies; }
+    public static ArrayList<Movie> getMovies() {
+        return movies;
+    }
 
-    public static ArrayList<Discount> getDiscounts() { return discounts; }
+    public static ArrayList<Discount> getDiscounts() {
+        return discounts;
+    }
 }

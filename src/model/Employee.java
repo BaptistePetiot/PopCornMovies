@@ -1,8 +1,8 @@
 package model;
 
-public class Employee extends User{
+public class Employee extends User {
 
-    public Employee(int id, String email, String hashPassword, String key, String lastName, String firstName, String dateOfCreation){
+    public Employee(int id, String email, String hashPassword, String key, String lastName, String firstName, String dateOfCreation) {
         this.id = id;
         this.email = email;
         this.hashPassword = hashPassword;

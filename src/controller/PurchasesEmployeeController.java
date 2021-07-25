@@ -24,47 +24,51 @@ import java.util.ResourceBundle;
 
 public class PurchasesEmployeeController implements Initializable {
 
-    @FXML ImageView picture;
-    @FXML Label firstNameAndLastName, totalTickets, thisYear, thisMonth;
-    @FXML Pane pane;
-    @FXML VBox pnItems;
+    @FXML
+    ImageView picture;
+    @FXML
+    Label firstNameAndLastName, totalTickets, thisYear, thisMonth;
+    @FXML
+    Pane pane;
+    @FXML
+    VBox pnItems;
 
     // credentials
-    private final String url       = "jdbc:mysql://localhost:3306/popcornmovie";
-    private final String user      = "root";
-    private final String password  = "";
+    private final String url = "jdbc:mysql://localhost:3306/popcornmovie";
+    private final String user = "root";
+    private final String password = "";
 
     private String date;
     private int total, year, month;
 
-    public PurchasesEmployeeController(){
+    public PurchasesEmployeeController() {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date now = new Date(System.currentTimeMillis());
         this.date = formatter.format(now);
     }
 
-    private void loadPicture() throws Exception{
+    private void loadPicture() throws Exception {
         File img = new File("picture.jpg");
         FileOutputStream ostreamImage = new FileOutputStream(img);
 
-        try{
+        try {
             // create a connection to the database
             Connection connection = DriverManager.getConnection(url, user, password);
             // prepared statement
             PreparedStatement ps = connection.prepareStatement("SELECT picture FROM pictures WHERE IdLogins=?");
 
-            try{
-                ps.setInt(1,Me.getId());
+            try {
+                ps.setInt(1, Me.getId());
                 ResultSet rs = ps.executeQuery();
 
-                try{
-                    if(rs.next()){
+                try {
+                    if (rs.next()) {
                         InputStream istreamImage = rs.getBinaryStream("picture");
 
                         byte[] buffer = new byte[1024];
                         int length = 0;
 
-                        while((length = istreamImage.read(buffer)) != -1){
+                        while ((length = istreamImage.read(buffer)) != -1) {
                             ostreamImage.write(buffer, 0, length);  // save image locally
                         }
 
@@ -72,93 +76,92 @@ public class PurchasesEmployeeController implements Initializable {
                         Image image = new Image(img.toURI().toString());
                         picture.setImage(image);
                     }
-                }
-                finally{
+                } finally {
                     rs.close();
                 }
-            }
-            finally{
+            } finally {
                 ps.close();
             }
-        }
-        finally{
+        } finally {
             ostreamImage.close();
         }
     }
 
     public void goToOverview(ActionEvent actionEvent) {
         System.out.println("OVERVIEW EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-overview.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-overview.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToMovies(ActionEvent actionEvent) {
         System.out.println("MOVIES EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-movies.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-movies.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToDiscounts(ActionEvent actionEvent) {
         System.out.println("DISCOUNTS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-discounts.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-discounts.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToRecords(ActionEvent actionEvent) {
         System.out.println("RECORDS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-records.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-records.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToStatistics(ActionEvent actionEvent) {
         System.out.println("STATISTICS EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-statistics.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-statistics.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToPurchases(ActionEvent actionEvent) {
         System.out.println("PURCHASES EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-purchases.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-purchases.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void goToAccount(ActionEvent actionEvent) {
         System.out.println("ACCOUNT EMPLOYEE");
-        try{
-            SceneManager.loadScene("../view/employee-account.fxml", 1400,800);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/employee-account.fxml", 1400, 800);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     public void signout(ActionEvent actionEvent) {
         System.out.println("SIGN OUT");
-        try{
-            SceneManager.loadScene("../view/login.fxml", 700,400);
-        }catch(Exception e){
+        try {
+            SceneManager.loadScene("../view/login.fxml", 700, 400);
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void exit(ActionEvent actionEvent) { System.exit(0); }
+    public void exit(ActionEvent actionEvent) {
+        System.exit(0);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -170,10 +173,10 @@ public class PurchasesEmployeeController implements Initializable {
         }
 
         // theme
-        if(Me.getTheme() == 0){
+        if (Me.getTheme() == 0) {
             pane.getStylesheets().remove("css/DarkTheme.css");
             pane.getStylesheets().add("css/LightTheme.css");
-        }else if(Me.getTheme() == 1){
+        } else if (Me.getTheme() == 1) {
             pane.getStylesheets().remove("css/LightTheme.css");
             pane.getStylesheets().add("css/DarkTheme.css");
         }
@@ -235,23 +238,23 @@ public class PurchasesEmployeeController implements Initializable {
 
                 Label purchaseTitle = new Label(title);
                 purchaseTitle.setFont(new Font(25));
-                gp.add(purchaseTitle,0,0);
+                gp.add(purchaseTitle, 0, 0);
 
                 Label purchaseGenre = new Label(genre);
                 purchaseGenre.setFont(new Font(25));
-                gp.add(purchaseGenre,1,0);
+                gp.add(purchaseGenre, 1, 0);
 
                 Label purchaseDirector = new Label(director);
                 purchaseDirector.setFont(new Font(25));
-                gp.add(purchaseDirector,2,0);
+                gp.add(purchaseDirector, 2, 0);
 
                 Label purchasePrice = new Label(Integer.toString(price));
                 purchasePrice.setFont(new Font(25));
-                gp.add(purchasePrice,3,0);
+                gp.add(purchasePrice, 3, 0);
 
                 Label purchaseDate = new Label(cinemaDate);
                 purchaseDate.setFont(new Font(25));
-                gp.add(purchaseDate,4,0);
+                gp.add(purchaseDate, 4, 0);
 
                 pnItems.getChildren().add(gp);
 

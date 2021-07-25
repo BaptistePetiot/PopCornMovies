@@ -14,7 +14,7 @@ public class PopCornMovie extends Application {
     private static double x, y;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         root = FXMLLoader.load(getClass().getResource("../view/login.fxml"));
 
         stage = primaryStage;
